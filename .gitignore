@@ -1,0 +1,34 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.so
+
+# ---- Virtualenv ----
+env/
+venv/
+ENV/
+.venv/
+
+# ---- Configs / Secrets ----
+*.env
+
+# ---- Logs ----
+*.log
+*.pot
+
+# ---- Testes ----
+.coverage
+.pytest_cache/
+htmlcov/
+
+# ---- Jupyter Notebook ----
+.ipynb_checkpoints
+
+# ---- IDEs / Editores ----
+.vscode/
+.idea/
+*.swp
+
+# ---- Sistemas Operacionais ----
+.DS_Store
+Thumbs.db
