@@ -4,7 +4,7 @@
 
 | Nome | GitHub |
 | --- | --- |
-| Davi Maia Soares | @davimaia |
+| Davi Maia Soares | @davimso|
 | Elder Rayan Oliveira Silva | @eldrayan |
 | Pedro Yan Alcantara Palácio | @pedropalacioo |
 | Samuel Wagner Tiburi Silveira | @samsilveira |
