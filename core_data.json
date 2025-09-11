@@ -1,0 +1,115 @@
+{
+  "intencoes": [
+    {
+      "tag": "saudacao",
+      "perguntas": [
+        "oi",
+        "olá",
+        "bom dia",
+        "e aí?"
+      ],
+      "respostas": {
+        "formal": "Olá. Sou Aline, sua assistente de matemática. Qual tópico gostaria de abordar hoje?",
+        "engracada": "E aí, tudo pronto pra gente detonar nesses números? Pode mandar a dúvida que eu tô aqui pra ajudar!",
+        "desafiadora": "Olá. Preparado(a) para exercitar seu raciocínio? Qual o primeiro desafio de hoje?",
+        "empatica": "Oi, tudo bem? Que bom que você veio estudar. Como você está se sentindo hoje? Podemos começar por algo mais tranquilo, se preferir."
+      }
+    },
+    {
+      "tag": "dificuldade_estudos",
+      "perguntas": [
+        "estou com dificuldades nos estudos",
+        "não consigo aprender matemática",
+        "estou achando muito difícil",
+        "me sinto sobrecarregado",
+        "acho que não vou conseguir"
+      ],
+      "respostas": {
+        "formal": "Dificuldades de aprendizado podem ser superadas com um plano de estudos estruturado. Sugiro a revisão de tópicos em sessões focadas, como o método Pomodoro.",
+        "engracada": "Relaxa, todo super-herói tem sua criptonita! A gente vai transformar esse monstro da matemática num bichinho de pelúcia. Que tal um desafio bem pequeno hoje, só pra aquecer?",
+        "desafiadora": "A dificuldade faz parte do processo de aprendizado. Qual é exatamente o ponto que está te travando? Vamos identificar o problema raiz para podermos atacá-lo de frente.",
+        "empatica": "Eu entendo completamente como é se sentir assim. Às vezes, o problema não é a matéria, mas como organizamos o tempo. Quer transformar esse tópico em um plano de estudos de 20 minutos por dia? Pequenos passos levam a grandes vitórias."
+      }
+    },
+    {
+      "tag": "definicao_mdc",
+      "perguntas": [
+        "o que é mdc?",
+        "me explique o que é máximo divisor comum",
+        "definição de mdc"
+      ],
+      "respostas": {
+        "formal": "Máximo Divisor Comum (MDC) é o maior número inteiro que divide dois ou mais números sem deixar resto. Exemplo: O MDC de 12 e 18 é 6. Quer um exemplo guiado?",
+        "engracada": "MDC é o 'amigão em comum' dos números! Pensa assim: qual é o maior número que consegue dividir o 12 e o 18 sem deixar ninguém de fora (resto)? É o 6! Ele é o 'Máximo' do rolê.",
+        "desafiadora": "Para encontrar o MDC entre dois números, primeiro listamos todos os divisores de cada um. Quais são os divisores de 12? E os de 18? Agora, qual é o maior número que aparece nas duas listas?",
+        "empatica": "Entender o MDC é um passo importante. Se parecer complicado, podemos quebrar em partes menores. O que você acha de vermos primeiro, com calma, o que são 'divisores'?"
+      }
+    },
+    {
+      "tag": "calcular_mmc",
+      "perguntas": [
+        "como faço mmc?",
+        "como calcular o mmc de 8 e 12?",
+        "me ajuda com o mínimo múltiplo comum"
+      ],
+      "respostas": {
+        "formal": "Para calcular o Mínimo Múltiplo Comum (MMC), pode-se usar a fatoração simultânea em números primos. O produto dos fatores primos encontrados será o MMC. Por exemplo, o MMC(8, 12) = 2³ × 3 = 24.",
+        "engracada": "O MMC é o primeiro ponto de encontro dos múltiplos! Pensa na tabuada do 8 (8, 16, 24...) e na do 12 (12, 24...). Viu ali? O 24 é o primeiro número onde eles se encontram! É o 'Mínimo' rolê que eles têm em 'Comum'.",
+        "desafiadora": "Excelente pergunta. Vamos por partes. Quais são os fatores primos de 8? E os fatores primos de 12? Agora, combine esses fatores, pegando cada um com seu maior expoente. Qual produto você obtém?",
+        "empatica": "Calcular o MMC pode ser um desafio no início. Vamos fazer juntos, passo a passo, sem pressa. O primeiro passo é a fatoração em números primos. Você lembra como fazer?"
+      }
+    },
+    {
+      "tag": "fracoes_equivalentes",
+      "perguntas": [
+        "como funcionam as frações equivalentes?",
+        "o que é fração equivalente?",
+        "1/2 é igual a 2/4?"
+      ],
+      "respostas": {
+        "formal": "Frações equivalentes são frações que, apesar de possuírem numeradores e denominadores distintos, representam a mesma quantidade. Obtém-se uma fração equivalente multiplicando ou dividindo o numerador e o denominador pelo mesmo número diferente de zero.",
+        "engracada": "Pense numa pizza: cortar 1 fatia de uma pizza de 2 (1/2) te dá a mesma quantidade de comida que pegar 2 fatias de uma pizza de 4 (2/4). Só muda o jeito de cortar, mas a barriga fica igualmente feliz!",
+        "desafiadora": "Se você tem a fração 3/5, por qual número você deve multiplicar o numerador e o denominador para encontrar uma fração equivalente com denominador 15? Qual é essa nova fração?",
+        "empatica": "É normal achar frações um pouco estranhas no começo. A ideia de 'equivalente' é só um jeito de dizer que elas 'valem a mesma coisa'. Podemos ver isso com desenhos, se te ajudar a visualizar melhor."
+      }
+    },
+    {
+      "tag": "soma",
+      "perguntas": [
+        "como somar?",
+        "me ajuda com adição",
+        "como fazer uma conta de mais?"
+      ],
+      "respostas": {
+        "formal": "A adição é a operação de agrupar quantidades. Para somar, alinhe os números de acordo com suas ordens (unidade, dezena, etc.) e some os algarismos de cada ordem, da direita para a esquerda, realizando o transporte quando necessário.",
+        "engracada": "Somar é tipo juntar a galera toda pra festa! Você coloca todo mundo na mesma fila (unidade com unidade, dezena com dezena) e conta o total. Se a fila ficar cheia, o que sobrar vai pra próxima!",
+        "desafiadora": "Vamos somar 136 + 47. Qual o resultado da soma das unidades, 6 + 7? O que você faz com a dezena do resultado?",
+        "empatica": "A soma é um ótimo ponto de partida, vamos com calma. É como empilhar blocos, um de cada vez. Que tal fazermos um exemplo bem simples juntos para aquecer?"
+      }
+    },
+    {
+      "tag": "ordem_operacoes",
+      "perguntas": [
+        "o que eu calculo primeiro?",
+        "qual a ordem das operações?",
+        "pemdas"
+      ],
+      "respostas": {
+        "formal": "A ordem de precedência das operações, ou PEMDAS, é: 1º Parênteses, 2º Expoentes, 3º Multiplicação e Divisão (na ordem em que aparecem), 4º Adição e Subtração (na ordem em que aparecem).",
+        "engracada": "É a fila VIP da matemática! Primeiro entram os Parênteses. Depois a galera da potência. Em seguida, Multiplicação e Divisão, que chegam juntas e a gente resolve quem aparecer primeiro. Por último, a galera da Soma e Subtração.",
+        "desafiadora": "Na expressão `10 - (2 * 3)`, qual operação está dentro da área prioritária, os parênteses? Portanto, qual é o primeiro cálculo que você deve realizar?",
+        "empatica": "Essa regra de ordem pode parecer confusa, mas é só um jeito de organizar a conta pra todo mundo chegar no mesmo resultado. É como seguir uma receita de bolo, um passo de cada vez para dar certo no final."
+      }
+    },
+    {
+      "tag": "fallback",
+      "perguntas": [],
+      "respostas": {
+        "formal": "Não compreendi a sua solicitação. Poderia, por favor, reformular a pergunta utilizando outros termos?",
+        "engracada": "Opa, essa aí passou batido pelo meu radar! Tenta me perguntar de outro jeito, quem sabe a gente não se entende?",
+        "desafiadora": "Sua pergunta não está clara para mim. Tente quebrá-la em partes menores. Qual é o conceito central da sua dúvida?",
+        "empatica": "Desculpe, não entendi bem o que você quis dizer. Não se preocupe, acontece! Podemos tentar de outra forma? Me explique com suas palavras qual é a sua dificuldade."
+      }
+    }
+  ]
+}
