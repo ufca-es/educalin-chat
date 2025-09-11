@@ -237,8 +237,6 @@ Quer contribuir com o EducAlin? Ficamos felizes em receber sua ajuda!
 
 <div align="center">
 
-**Desenvolvido com ❤️ pela equipe EducAlin**
-
-*Transformando o aprendizado de matemática através da tecnologia*
+**Desenvolvido pela equipe EducAlin**
 
 </div>
