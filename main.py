@@ -129,7 +129,7 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
                 print(f'Aline ({self.nome_personalidade}): {resposta}')
             
             elif melhor_intencao and melhor_intencao.get("tag") == "aprendido":
-                print(f'Aline: {melhor_intencao["resposta"]}')
+                print(f'Aline ({self.nome_personalidade}): {melhor_intencao["resposta"]}')
             
             else:
                 fallback_intencao = next((i for i in self.intencoes if i.get("tag") == "fallback"), None)
