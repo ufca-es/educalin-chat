@@ -118,7 +118,7 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
         while True:
             entrada_usuario = input('Você: ').lower().strip()
 
-            if entrada_usuario in ['quit', 'sair', 'tchau', 'ate mais', 'até logo']:                
+            if entrada_usuario in ['quit', 'sair', 'tchau', 'até mais', 'até logo']:                
                 print("Até a próxima!")
                 break
 
