@@ -73,6 +73,40 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
                 
         return None
 
+    def processar_mensagem(self, pergunta: str, personalidade: str) -> str:
+        """
+        Método web-friendly para processar uma mensagem sem interface CLI.
+        Retorna a resposta do chatbot para a pergunta dada.
+        """
+        melhor_intencao = self._achar_melhor_intencao(pergunta.lower())
+        
+        if melhor_intencao and melhor_intencao.get("tag") != "aprendido":
+            resposta = melhor_intencao["respostas"].get(personalidade, "Desculpe, não tenho uma resposta para essa personalidade.")
+            return resposta
+        
+        elif melhor_intencao and melhor_intencao.get("tag") == "aprendido":
+            return melhor_intencao["resposta"]
+        
+        else:
+            # Busca fallback
+            fallback_intencao = next((i for i in self.intencoes if i.get("tag") == "fallback"), None)
+            if fallback_intencao:
+                return fallback_intencao.get("respostas", {}).get(personalidade, "Desculpe, não entendi.")
+            else:
+                return "Eu não sei a resposta para essa pergunta."
+
+    def ensinar_nova_resposta(self, pergunta: str, resposta: str) -> bool:
+        """
+        Método web-friendly para ensinar uma nova resposta ao chatbot.
+        Retorna True se a operação foi bem-sucedida.
+        """
+        try:
+            self._salvar_dados_aprendidos(pergunta, resposta)
+            return True
+        except Exception as e:
+            print(f"Erro ao salvar dados aprendidos: {e}")
+            return False
+
     def selecionar_personalidade(self): # Exibição de menu de escolha para a personalidade.
         
         print("\n" + "="*50)
