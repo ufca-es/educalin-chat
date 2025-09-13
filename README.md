@@ -3,22 +3,69 @@
 > Um chatbot educacional inteligente em Python que auxilia estudantes de matemática básica com diferentes personalidades pedagógicas.
 
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/)
-[![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow.svg)](STATUS_REQUISITOS.md)
+[![Gradio](https://img.shields.io/badge/Gradio-Interface%20Web-orange.svg)](https://gradio.app/)
+[![Status](https://img.shields.io/badge/Status-48.7%25%20Concluído-green.svg)](STATUS_REQUISITOS.md)
+[![Issues Críticas](https://img.shields.io/badge/Issues%20Críticas-2-red.svg)](STATUS_REQUISITOS.md#-issues-críticas-de-código-identificadas)
 
 ---
 
 ## 📋 Índice
 
-- [Sobre o Projeto](#-sobre-o-projeto)
-- [Funcionalidades](#-funcionalidades)
-- [Personalidades](#-personalidades)
-- [Como Executar](#-como-executar)
-- [Estrutura do Projeto](#-estrutura-do-projeto)
-- [Exemplo de Uso](#-exemplo-de-uso)
-- [Tecnologias Utilizadas](#%EF%B8%8F-tecnologias-utilizadas)
-- [Contribuição](#-contribuição)
-- [Equipe](#-equipe)
-- [Links Úteis](#-links-úteis)
+- [EducAlin - Aline Chat 🤖📚](#educalin---aline-chat-)
+  - [📋 Índice](#-índice)
+  - [📖 Sobre o Projeto](#-sobre-o-projeto)
+    - [🎯 Objetivos](#-objetivos)
+  - [✨ Funcionalidades](#-funcionalidades)
+    - [🔥 Principais Features](#-principais-features)
+  - [🖥️ Interfaces Disponíveis](#️-interfaces-disponíveis)
+    - [💻 Interface Terminal (CLI)](#-interface-terminal-cli)
+    - [🌐 Interface Web (Gradio)](#-interface-web-gradio)
+    - [Tópicos Cobertos](#tópicos-cobertos)
+  - [🎭 Personalidades](#-personalidades)
+    - [👩‍🏫 Aline Formal (Professora)](#-aline-formal-professora)
+    - [😄 Aline Engraçada (Coach Leve)](#-aline-engraçada-coach-leve)
+    - [🎯 Aline Desafiadora (Professora Exigente)](#-aline-desafiadora-professora-exigente)
+    - [💝 Aline Empática (Mentora Gentil)](#-aline-empática-mentora-gentil)
+  - [🚀 Como Executar](#-como-executar)
+    - [Pré-requisitos](#pré-requisitos)
+    - [📦 Instalação](#-instalação)
+    - [🖥️ Interface Terminal (CLI)](#️-interface-terminal-cli)
+    - [🌐 Interface Web (Gradio)](#-interface-web-gradio-1)
+    - [🔧 Dependências](#-dependências)
+      - [Interface CLI (main.py)](#interface-cli-mainpy)
+      - [Interface Web (app.py)](#interface-web-apppy)
+  - [📁 Estrutura do Projeto](#-estrutura-do-projeto)
+    - [📄 Arquivos Principais](#-arquivos-principais)
+      - [🔧 **Código Fonte**](#-código-fonte)
+      - [📊 **Dados**](#-dados)
+      - [📋 **Documentação**](#-documentação)
+  - [💬 Exemplo de Uso](#-exemplo-de-uso)
+    - [💻 Interface Terminal (CLI)](#-interface-terminal-cli-1)
+    - [🌐 Interface Web (Gradio)](#-interface-web-gradio-2)
+    - [🧠 Sistema de Aprendizado (Ambas Interfaces)](#-sistema-de-aprendizado-ambas-interfaces)
+  - [⚙️ Tecnologias Utilizadas](#️-tecnologias-utilizadas)
+    - [🐍 **Core**](#-core)
+    - [🌐 **Interface Web**](#-interface-web)
+    - [📚 **Bibliotecas Utilizadas**](#-bibliotecas-utilizadas)
+      - [Nativas do Python](#nativas-do-python)
+      - [Externas](#externas)
+  - [⚠️ Limitações Conhecidas](#️-limitações-conhecidas)
+    - [🚨 **Issues Críticas de Código**](#-issues-críticas-de-código)
+    - [🔄 **Funcionalidades Pendentes**](#-funcionalidades-pendentes)
+    - [📋 **Arquivos de Entrega**](#-arquivos-de-entrega)
+  - [📈 Progresso do Projeto](#-progresso-do-projeto)
+    - [📊 **Status Atual: 48.7% Concluído**](#-status-atual-487-concluído)
+    - [🎯 **Principais Conquistas**](#-principais-conquistas)
+    - [🔜 **Próximas Prioridades**](#-próximas-prioridades)
+  - [🤝 Contribuição](#-contribuição)
+    - [Como Contribuir](#como-contribuir)
+    - [📝 Diretrizes](#-diretrizes)
+      - [🔧 **Código**](#-código)
+      - [📊 **Conteúdo**](#-conteúdo)
+      - [🚨 **Prioridades Atuais**](#-prioridades-atuais)
+      - [📋 **Documentação**](#-documentação-1)
+  - [👥 Equipe](#-equipe)
+  - [🔗 Links Úteis](#-links-úteis)
 
 ---
 
@@ -40,12 +87,28 @@ O **EducAlin - Aline** é um chatbot educacional desenvolvido como projeto acad�
 ### 🔥 Principais Features
 
 - **🎭 4 Personalidades Distintas**: Formal, Engraçada, Desafiadora e Empática
+- **🖥️ Dupla Interface**: Terminal (CLI) e Interface Web (Gradio)
 - **🧠 Sistema de Aprendizado**: Capaz de aprender novas respostas através da interação
 - **📚 Base de Conhecimento**: Conhecimento pré-programado em matemática básica
 - **🔍 Busca Inteligente**: Correspondência fuzzy para entender variações de perguntas
 - **💾 Persistência de Dados**: Salva novos aprendizados em arquivo JSON
+- **🔄 Troca Dinâmica**: Mudança de personalidade durante a conversa (interface web)
+- **🎯 Arquitetura Limpa**: Separação clara entre lógica e apresentação
 
-### 📊 Tópicos Cobertos
+## 🖥️ Interfaces Disponíveis
+
+### 💻 Interface Terminal (CLI)
+- **Arquivo**: [`main.py`](main.py)
+- **Recursos**: Seleção inicial de personalidade, chat interativo, sistema de aprendizado
+- **Ideal para**: Desenvolvimento, testes, uso em servidores
+
+### 🌐 Interface Web (Gradio)
+- **Arquivo**: [`app.py`](app.py)
+- **Recursos**: Troca dinâmica de personalidade, interface gráfica intuitiva, histórico visual
+- **Ideal para**: Usuários finais, demonstrações, uso educacional
+- **Acesso**: Interface web local com compartilhamento opcional
+
+###  Tópicos Cobertos
 
 - Máximo Divisor Comum (MDC)
 - Mínimo Múltiplo Comum (MMC)
@@ -89,7 +152,7 @@ O bot adapta sua forma de comunicação através de 4 personalidades distintas:
 - Python 3.8 ou superior
 - Sistema operacional: Windows, macOS ou Linux
 
-### Passo a Passo
+### 📦 Instalação
 
 1. **Clone o repositório**
    ```bash
@@ -97,21 +160,44 @@ O bot adapta sua forma de comunicação através de 4 personalidades distintas:
    cd educalin-chat
    ```
 
-2. **Execute o chatbot**
+2. **Instale as dependências** (apenas para interface web)
    ```bash
-   python main.py
+   pip install -r requirements.txt
    ```
 
-3. **Escolha uma personalidade**
-   - Digite um número de 1 a 4 quando solicitado
-   - Comece a conversar com a Aline!
+### 🖥️ Interface Terminal (CLI)
 
-4. **Para sair**
-   - Digite `quit` a qualquer momento
+```bash
+python main.py
+```
 
-### 🔧 Sem Dependências Externas
+**Funcionalidades:**
+- Seleção inicial de personalidade (1-4)
+- Chat interativo no terminal
+- Sistema de aprendizado integrado
+- Digite `quit` para sair
 
-O projeto foi desenvolvido usando apenas bibliotecas nativas do Python, não sendo necessário instalar dependências adicionais.
+### 🌐 Interface Web (Gradio)
+
+```bash
+python app.py
+```
+
+**Funcionalidades:**
+- Interface gráfica intuitiva
+- Troca dinâmica de personalidade via dropdown
+- Histórico visual de conversas
+- Sistema de ensino com botões dedicados
+- Acesso via navegador (normalmente http://localhost:7860)
+
+### 🔧 Dependências
+
+#### Interface CLI (main.py)
+- **Sem dependências externas** - Usa apenas bibliotecas nativas do Python
+
+#### Interface Web (app.py)
+- **Gradio** - Para interface web interativa
+- Consulte [`requirements.txt`](requirements.txt) para versões específicas
 
 ---
 
@@ -119,9 +205,11 @@ O projeto foi desenvolvido usando apenas bibliotecas nativas do Python, não sen
 
 ```
 educalin-chat/
-├── main.py                 # Arquivo principal do chatbot
+├── main.py                 # Interface CLI - Chatbot principal
+├── app.py                  # Interface Web - Gradio
 ├── core_data.json          # Base de conhecimento principal
-├── new_data.json          # Dados aprendidos durante execução (gerado automaticamente)
+├── new_data.json          # Dados aprendidos (gerado automaticamente)
+├── requirements.txt        # Dependências Python
 ├── README.md              # Este arquivo
 ├── STATUS_REQUISITOS.md   # Relatório de progresso do projeto
 ├── espec_trabalho.md      # Especificação completa do projeto
@@ -130,26 +218,36 @@ educalin-chat/
 
 ### 📄 Arquivos Principais
 
-- **[`main.py`](main.py:1)**: Contém toda a lógica do chatbot, incluindo processamento de linguagem natural, seleção de personalidades e sistema de aprendizado
-- **[`core_data.json`](core_data.json:1)**: Base de conhecimento estruturada com intenções, perguntas e respostas por personalidade
-- **`new_data.json`**: Arquivo gerado automaticamente para armazenar novos aprendizados
+#### 🔧 **Código Fonte**
+- **[`main.py`](main.py)**: Interface CLI com classe Chatbot, lógica de processamento NLP e sistema de aprendizado
+- **[`app.py`](app.py)**: Interface web Gradio, integração limpa com main.py, UI interativa
+- **[`requirements.txt`](requirements.txt)**: Dependências Python necessárias (principalmente Gradio)
+
+#### 📊 **Dados**
+- **[`core_data.json`](core_data.json)**: Base de conhecimento estruturada com 7 intenções e 4 personalidades
+- **`new_data.json`**: Aprendizados dinâmicos salvos durante execução (gerado automaticamente)
+
+#### 📋 **Documentação**
+- **[`README.md`](README.md)**: Documentação principal (este arquivo)
+- **[`STATUS_REQUISITOS.md`](STATUS_REQUISITOS.md)**: Análise detalhada de progresso (48.7% concluído)
+- **[`espec_trabalho.md`](espec_trabalho.md)**: Especificação técnica completa do projeto
 
 ---
 
 ## 💬 Exemplo de Uso
 
-### Conversação com Aline Engraçada
+### 💻 Interface Terminal (CLI)
 
 ```
 ====================================
-     ESCOLHA SUA ALINE VIRTUAL           
+     ESCOLHA SUA ALINE VIRTUAL
 ====================================
 
 Com qual personalidade da Aline você gostaria de conversar?
 
 [ 1 ] Aline Formal    - A Professora Profissional
 [ 2 ] Aline Engraçada - A Coach Descontraída
-[ 3 ] Aline Desafiadora - A Professora Exigente  
+[ 3 ] Aline Desafiadora - A Professora Exigente
 [ 4 ] Aline Empática    - A Mentora Gentil
 
 Digite o número da sua escolha (1-4): 2
@@ -165,13 +263,25 @@ Aline (Engraçada): Pense numa pizza: cortar 1 fatia de uma pizza de 2 (1/2) te 
 Você: quit
 ```
 
-### Sistema de Aprendizado
+### 🌐 Interface Web (Gradio)
+
+A interface web oferece:
+- **Dropdown de Personalidade**: Troca dinâmica entre as 4 personalidades
+- **Chat Visual**: Histórico de conversas com interface limpa
+- **Botões de Ação**: "Enviar", "Ensinar", "Pular", "Limpar Chat"
+- **Sistema de Ensino**: Interface dedicada para ensinar novas respostas
+- **Acesso Web**: Disponível em `http://localhost:7860` após executar `python app.py`
+
+### 🧠 Sistema de Aprendizado (Ambas Interfaces)
 
 ```
 Você: como calcular raiz quadrada?
 Aline (Engraçada): Opa, essa aí passou batido pelo meu radar! Tenta me perguntar de outro jeito, quem sabe a gente não se entende?
-Aline (Engraçada): Você poderia me ensinar qual seria a resposta ideal?
+
+# CLI: Prompt direto
 Digite a resposta ou 'pular' para não ensinar: A raiz quadrada é um número que multiplicado por ele mesmo resulta no número original.
+
+# Web: Campo de texto dedicado + botão "Ensinar"
 Aline (Engraçada): Obrigada! Aprendi uma nova resposta.
 ```
 
@@ -179,16 +289,73 @@ Aline (Engraçada): Obrigada! Aprendi uma nova resposta.
 
 ## ⚙️ Tecnologias Utilizadas
 
+### 🐍 **Core**
 - **Python 3.8+**: Linguagem principal
 - **JSON**: Armazenamento de dados estruturados
 - **difflib**: Correspondência fuzzy para processamento de linguagem natural
 - **typing**: Anotações de tipo para melhor código
 
-### 🎨 Bibliotecas Nativas Utilizadas
+### 🌐 **Interface Web**
+- **Gradio**: Framework para interfaces web interativas
+- **HTML/CSS/JS**: Renderização automática via Gradio
 
+### 📚 **Bibliotecas Utilizadas**
+
+#### Nativas do Python
 - `json`: Manipulação de dados JSON
 - `difflib.get_close_matches`: Busca de correspondência aproximada
 - `typing`: Tipagem estática para melhor manutenibilidade
+
+#### Externas
+- `gradio`: Interface web interativa e responsiva
+
+---
+
+## ⚠️ Limitações Conhecidas
+
+### 🚨 **Issues Críticas de Código**
+- **String Matching Frágil** ([`app.py:40`](app.py)): Detecção de fallback baseada em texto pode falhar
+- **Acesso Não Seguro** ([`main.py:84`](main.py)): Possível KeyError em dados malformados
+
+### 🔄 **Funcionalidades Pendentes**
+- **Sistema de Histórico**: Não implementado (bloqueia estatísticas)
+- **Respostas Aleatórias**: Estrutura suporta mas não implementado
+- **Modularização Completa**: Código ainda em poucos arquivos
+- **Estatísticas de Uso**: Dependente do sistema de histórico
+
+### 📋 **Arquivos de Entrega**
+- Alguns arquivos específicos da especificação ainda não implementados
+- Formato de alguns arquivos diverge da especificação original
+
+---
+
+## 📈 Progresso do Projeto
+
+### 📊 **Status Atual: 48.7% Concluído**
+
+| Categoria | Progresso | Status |
+|-----------|-----------|--------|
+| 🎯 **Planejamento e Base** | 100% | ✅ Completo |
+| ⚙️ **Funcionalidades Core** | 65% | ⏳ Em Andamento |
+| 📈 **Estatísticas/Relatórios** | 0% | 📋 Pendente |
+| 🗂️ **Organização/Modularização** | 40% | ⏳ Em Andamento |
+| 📄 **Entrega Final** | 35% | 🔄 Parcial |
+
+### 🎯 **Principais Conquistas**
+- ✅ Interface CLI completa e funcional
+- ✅ Interface Web Gradio implementada
+- ✅ Sistema de aprendizado robusto
+- ✅ 4 personalidades pedagógicas funcionais
+- ✅ Base de conhecimento rica (7 intenções)
+- ✅ Arquitetura limpa e bem estruturada
+
+### 🔜 **Próximas Prioridades**
+1. 🚨 **Corrigir issues críticas de código**
+2. 🔥 **Implementar sistema de histórico**
+3. ⚡ **Adicionar respostas aleatórias**
+4. 📊 **Desenvolver estatísticas de uso**
+
+*Para análise completa, consulte [STATUS_REQUISITOS.md](STATUS_REQUISITOS.md)*
 
 ---
 
@@ -206,10 +373,27 @@ Quer contribuir com o EducAlin? Ficamos felizes em receber sua ajuda!
 
 ### 📝 Diretrizes
 
+#### 🔧 **Código**
 - Siga o padrão PEP 8 para código Python
-- Adicione novos tópicos em [`core_data.json`](core_data.json:1) seguindo a estrutura existente
-- Teste todas as personalidades ao adicionar novas respostas
-- Documente mudanças significativas
+- Mantenha separação entre [`main.py`](main.py) (lógica) e [`app.py`](app.py) (interface)
+- Teste ambas as interfaces (CLI e Web) ao fazer alterações
+- Use type hints para melhor manutenibilidade
+
+#### 📊 **Conteúdo**
+- Adicione novos tópicos em [`core_data.json`](core_data.json) seguindo a estrutura existente
+- Teste todas as 4 personalidades ao adicionar novas respostas
+- Mantenha consistência no tom de cada personalidade
+
+#### 🚨 **Prioridades Atuais**
+- Corrigir issues críticas de código (string matching, acesso seguro)
+- Implementar sistema de histórico
+- Adicionar respostas aleatórias
+- Modularização adicional do código
+
+#### 📋 **Documentação**
+- Documente mudanças significativas no README
+- Atualize [`STATUS_REQUISITOS.md`](STATUS_REQUISITOS.md) se aplicável
+- Mantenha exemplos de uso atualizados
 
 ---
 
