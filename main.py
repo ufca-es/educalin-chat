@@ -91,7 +91,7 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
             # Busca fallback
             fallback_intencao = next((i for i in self.intencoes if i.get("tag") == "fallback"), None)
             if fallback_intencao:
-                return fallback_intencao["respostas"].get(personalidade, "Desculpe, não entendi.")
+                return fallback_intencao.get("respostas", {}).get(personalidade, "Desculpe, não entendi.")
             else:
                 return "Eu não sei a resposta para essa pergunta."
 

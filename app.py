@@ -104,7 +104,7 @@ with gr.Blocks(title="Aline Chatbot (Gradio)") as demo:
     gr.Markdown("### Ensinar resposta (quando o bot não souber)")
     teach_input = gr.Textbox(label="Resposta que você quer ensinar", placeholder="Escreva a resposta que o bot deve aprender")
     ensinar_btn = gr.Button("Ensinar")
-    pular_btn = gr.Button("Pular")
+    pular_btn = gr.Button("Pular Ensino")
 
     # estados internos: (waiting flag, last_question)
     estado_interno = gr.State({"awaiting_teach": False, "last_question": None})
