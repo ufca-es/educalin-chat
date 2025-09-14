@@ -2,10 +2,10 @@
 
 > Um chatbot educacional inteligente em Python que auxilia estudantes de matemática básica com diferentes personalidades pedagógicas.
 
-[![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://www.python.org/)
 [![Gradio](https://img.shields.io/badge/Gradio-Interface%20Web-orange.svg)](https://gradio.app/)
 [![Status](https://img.shields.io/badge/Status-52.2%25%20Concluído-green.svg)](STATUS_REQUISITOS.md)
-[![Issues Críticas](https://img.shields.io/badge/Issues%20Críticas-2-red.svg)](STATUS_REQUISITOS.md#-issues-críticas-de-código-identificadas)
+[![Issues Críticas](https://img.shields.io/badge/Issues%20Críticas-1-orange.svg)](STATUS_REQUISITOS.md#-issues-críticas-de-código-identificadas)
 
 ---
 
@@ -54,7 +54,7 @@
     - [🔄 **Funcionalidades Pendentes**](#-funcionalidades-pendentes)
     - [📋 **Arquivos de Entrega**](#-arquivos-de-entrega)
   - [📈 Progresso do Projeto](#-progresso-do-projeto)
-    - [📊 **Status Atual: 48.7% Concluído**](#-status-atual-487-concluído)
+    - [📊 **Status Atual: 52.2% Concluído**](#-status-atual-522-concluído)
     - [🎯 **Principais Conquistas**](#-principais-conquistas)
     - [🔜 **Próximas Prioridades**](#-próximas-prioridades)
   - [🤝 Contribuição](#-contribuição)
@@ -92,15 +92,20 @@ O **EducAlin - Aline** é um chatbot educacional desenvolvido como projeto acad�
 - **📚 Base de Conhecimento**: Conhecimento pré-programado em matemática básica
 - **🔍 Busca Inteligente**: Correspondência fuzzy para entender variações de perguntas
 - **💾 Persistência de Dados**: Salva novos aprendizados em arquivo JSON
-- **🔄 Troca Dinâmica**: Mudança de personalidade durante a conversa (interface web)
+- **🔄 Troca Dinâmica de Personalidade**: Mudança durante a conversa em **ambas interfaces**
+  - **CLI**: Comandos especiais `/personalidade [nome]` e `/help`
+  - **Web**: Dropdown interativo com troca instantânea
+- **🛡️ Correções de Segurança**: Issues críticas resolvidas para maior robustez
 - **🎯 Arquitetura Limpa**: Separação clara entre lógica e apresentação
 
 ## 🖥️ Interfaces Disponíveis
 
 ### 💻 Interface Terminal (CLI)
 - **Arquivo**: [`main.py`](main.py)
-- **Recursos**: Seleção inicial de personalidade, chat interativo, sistema de aprendizado
+- **Recursos**: Seleção inicial de personalidade, **troca dinâmica via comandos**, chat interativo, sistema de aprendizado
+- **Comandos Especiais**: `/personalidade [nome]`, `/help`
 - **Ideal para**: Desenvolvimento, testes, uso em servidores
+- **📋 Documentação**: Veja [`PERSONALIDADE_DINAMICA.md`](PERSONALIDADE_DINAMICA.md) para detalhes completos
 
 ### 🌐 Interface Web (Gradio)
 - **Arquivo**: [`app.py`](app.py)
@@ -149,7 +154,7 @@ O bot adapta sua forma de comunicação através de 4 personalidades distintas:
 
 ### Pré-requisitos
 
-- Python 3.8 ou superior
+- Python 3.9 ou superior
 - Sistema operacional: Windows, macOS ou Linux
 
 ### 📦 Instalação
@@ -173,6 +178,8 @@ python main.py
 
 **Funcionalidades:**
 - Seleção inicial de personalidade (1-4)
+- **Troca dinâmica**: `/personalidade [nome]` durante a conversa
+- **Comandos de ajuda**: `/help` para ver opções disponíveis
 - Chat interativo no terminal
 - Sistema de aprendizado integrado
 - Digite `quit` para sair
@@ -205,15 +212,17 @@ python app.py
 
 ```
 educalin-chat/
-├── main.py                 # Interface CLI - Chatbot principal
-├── app.py                  # Interface Web - Gradio
-├── core_data.json          # Base de conhecimento principal
-├── new_data.json          # Dados aprendidos (gerado automaticamente)
-├── requirements.txt        # Dependências Python
-├── README.md              # Este arquivo
-├── STATUS_REQUISITOS.md   # Relatório de progresso do projeto
-├── espec_trabalho.md      # Especificação completa do projeto
-└── .gitignore            # Arquivos ignorados pelo Git
+├── main.py                     # Interface CLI - Chatbot principal
+├── app.py                      # Interface Web - Gradio
+├── core_data.json              # Base de conhecimento principal
+├── new_data.json              # Dados aprendidos (gerado automaticamente)
+├── test_personalidade.py      # Suite de testes para Task 08
+├── PERSONALIDADE_DINAMICA.md  # Documentação da Task 08
+├── requirements.txt            # Dependências Python
+├── README.md                  # Este arquivo
+├── STATUS_REQUISITOS.md       # Relatório de progresso do projeto
+├── espec_trabalho.md          # Especificação completa do projeto
+└── .gitignore                # Arquivos ignorados pelo Git
 ```
 
 ### 📄 Arquivos Principais
@@ -229,8 +238,10 @@ educalin-chat/
 
 #### 📋 **Documentação**
 - **[`README.md`](README.md)**: Documentação principal (este arquivo)
-- **[`STATUS_REQUISITOS.md`](STATUS_REQUISITOS.md)**: Análise detalhada de progresso (48.7% concluído)
+- **[`STATUS_REQUISITOS.md`](STATUS_REQUISITOS.md)**: Análise detalhada de progresso (52.2% concluído)
+- **[`PERSONALIDADE_DINAMICA.md`](PERSONALIDADE_DINAMICA.md)**: Documentação completa da Task 08 - Troca Dinâmica de Personalidade
 - **[`espec_trabalho.md`](espec_trabalho.md)**: Especificação técnica completa do projeto
+- **[`test_personalidade.py`](test_personalidade.py)**: Suite de testes para funcionalidades de personalidade
 
 ---
 
@@ -252,13 +263,34 @@ Com qual personalidade da Aline você gostaria de conversar?
 
 Digite o número da sua escolha (1-4): 2
 
-Você está conversando com Aline Engraçada. Digite 'quit' para sair.
+Você está conversando com Aline Engraçada. Digite 'quit' para sair ou '/help' para ver comandos.
 
 Você: oi
 Aline (Engraçada): E aí, tudo pronto pra gente detonar nesses números? Pode mandar a dúvida que eu tô aqui pra ajudar!
 
-Você: como funcionam as frações equivalentes?
-Aline (Engraçada): Pense numa pizza: cortar 1 fatia de uma pizza de 2 (1/2) te dá a mesma quantidade de comida que pegar 2 fatias de uma pizza de 4 (2/4). Só muda o jeito de cortar, mas a barriga fica igualmente feliz!
+Você: /personalidade empatica
+Personalidade alterada para Empática!
+
+Você: oi
+Aline (Empática): Oi, tudo bem? Que bom que você veio estudar. Como você está se sentindo hoje?
+
+Você: /help
+==================================================
+         COMANDOS E PERSONALIDADES
+==================================================
+
+Comandos disponíveis:
+• /personalidade [nome] - Troca a personalidade
+• /help - Mostra esta ajuda
+
+Personalidades disponíveis:
+• formal      - A Professora Profissional
+• engracada   - A Coach Descontraída
+• desafiadora - A Professora Exigente
+• empatica    - A Mentora Gentil
+
+Exemplo: /personalidade empatica
+--------------------------------------------------
 
 Você: quit
 ```
@@ -290,7 +322,7 @@ Aline (Engraçada): Obrigada! Aprendi uma nova resposta.
 ## ⚙️ Tecnologias Utilizadas
 
 ### 🐍 **Core**
-- **Python 3.8+**: Linguagem principal
+- **Python 3.9+**: Linguagem principal
 - **JSON**: Armazenamento de dados estruturados
 - **difflib**: Correspondência fuzzy para processamento de linguagem natural
 - **typing**: Anotações de tipo para melhor código
@@ -314,8 +346,8 @@ Aline (Engraçada): Obrigada! Aprendi uma nova resposta.
 ## ⚠️ Limitações Conhecidas
 
 ### 🚨 **Issues Críticas de Código**
+- ✅ **Issue Crítica #02 RESOLVIDA**: Acesso não seguro a dicionários corrigido ([`main.py`](main.py))
 - **String Matching Frágil** ([`app.py:40`](app.py)): Detecção de fallback baseada em texto pode falhar
-- **Acesso Não Seguro** ([`main.py:84`](main.py)): Possível KeyError em dados malformados
 
 ### 🔄 **Funcionalidades Pendentes**
 - **Sistema de Histórico**: Não implementado (bloqueia estatísticas)
@@ -331,12 +363,12 @@ Aline (Engraçada): Obrigada! Aprendi uma nova resposta.
 
 ## 📈 Progresso do Projeto
 
-### 📊 **Status Atual: 48.7% Concluído**
+### 📊 **Status Atual: 52.2% Concluído**
 
 | Categoria | Progresso | Status |
 |-----------|-----------|--------|
 | 🎯 **Planejamento e Base** | 100% | ✅ Completo |
-| ⚙️ **Funcionalidades Core** | 65% | ⏳ Em Andamento |
+| ⚙️ **Funcionalidades Core** | 80% | ⏳ Em Andamento |
 | 📈 **Estatísticas/Relatórios** | 0% | 📋 Pendente |
 | 🗂️ **Organização/Modularização** | 40% | ⏳ Em Andamento |
 | 📄 **Entrega Final** | 35% | 🔄 Parcial |
@@ -344,13 +376,15 @@ Aline (Engraçada): Obrigada! Aprendi uma nova resposta.
 ### 🎯 **Principais Conquistas**
 - ✅ Interface CLI completa e funcional
 - ✅ Interface Web Gradio implementada
+- ✅ **Task 08 CONCLUÍDA**: Troca dinâmica de personalidade em ambas interfaces
+- ✅ **Issue Crítica #02 RESOLVIDA**: Acesso seguro a dicionários implementado
 - ✅ Sistema de aprendizado robusto
 - ✅ 4 personalidades pedagógicas funcionais
 - ✅ Base de conhecimento rica (7 intenções)
 - ✅ Arquitetura limpa e bem estruturada
 
 ### 🔜 **Próximas Prioridades**
-1. 🚨 **Corrigir issues críticas de código**
+1. 🚨 **Corrigir issue crítica restante** (string matching no app.py)
 2. 🔥 **Implementar sistema de histórico**
 3. ⚡ **Adicionar respostas aleatórias**
 4. 📊 **Desenvolver estatísticas de uso**
@@ -385,10 +419,11 @@ Quer contribuir com o EducAlin? Ficamos felizes em receber sua ajuda!
 - Mantenha consistência no tom de cada personalidade
 
 #### 🚨 **Prioridades Atuais**
-- Corrigir issues críticas de código (string matching, acesso seguro)
+- Corrigir issue crítica restante (string matching no app.py)
 - Implementar sistema de histórico
 - Adicionar respostas aleatórias
 - Modularização adicional do código
+- Melhorar sistema de testes automatizados
 
 #### 📋 **Documentação**
 - Documente mudanças significativas no README
@@ -405,6 +440,7 @@ Quer contribuir com o EducAlin? Ficamos felizes em receber sua ajuda!
 | Elder Rayan Oliveira Silva | [@eldrayan](https://github.com/eldrayan) | Desenvolvedor |
 | Pedro Yan Alcantara Palácio | [@pedropalacioo](https://github.com/pedropalacioo) | Desenvolvedor |
 | Samuel Wagner Tiburi Silveira | [@samsilveira](https://github.com/samsilveira) | Desenvolvedor |
+| Jayr Alencar Pereira | [@jayralencar](https://github.com/jayralencar) | Professor Orientador |
 
 ---
 
