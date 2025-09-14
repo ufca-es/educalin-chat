@@ -2,15 +2,15 @@
 ## Análise Técnica Detalhada
 
 **Sumário Executivo**
-*Data de Geração: 2025-09-13*
-*Última Análise Técnica: Pós-implementação Interface Gradio*
+*Data de Geração: 2025-09-14*
+*Última Análise Técnica: Pós-implementação Task 08 - Troca Dinâmica de Personalidade*
 
-- **Progresso Real:** 48.7% dos requisitos concluídos (vs. 39.1% anterior)
-- **Concluídos (✅):** 7
-- **Em Andamento (⏳):** 5 (+2)
-- **Parcialmente Implementados (🔄):** 6 (+1)
-- **Pendentes (📋):** 5 (-3)
-- **🚨 Issues Críticas de Código:** 2 identificadas
+- **Progresso Real:** 52.2% dos requisitos concluídos (vs. 48.7% anterior)
+- **Concluídos (✅):** 8 (+1)
+- **Em Andamento (⏳):** 4 (-1)
+- **Parcialmente Implementados (🔄):** 6
+- **Pendentes (📋):** 5
+- **🚨 Issues Críticas de Código:** 1 identificada (-1 resolvida)
 
 ---
 
@@ -19,8 +19,8 @@
 ### 🎯 **Planejamento e Base** (100% Concluído)
 Tasks 01-07: Fundação sólida estabelecida ✅
 
-### ⚙️ **Funcionalidades Core** (65% Concluído)
-Tasks 08-12: Interface Gradio implementada, falta histórico
+### ⚙️ **Funcionalidades Core** (80% Concluído)
+Tasks 08-12: Interface Gradio + Troca dinâmica CLI implementadas, falta histórico
 
 ### 📈 **Estatísticas e Relatórios** (0% Concluído)
 Tasks 13-15: Não implementadas, dependem do histórico
@@ -44,7 +44,7 @@ Tasks 18-24: Arquivos base criados, documentação boa
 | **Task 05** | Configuração do repositório no GitHub | ✅ **Concluído** | 100% | [#5](https://github.com/ufca-es/educalin-chat/issues/5) | Repositório configurado e ativo |
 | **Task 06** | Criação do arquivo de perguntas/respostas | ✅ **Concluído** | 100% | [#6](https://github.com/ufca-es/educalin-chat/issues/6) | core_data.json estruturado com 7 intenções |
 | **Task 07** | Início da implementação da interface principal | ✅ **Concluído** | 100% | [#7](https://github.com/ufca-es/educalin-chat/issues/7) | Interface terminal funcional implementada |
-| **Task 08** | Implementação da mudança de personalidade | ⏳ **Em Andamento** | 95% | [#9](https://github.com/ufca-es/educalin-chat/issues/9) | ✅ **GRADIO**: Troca dinâmica via dropdown, CLI só inicial |
+| **Task 08** | Implementação da mudança de personalidade | ✅ **Concluído** | 100% | [#9](https://github.com/ufca-es/educalin-chat/issues/9) | ✅ **GRADIO**: Troca dinâmica via dropdown. ✅ **CLI**: Troca dinâmica via comando `/personalidade` |
 | **Task 09** | Uso de respostas aleatórias para a mesma pergunta | 🔄 **Parcial** | 15% | [#10](https://github.com/ufca-es/educalin-chat/issues/10) | ❌ **AUSENTE**: Estrutura suporta mas não implementado |
 | **Task 10** | Implementação da persistência de aprendizado | ⏳ **Em Andamento** | 90% | [#11](https://github.com/ufca-es/educalin-chat/issues/11) | ✅ **COMPLETO**: Funciona CLI + Gradio perfeitamente |
 | **Task 11** | Leitura do histórico anterior ao iniciar | 📋 **Pendente** | 0% | [#12](https://github.com/ufca-es/educalin-chat/issues/12) | ❌ **AUSENTE**: Não carrega últimas 5 interações |
@@ -73,13 +73,13 @@ Tasks 18-24: Arquivos base criados, documentação boa
 - **Solução:** Retornar flag específica do método `processar_mensagem()`
 - **Prioridade:** 🚨 **CRÍTICO IMEDIATO**
 
-### **Issue Crítica #02: Acesso Não Seguro a Dicionário**
-- **Localização:** `main.py`, linha 84
+### **Issue Crítica #02: Acesso Não Seguro a Dicionário** ✅ **RESOLVIDA**
+- **Localização:** `main.py`, linhas 84, 162, 171
 - **Problema:** `melhor_intencao["respostas"].get(personalidade, ...)`
 - **Risco:** **ALTO** - Pode causar `KeyError` se chave 'respostas' não existir
 - **Impacto:** Crash da aplicação em dados malformados
-- **Solução:** `melhor_intencao.get("respostas", {}).get(personalidade, ...)`
-- **Prioridade:** 🚨 **CRÍTICO IMEDIATO**
+- **Solução:** `melhor_intencao.get("respostas", {}).get(personalidade, ...)` ✅ **IMPLEMENTADA**
+- **Status:** ✅ **CRÍTICO RESOLVIDO** - Eliminado risco de KeyError
 
 ---
 
@@ -92,7 +92,7 @@ Tasks 18-24: Arquivos base criados, documentação boa
 
 ### ⚡ **Impactos em Funcionalidades**
 - **Sistema de Aprendizado**: ✅ **COMPLETO** - Funciona CLI + Gradio perfeitamente
-- **Personalidades**: ✅ **95% COMPLETO** - Troca dinâmica via Gradio, CLI só inicial
+- **Personalidades**: ✅ **100% COMPLETO** - Troca dinâmica via Gradio + CLI com comandos especiais
 - **Interface GUI**: ✅ **RESOLVIDA** - Interface Gradio implementada
 - **Processamento NLP**: ✅ **EXCELENTE** - Correspondência fuzzy robusta
 - **Persistência**: ✅ **90% FUNCIONAL** - Atende especificação com melhorias
@@ -103,12 +103,10 @@ Tasks 18-24: Arquivos base criados, documentação boa
 
 ### 🚨 **CRÍTICO IMEDIATO** (Segurança do Código)
 1. **Issue Crítica #01**: Corrigir string matching frágil no app.py
-2. **Issue Crítica #02**: Implementar acesso seguro a dicionários no main.py
 
 ### 🔥 **ALTA PRIORIDADE** (Impacto Alto, Esforço Baixo)
-3. **Task 09**: Implementar respostas aleatórias - estrutura já suporta
-4. **Task 08**: Completar 5% restante da troca de personalidade no CLI
-5. **Tasks 11-12**: Implementar sistema de histórico - desbloqueia 4 outras tasks
+2. **Task 09**: Implementar respostas aleatórias - estrutura já suporta
+3. **Tasks 11-12**: Implementar sistema de histórico - desbloqueia 4 outras tasks
 
 ### ⚖️ **MÉDIA PRIORIDADE** (Necessárias para Entrega)
 6. **Tasks 13-15**: Implementar estatísticas e relatórios
@@ -132,24 +130,24 @@ Tasks 18-24: Arquivos base criados, documentação boa
 - **Documentação exemplar**: README.md muito bem elaborado
 
 ### ⚠️ **Áreas de Melhoria**
-- **🚨 Segurança do código**: 2 issues críticas identificadas (string matching frágil, acesso inseguro)
+- **🚨 Segurança do código**: 1 issue crítica restante (string matching frágil no app.py)
 - **Funcionalidades core**: Sistema de histórico e estatísticas não implementados
 - **Modularização**: Precisa separação adicional em múltiplos módulos
 - **Arquivos de entrega**: Alguns arquivos específicos da especificação faltando
 
 ### 🚧 **Vulnerabilidades Críticas**
 - **app.py linha 40**: String matching frágil para detectar fallback
-- **main.py linha 84**: Acesso não seguro a dicionário pode causar KeyError
 
 ### 🎯 **Recomendação Final Atualizada**
-**O projeto evoluiu significativamente para 48.7% de conclusão real com implementação da interface Gradio. A base técnica está excelente, mas requer correção IMEDIATA das vulnerabilidades críticas de código antes de prosseguir com novas funcionalidades. O sistema de histórico é a próxima prioridade estratégica pois desbloqueia 30% das tasks restantes.**
+**O projeto avançou para 52.2% de conclusão real com a finalização completa da Task 08. A implementação da troca dinâmica de personalidade na CLI e a correção da Issue Crítica #02 fortaleceram significativamente a base técnica. Resta apenas 1 vulnerabilidade crítica (string matching no app.py). O sistema de histórico é a próxima prioridade estratégica pois desbloqueia 30% das tasks restantes.**
 
-### 🚀 **Impacto da Interface Gradio**
+### 🚀 **Impacto da Task 08 Completa**
 - ✅ **Interface GUI obrigatória**: RESOLVIDA
-- ✅ **Troca dinâmica de personalidade**: 95% implementada
+- ✅ **Troca dinâmica de personalidade**: 100% implementada (CLI + Gradio)
 - ✅ **Sistema de aprendizado**: Robusto em ambas interfaces
 - ✅ **Arquitetura limpa**: Eliminação de código duplicado
+- ✅ **Issue Crítica #02**: RESOLVIDA - Acesso seguro a dicionários implementado
 
 ---
 
-*Relatório atualizado pós-implementação da interface Gradio - Análise técnica detalhada do código fonte e comparação sistemática com especificações do projeto.*
+*Relatório atualizado pós-implementação da Task 08 - Análise técnica detalhada incluindo troca dinâmica de personalidade CLI e correção de vulnerabilidades críticas.*
