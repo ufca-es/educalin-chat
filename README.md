@@ -4,7 +4,7 @@
 
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/)
 [![Gradio](https://img.shields.io/badge/Gradio-Interface%20Web-orange.svg)](https://gradio.app/)
-[![Status](https://img.shields.io/badge/Status-48.7%25%20Concluído-green.svg)](STATUS_REQUISITOS.md)
+[![Status](https://img.shields.io/badge/Status-52.2%25%20Concluído-green.svg)](STATUS_REQUISITOS.md)
 [![Issues Críticas](https://img.shields.io/badge/Issues%20Críticas-2-red.svg)](STATUS_REQUISITOS.md#-issues-críticas-de-código-identificadas)
 
 ---
