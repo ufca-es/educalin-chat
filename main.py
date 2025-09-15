@@ -1,5 +1,8 @@
 import json
-from difflib import get_close_matches
+import os
+import shutil
+import logging
+from difflib import get_close_matches, SequenceMatcher
 from typing import Optional, Dict, List, Any
 
 class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados, a lógica da conversa e a aprendizagem da própria.
@@ -8,6 +11,7 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
 
         self.core_data_path = core_data_path
         self.new_data_path = new_data_path
+        self.logger = self._setup_logging()
         self.intencoes: List[Dict[str, Any]] = self._carregar_base_conhecimento()
         self.aprendidos: List[Dict[str, str]] = self._carregar_dados_aprendidos()
         self.personalidade: Optional[str] = None
@@ -26,22 +30,115 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
             print(f"ERRO: O arquivo '{self.core_data_path}' contém um erro de sintaxe JSON.")
             return []
 
-    def _salvar_dados_aprendidos(self, nova_pergunta: str, nova_resposta: str): # Salvar e guardar novos conhecimentos, sem sobreescrever os já existentes.
+    def _setup_logging(self):
+        """Configuração de logging para debugging e monitoramento"""
+        logging.basicConfig(
+            level=logging.INFO,
+            format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+            handlers=[
+                logging.FileHandler('chatbot.log', encoding='utf-8'),
+                logging.StreamHandler()
+            ]
+        )
+        return logging.getLogger('chatbot')
 
-        dados_aprendidos = []
-        try:
-            with open(self.new_data_path, 'r', encoding='utf-8') as f:
-                dados_carregados = json.load(f)
-                if isinstance(dados_carregados, list):
-                    dados_aprendidos = dados_carregados
-        except (FileNotFoundError, json.JSONDecodeError):
-            pass
+    def _validar_entrada(self, texto: str) -> bool:
+        """Validação robusta de entrada para prevenir ataques"""
+        if not texto or len(texto.strip()) == 0:
+            return False
         
-        dados_aprendidos.append({"pergunta": nova_pergunta, "resposta_ensinada": nova_resposta})
-        with open(self.new_data_path, 'w', encoding="utf-8") as file:
-            json.dump(dados_aprendidos, file, indent=2, ensure_ascii=False)
+        if len(texto) > 1000:  # Limite razoável
+            self.logger.warning(f"Entrada muito longa rejeitada: {len(texto)} caracteres")
+            return False
+        
+        # Verificar caracteres de controle perigosos (incluindo ANSI escape)
+        caracteres_proibidos = ['\x00', '\x01', '\x02', '\x03', '\x04', '\x1b']
+        if any(char in texto for char in caracteres_proibidos):
+            self.logger.warning("Entrada com caracteres de controle rejeitada")
+            return False
+        
+        return True
 
-        self.aprendidos = dados_aprendidos
+    def _salvar_dados_aprendidos(self, nova_pergunta: str, nova_resposta: str) -> bool:
+        """
+        🚀 MÉTODO CORRIGIDO - Versão robusta com tratamento UTF-8, rollback e integridade
+        
+        Args:
+            nova_pergunta: Pergunta a ser aprendida
+            nova_resposta: Resposta correspondente
+            
+        Returns:
+            bool: True se salvamento foi bem-sucedido, False caso contrário
+        """
+        # Validação de entrada
+        if not self._validar_entrada(nova_pergunta) or not self._validar_entrada(nova_resposta):
+            self.logger.error("Entrada inválida rejeitada")
+            return False
+            
+        backup_file = f"{self.new_data_path}.backup"
+        temp_file = f"{self.new_data_path}.tmp"
+        
+        try:
+            # 1. Backup do arquivo atual se existir
+            if os.path.exists(self.new_data_path):
+                shutil.copy2(self.new_data_path, backup_file)
+                self.logger.info("Backup criado com sucesso")
+            
+            # 2. Carregamento seguro dos dados existentes
+            dados_aprendidos = []
+            try:
+                with open(self.new_data_path, 'r', encoding='utf-8') as f:
+                    dados_carregados = json.load(f)
+                    if isinstance(dados_carregados, list):
+                        dados_aprendidos = dados_carregados
+            except (FileNotFoundError, json.JSONDecodeError, UnicodeDecodeError):
+                self.logger.warning("Arquivo corrompido ou inexistente, criando novo")
+                dados_aprendidos = []
+            
+            # 3. Adicionar nova entrada
+            nova_entrada = {
+                "pergunta": nova_pergunta,
+                "resposta_ensinada": nova_resposta
+            }
+            dados_aprendidos.append(nova_entrada)
+            
+            # 4. Validação antes de escrever
+            json_string = json.dumps(dados_aprendidos, indent=2, ensure_ascii=False)
+            json.loads(json_string)  # Validação de parsing
+            
+            # 5. Escrita atômica usando arquivo temporário
+            with open(temp_file, 'w', encoding='utf-8') as f:
+                f.write(json_string)
+            
+            # 6. Verificação pós-escrita
+            with open(temp_file, 'r', encoding='utf-8') as f:
+                json.load(f)  # Verificação de integridade
+            
+            # 7. Commit atômico (renomear arquivo temporário)
+            os.replace(temp_file, self.new_data_path)
+            
+            # 8. Cleanup backup se tudo deu certo
+            if os.path.exists(backup_file):
+                os.remove(backup_file)
+                
+            # 9. Atualizar dados em memória
+            self.aprendidos = dados_aprendidos
+            self.logger.info(f"Dados salvos com sucesso: '{nova_pergunta}' -> '{nova_resposta}'")
+            return True
+            
+        except Exception as e:
+            # Rollback em caso de falha
+            self.logger.error(f"ERRO CRÍTICO ao salvar dados: {e}")
+            if os.path.exists(backup_file) and os.path.exists(self.new_data_path):
+                shutil.copy2(backup_file, self.new_data_path)
+                os.remove(backup_file)
+                self.logger.info("Rollback executado com sucesso")
+            
+            # Cleanup arquivo temporário
+            if os.path.exists(temp_file):
+                os.remove(temp_file)
+            
+            return False
 
     def _carregar_dados_aprendidos(self) -> List[Dict[str, str]]: # Utilizar-se dos dados aprendidos
         try:
@@ -51,26 +148,76 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
         except (FileNotFoundError, json.JSONDecodeError):
             return []
 
-    def _achar_melhor_intencao(self, pergunta_usuario: str) -> Optional[Dict[str, Any]]: # Encontrar a melhor intenção para o usuário.
-
-        todas_perguntas = [p for intencao in self.intencoes for p in intencao.get("perguntas", [])]
+    def _achar_melhor_intencao(self, pergunta_usuario: str) -> Optional[Dict[str, Any]]:
+        """
+        🚀 MÉTODO CORRIGIDO - Versão com threshold mais rigoroso e busca exata primeiro
         
-        matches: List[str] = get_close_matches(pergunta_usuario, todas_perguntas, n=1, cutoff=0.6)
+        Args:
+            pergunta_usuario: Pergunta do usuário para buscar correspondência
+            
+        Returns:
+            Dict com intenção correspondente ou None se não encontrar
+        """
+        pergunta_normalizada = pergunta_usuario.lower().strip()
+        self.logger.info(f"Iniciando busca por correspondência: '{pergunta_usuario}'")
+        
+        # 1. Busca EXATA primeiro nas intenções base
+        todas_perguntas = []
+        mapa_pergunta_intencao = {}
+        
+        for intencao in self.intencoes:
+            for pergunta in intencao.get("perguntas", []):
+                todas_perguntas.append(pergunta)
+                mapa_pergunta_intencao[pergunta.lower()] = intencao
+        
+        # Verificar correspondência exata (case-insensitive)
+        if pergunta_normalizada in mapa_pergunta_intencao:
+            intencao_encontrada = mapa_pergunta_intencao[pergunta_normalizada]
+            self.logger.info(f"✅ Correspondência EXATA encontrada nas intenções base: '{pergunta_usuario}' -> tag '{intencao_encontrada.get('tag')}'")
+            return intencao_encontrada
+        
+        # 2. Busca fuzzy nas intenções base (threshold MAIS RIGOROSO)
+        matches = get_close_matches(pergunta_usuario, todas_perguntas, n=1, cutoff=0.8)  # Aumentado de 0.6
         
         if matches:
             melhor_pergunta = matches[0]
+            similaridade = SequenceMatcher(None, pergunta_usuario.lower(), melhor_pergunta.lower()).ratio()
+            self.logger.info(f"✅ Correspondência FUZZY encontrada nas intenções base: '{pergunta_usuario}' -> '{melhor_pergunta}' (similaridade: {similaridade:.2f})")
+            
             for intencao in self.intencoes:
                 if melhor_pergunta in intencao.get("perguntas", []):
                     return intencao
+        
+        # 3. Busca EXATA primeiro nos dados aprendidos
         perguntas_aprendidas = [d["pergunta"] for d in self.aprendidos]
-        matches_aprendidos = get_close_matches(pergunta_usuario, perguntas_aprendidas, n=1, cutoff=0.7)
+        mapa_aprendidos = {d["pergunta"]: d for d in self.aprendidos}
+        mapa_aprendidos_lower = {d["pergunta"].lower(): d for d in self.aprendidos}
+        
+        # Verificar correspondência exata nos aprendidos (case-sensitive primeiro)
+        if pergunta_usuario in mapa_aprendidos:
+            dado_encontrado = mapa_aprendidos[pergunta_usuario]
+            self.logger.info(f"✅ Correspondência EXATA encontrada nos dados aprendidos: '{pergunta_usuario}'")
+            return {"tag": "aprendido", "resposta": dado_encontrado["resposta_ensinada"]}
+        
+        # Verificar correspondência exata case-insensitive
+        if pergunta_normalizada in mapa_aprendidos_lower:
+            dado_encontrado = mapa_aprendidos_lower[pergunta_normalizada]
+            self.logger.info(f"✅ Correspondência EXATA (case-insensitive) encontrada nos dados aprendidos: '{pergunta_usuario}'")
+            return {"tag": "aprendido", "resposta": dado_encontrado["resposta_ensinada"]}
+        
+        # 4. Busca fuzzy nos aprendidos com threshold MUITO RIGOROSO
+        matches_aprendidos = get_close_matches(pergunta_usuario, perguntas_aprendidas, n=1, cutoff=0.9)  # Aumentado de 0.7
 
         if matches_aprendidos:
             melhor_pergunta_aprendida = matches_aprendidos[0]
+            similaridade_aprendida = SequenceMatcher(None, pergunta_usuario.lower(), melhor_pergunta_aprendida.lower()).ratio()
+            self.logger.info(f"✅ Correspondência FUZZY encontrada nos dados aprendidos: '{pergunta_usuario}' -> '{melhor_pergunta_aprendida}' (similaridade: {similaridade_aprendida:.2f})")
+            
             for dado in self.aprendidos:
                 if dado["pergunta"] == melhor_pergunta_aprendida:
                     return {"tag": "aprendido", "resposta": dado["resposta_ensinada"]}
                 
+        self.logger.info(f"❌ Nenhuma correspondência encontrada para: '{pergunta_usuario}' - ativando fallback")
         return None
 
     def processar_mensagem(self, pergunta: str, personalidade: str) -> tuple[str, bool]:
@@ -122,15 +269,14 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
         return resposta
     def ensinar_nova_resposta(self, pergunta: str, resposta: str) -> bool:
         """
-        Método web-friendly para ensinar uma nova resposta ao chatbot.
-        Retorna True se a operação foi bem-sucedida.
+        🚀 MÉTODO CORRIGIDO - Usa novo método de salvamento seguro
         """
-        try:
-            self._salvar_dados_aprendidos(pergunta, resposta)
-            return True
-        except Exception as e:
-            print(f"Erro ao salvar dados aprendidos: {e}")
+        # Validação básica antes de chamar método seguro
+        if not pergunta.strip() or not resposta.strip():
+            self.logger.error("Pergunta ou resposta vazia rejeitada")
             return False
+            
+        return self._salvar_dados_aprendidos(pergunta, resposta)
 
     def _validar_personalidade(self, personalidade: str) -> bool:
         """
