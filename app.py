@@ -23,6 +23,8 @@ def iniciar_chat():
 
 def enviar_mensagem(user_message: str, personalidade: str, chat_history, internal_state):
     """
+    🚀 FUNÇÃO CORRIGIDA - Solução para Issue Crítica #01
+    
     Função disparada quando o usuário envia uma mensagem.
     Retorna chat atualizado e estado interno.
     """
@@ -33,11 +35,11 @@ def enviar_mensagem(user_message: str, personalidade: str, chat_history, interna
     chat = list(chat_history) if chat_history else []
     chat.append(("Você", user_message))
 
-    # usa o método da classe Chatbot para processar a mensagem
-    resposta_bot = aline_bot.processar_mensagem(user_message, personalidade)
+    # 🚨 CORREÇÃO: Usa o método corrigido que retorna tupla (resposta, is_fallback)
+    resposta_bot, is_fallback = aline_bot.processar_mensagem(user_message, personalidade)
     
-    # verifica se a resposta indica que o bot não sabe (fallback ou não encontrou)
-    if "não sei a resposta" in resposta_bot or "não entendi" in resposta_bot:
+    # 🚨 CORREÇÃO: Verifica fallback usando flag robusta ao invés de string matching
+    if is_fallback:
         chat.append((f"Aline ({personalidade.capitalize()})", resposta_bot + " Você pode me ensinar a resposta ideal?"))
         # estado para ensinar
         internal_state["awaiting_teach"] = True
