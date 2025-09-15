@@ -73,28 +73,53 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
                 
         return None
 
-    def processar_mensagem(self, pergunta: str, personalidade: str) -> str:
+    def processar_mensagem(self, pergunta: str, personalidade: str) -> tuple[str, bool]:
         """
-        Método web-friendly para processar uma mensagem sem interface CLI.
-        Retorna a resposta do chatbot para a pergunta dada.
+        🚀 MÉTODO CORRIGIDO - Solução para Issue Crítica #01
+        
+        Retorna a resposta do chatbot e uma flag indicando se é fallback.
+        
+        Args:
+            pergunta: A pergunta do usuário
+            personalidade: A personalidade a ser usada
+            
+        Returns:
+            tuple[str, bool]: (resposta, is_fallback)
+                - resposta: A resposta gerada pelo chatbot
+                - is_fallback: True se for resposta de fallback, False caso contrário
         """
         melhor_intencao = self._achar_melhor_intencao(pergunta.lower())
         
         if melhor_intencao and melhor_intencao.get("tag") != "aprendido":
             resposta = melhor_intencao.get("respostas", {}).get(personalidade, "Desculpe, não tenho uma resposta para essa personalidade.")
-            return resposta
+            return resposta, False
         
         elif melhor_intencao and melhor_intencao.get("tag") == "aprendido":
-            return melhor_intencao["resposta"]
+            return melhor_intencao["resposta"], False
         
         else:
             # Busca fallback
             fallback_intencao = next((i for i in self.intencoes if i.get("tag") == "fallback"), None)
             if fallback_intencao:
-                return fallback_intencao.get("respostas", {}).get(personalidade, "Desculpe, não entendi.")
+                resposta = fallback_intencao.get("respostas", {}).get(personalidade, "Desculpe, não entendi.")
+                return resposta, True  # 🚨 CORREÇÃO: Retorna True para indicar fallback
             else:
-                return "Eu não sei a resposta para essa pergunta."
+                return "Eu não sei a resposta para essa pergunta.", True  # 🚨 CORREÇÃO: Retorna True para indicar fallback
 
+    def processar_mensagem_cli(self, pergunta: str, personalidade: str) -> str:
+        """
+        Método de compatibilidade para interface CLI.
+        Mantém a assinatura original para não quebrar o código CLI existente.
+        
+        Args:
+            pergunta: A pergunta do usuário
+            personalidade: A personalidade a ser usada
+            
+        Returns:
+            str: A resposta do chatbot (sem flag de fallback)
+        """
+        resposta, _ = self.processar_mensagem(pergunta, personalidade)
+        return resposta
     def ensinar_nova_resposta(self, pergunta: str, resposta: str) -> bool:
         """
         Método web-friendly para ensinar uma nova resposta ao chatbot.
@@ -238,26 +263,13 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
                 print(resposta_comando)
                 continue
 
-            # Processar como mensagem normal (converter para lowercase para análise)
-            melhor_intencao = self._achar_melhor_intencao(entrada_usuario.lower())
-
-            if melhor_intencao and melhor_intencao.get("tag") != "aprendido": 
-                resposta = melhor_intencao.get("respostas", {}).get(self.personalidade, "Desculpe, não tenho uma resposta para essa personalidade.")
-                print(f'Aline ({self.nome_personalidade}): {resposta}')
+            # Processar como mensagem normal usando método corrigido
+            resposta, is_fallback = self.processar_mensagem(entrada_usuario, self.personalidade)
+            print(f'Aline ({self.nome_personalidade}): {resposta}')
             
-            elif melhor_intencao and melhor_intencao.get("tag") == "aprendido":
-                print(f'Aline ({self.nome_personalidade}): {melhor_intencao["resposta"]}')
-            
-            else:
-                fallback_intencao = next((i for i in self.intencoes if i.get("tag") == "fallback"), None)
-                if fallback_intencao:
-                    resposta_fallback = fallback_intencao.get("respostas", {}).get(self.personalidade, "Desculpe, não entendi.")
-                    print(f'Aline ({self.nome_personalidade}): {resposta_fallback}')
-                else:
-                    print(f'Aline ({self.nome_personalidade}): Eu não sei a resposta para essa pergunta.')
-                
+            # Se for fallback, perguntar se quer ensinar
+            if is_fallback:
                 quer_ensinar = input(f'Aline ({self.nome_personalidade}): Deseja me ensinar a resposta correta? (s/n) ').lower().strip()
-
                 if quer_ensinar == 's':
                     self.aprender(entrada_usuario)
 
