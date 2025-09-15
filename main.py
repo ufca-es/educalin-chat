@@ -1,9 +1,13 @@
 import json
+import re
 import os
 import shutil
 import logging
+import codecs
 from difflib import get_close_matches, SequenceMatcher
 from typing import Optional, Dict, List, Any
+
+CONTROL_CHAR_REGEX = re.compile(r'[\x00-\x1f\x7f-\x9f]')
 
 class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados, a lógica da conversa e a aprendizagem da própria.
 
@@ -51,9 +55,15 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
             self.logger.warning(f"Entrada muito longa rejeitada: {len(texto)} caracteres")
             return False
         
-        # Verificar caracteres de controle perigosos (incluindo ANSI escape)
-        caracteres_proibidos = ['\x00', '\x01', '\x02', '\x03', '\x04', '\x1b']
-        if any(char in texto for char in caracteres_proibidos):
+        # Decodificar escapes para garantir que a validação pegue caracteres como \x00
+        try:
+            texto_decodificado = codecs.decode(texto, 'unicode_escape')
+        except UnicodeDecodeError:
+            self.logger.warning("Entrada com sequência de escape inválida rejeitada.")
+            return False # Rejeita entradas com escapes malformados
+
+        # Verificação robusta de caracteres de controle usando regex no texto decodificado
+        if CONTROL_CHAR_REGEX.search(texto_decodificado):
             self.logger.warning("Entrada com caracteres de controle rejeitada")
             return False
         
@@ -91,8 +101,11 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
                     dados_carregados = json.load(f)
                     if isinstance(dados_carregados, list):
                         dados_aprendidos = dados_carregados
-            except (FileNotFoundError, json.JSONDecodeError, UnicodeDecodeError):
-                self.logger.warning("Arquivo corrompido ou inexistente, criando novo")
+            except (FileNotFoundError, json.JSONDecodeError, UnicodeDecodeError, Exception) as e:
+                self.logger.error(f"Erro crítico no arquivo: {str(e)} - Recriando arquivo válido")
+                # Cria arquivo vazio com estrutura JSON válida
+                with open(self.new_data_path, 'w', encoding='utf-8') as f:
+                    json.dump([], f)
                 dados_aprendidos = []
             
             # 3. Adicionar nova entrada
@@ -177,16 +190,37 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
             return intencao_encontrada
         
         # 2. Busca fuzzy nas intenções base (threshold MAIS RIGOROSO)
-        matches = get_close_matches(pergunta_usuario, todas_perguntas, n=1, cutoff=0.8)  # Aumentado de 0.6
+        matches = get_close_matches(pergunta_normalizada, todas_perguntas, n=1, cutoff=0.8)
         
         if matches:
             melhor_pergunta = matches[0]
-            similaridade = SequenceMatcher(None, pergunta_usuario.lower(), melhor_pergunta.lower()).ratio()
+            similaridade = SequenceMatcher(None, pergunta_normalizada, melhor_pergunta.lower()).ratio()
             self.logger.info(f"✅ Correspondência FUZZY encontrada nas intenções base: '{pergunta_usuario}' -> '{melhor_pergunta}' (similaridade: {similaridade:.2f})")
             
-            for intencao in self.intencoes:
-                if melhor_pergunta in intencao.get("perguntas", []):
-                    return intencao
+            # Lógica Condicional de Confiança
+            self.logger.info(f"Similaridade SequenceMatcher: {similaridade:.2f}")
+
+            # 1. Alta Confiança (>=0.92): Aceita como erro de digitação, sem verificação Jaccard.
+            if similaridade >= 0.92:
+                self.logger.info("Alta confiança, aceitando correspondência.")
+                for intencao in self.intencoes:
+                    if melhor_pergunta in intencao.get("perguntas", []):
+                        return intencao
+            
+            # 2. Confiança Média (>=0.8): Requer verificação Jaccard para desambiguação.
+            elif similaridade >= 0.8:
+                tokens_usuario = set(pergunta_normalizada.split())
+                tokens_candidata = set(melhor_pergunta.lower().split())
+                intersecao = len(tokens_usuario.intersection(tokens_candidata))
+                uniao = len(tokens_usuario.union(tokens_candidata))
+                jaccard_similarity = intersecao / uniao if uniao > 0 else 0
+                self.logger.info(f"Confiança média, verificando Jaccard: {jaccard_similarity:.2f}")
+                
+                if jaccard_similarity >= 0.9:
+                    self.logger.info("Jaccard alto, confirmando correspondência.")
+                    for intencao in self.intencoes:
+                        if melhor_pergunta in intencao.get("perguntas", []):
+                            return intencao
         
         # 3. Busca EXATA primeiro nos dados aprendidos
         perguntas_aprendidas = [d["pergunta"] for d in self.aprendidos]
@@ -206,16 +240,37 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
             return {"tag": "aprendido", "resposta": dado_encontrado["resposta_ensinada"]}
         
         # 4. Busca fuzzy nos aprendidos com threshold MUITO RIGOROSO
-        matches_aprendidos = get_close_matches(pergunta_usuario, perguntas_aprendidas, n=1, cutoff=0.9)  # Aumentado de 0.7
+        matches_aprendidos = get_close_matches(pergunta_normalizada, perguntas_aprendidas, n=1, cutoff=0.9)
 
         if matches_aprendidos:
             melhor_pergunta_aprendida = matches_aprendidos[0]
-            similaridade_aprendida = SequenceMatcher(None, pergunta_usuario.lower(), melhor_pergunta_aprendida.lower()).ratio()
+            similaridade_aprendida = SequenceMatcher(None, pergunta_normalizada, melhor_pergunta_aprendida.lower()).ratio()
             self.logger.info(f"✅ Correspondência FUZZY encontrada nos dados aprendidos: '{pergunta_usuario}' -> '{melhor_pergunta_aprendida}' (similaridade: {similaridade_aprendida:.2f})")
+
+            # Lógica Condicional de Confiança para dados aprendidos
+            self.logger.info(f"Similaridade SequenceMatcher (aprendido): {similaridade_aprendida:.2f}")
+
+            # 1. Alta Confiança (>=0.92): Aceita como erro de digitação.
+            if similaridade_aprendida >= 0.92:
+                self.logger.info("Alta confiança (aprendido), aceitando correspondência.")
+                for dado in self.aprendidos:
+                    if dado["pergunta"] == melhor_pergunta_aprendida:
+                        return {"tag": "aprendido", "resposta": dado["resposta_ensinada"]}
             
-            for dado in self.aprendidos:
-                if dado["pergunta"] == melhor_pergunta_aprendida:
-                    return {"tag": "aprendido", "resposta": dado["resposta_ensinada"]}
+            # 2. Confiança Média (>=0.9): Requer verificação Jaccard.
+            elif similaridade_aprendida >= 0.9:
+                tokens_usuario_aprendido = set(pergunta_normalizada.split())
+                tokens_candidata_aprendido = set(melhor_pergunta_aprendida.lower().split())
+                intersecao_aprendido = len(tokens_usuario_aprendido.intersection(tokens_candidata_aprendido))
+                uniao_aprendido = len(tokens_usuario_aprendido.union(tokens_candidata_aprendido))
+                jaccard_similarity_aprendido = intersecao_aprendido / uniao_aprendido if uniao_aprendido > 0 else 0
+                self.logger.info(f"Confiança média (aprendido), verificando Jaccard: {jaccard_similarity_aprendido:.2f}")
+                
+                if jaccard_similarity_aprendido >= 0.95:
+                    self.logger.info("Jaccard alto (aprendido), confirmando correspondência.")
+                    for dado in self.aprendidos:
+                        if dado["pergunta"] == melhor_pergunta_aprendida:
+                            return {"tag": "aprendido", "resposta": dado["resposta_ensinada"]}
                 
         self.logger.info(f"❌ Nenhuma correspondência encontrada para: '{pergunta_usuario}' - ativando fallback")
         return None
