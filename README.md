@@ -4,8 +4,8 @@
 
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://www.python.org/)
 [![Gradio](https://img.shields.io/badge/Gradio-Interface%20Web-orange.svg)](https://gradio.app/)
-[![Status](https://img.shields.io/badge/Status-52.2%25%20Concluído-green.svg)](STATUS_REQUISITOS.md)
-[![Issues Críticas](https://img.shields.io/badge/Issues%20Críticas-1-orange.svg)](STATUS_REQUISITOS.md#-issues-críticas-de-código-identificadas)
+[![Status](https://img.shields.io/badge/Status-53.3%25%20Concluído-green.svg)](docs/STATUS_REQUISITOS.md)
+[![Issues Críticas](https://img.shields.io/badge/Issues%20Críticas-0-brightgreen.svg)](docs/STATUS_REQUISITOS.md#-issues-críticas-de-código-identificadas)
 
 ---
 
@@ -346,8 +346,8 @@ Aline (Engraçada): Obrigada! Aprendi uma nova resposta.
 ## ⚠️ Limitações Conhecidas
 
 ### 🚨 **Issues Críticas de Código**
+- ✅ **Issue Crítica #01 RESOLVIDA**: String matching frágil corrigido com uso de flag booleana (`is_fallback`)
 - ✅ **Issue Crítica #02 RESOLVIDA**: Acesso não seguro a dicionários corrigido ([`main.py`](main.py))
-- **String Matching Frágil** ([`app.py:40`](app.py)): Detecção de fallback baseada em texto pode falhar
 
 ### 🔄 **Funcionalidades Pendentes**
 - **Sistema de Histórico**: Não implementado (bloqueia estatísticas)
@@ -384,12 +384,12 @@ Aline (Engraçada): Obrigada! Aprendi uma nova resposta.
 - ✅ Arquitetura limpa e bem estruturada
 
 ### 🔜 **Próximas Prioridades**
-1. 🚨 **Corrigir issue crítica restante** (string matching no app.py)
-2. 🔥 **Implementar sistema de histórico**
-3. ⚡ **Adicionar respostas aleatórias**
-4. 📊 **Desenvolver estatísticas de uso**
+1. 🔥 **Implementar sistema de histórico**
+2. ⚡ **Adicionar respostas aleatórias**
+3. 📊 **Desenvolver estatísticas de uso**
+4. 🗂️ **Modularização completa do código**
 
-*Para análise completa, consulte [STATUS_REQUISITOS.md](STATUS_REQUISITOS.md)*
+*Para análise completa, consulte [STATUS_REQUISITOS.md](docs/STATUS_REQUISITOS.md)*
 
 ---
 
