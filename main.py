@@ -4,6 +4,7 @@ import os
 import shutil
 import logging
 import codecs
+import random
 from difflib import get_close_matches, SequenceMatcher
 from typing import Optional, Dict, List, Any
 
@@ -278,6 +279,7 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
     def processar_mensagem(self, pergunta: str, personalidade: str) -> tuple[str, bool]:
         """
         🚀 MÉTODO CORRIGIDO - Solução para Issue Crítica #01
+        🚀 ATUALIZADO - Suporte a respostas aleatórias (Task 09)
         
         Retorna a resposta do chatbot e uma flag indicando se é fallback.
         
@@ -293,7 +295,11 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
         melhor_intencao = self._achar_melhor_intencao(pergunta.lower())
         
         if melhor_intencao and melhor_intencao.get("tag") != "aprendido":
-            resposta = melhor_intencao.get("respostas", {}).get(personalidade, "Desculpe, não tenho uma resposta para essa personalidade.")
+            respostas_pers = melhor_intencao.get("respostas", {}).get(personalidade, ["Desculpe, não tenho uma resposta para essa personalidade."])
+            if isinstance(respostas_pers, list):
+                resposta = random.choice(respostas_pers)
+            else:
+                resposta = respostas_pers
             return resposta, False
         
         elif melhor_intencao and melhor_intencao.get("tag") == "aprendido":
@@ -303,10 +309,15 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
             # Busca fallback
             fallback_intencao = next((i for i in self.intencoes if i.get("tag") == "fallback"), None)
             if fallback_intencao:
-                resposta = fallback_intencao.get("respostas", {}).get(personalidade, "Desculpe, não entendi.")
+                respostas_fallback = fallback_intencao.get("respostas", {}).get(personalidade, ["Desculpe, não entendi."])
+                if isinstance(respostas_fallback, list):
+                    resposta = random.choice(respostas_fallback)
+                else:
+                    resposta = respostas_fallback
                 return resposta, True  # 🚨 CORREÇÃO: Retorna True para indicar fallback
             else:
-                return "Eu não sei a resposta para essa pergunta.", True  # 🚨 CORREÇÃO: Retorna True para indicar fallback
+                fallback_respostas = ["Eu não sei a resposta para essa pergunta.", "Desculpe, não consegui processar isso."]
+                return random.choice(fallback_respostas), True  # 🚨 CORREÇÃO: Retorna True para indicar fallback
 
     def processar_mensagem_cli(self, pergunta: str, personalidade: str) -> str:
         """

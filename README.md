@@ -31,6 +31,7 @@
     - [📦 Instalação](#-instalação)
     - [🖥️ Interface Terminal (CLI)](#️-interface-terminal-cli)
     - [🌐 Interface Web (Gradio)](#-interface-web-gradio-1)
+    - [🧪 Testes](#-testes)
     - [🔧 Dependências](#-dependências)
       - [Interface CLI (main.py)](#interface-cli-mainpy)
       - [Interface Web (app.py)](#interface-web-apppy)
@@ -54,7 +55,7 @@
     - [🔄 **Funcionalidades Pendentes**](#-funcionalidades-pendentes)
     - [📋 **Arquivos de Entrega**](#-arquivos-de-entrega)
   - [📈 Progresso do Projeto](#-progresso-do-projeto)
-    - [📊 **Status Atual: 52.2% Concluído**](#-status-atual-522-concluído)
+    - [📊 **Status Atual: 53.3% Concluído** (após Task 09)](#-status-atual-533-concluído-após-task-09)
     - [🎯 **Principais Conquistas**](#-principais-conquistas)
     - [🔜 **Próximas Prioridades**](#-próximas-prioridades)
   - [🤝 Contribuição](#-contribuição)
@@ -95,6 +96,7 @@ O **EducAlin - Aline** é um chatbot educacional desenvolvido como projeto acad�
 - **🔄 Troca Dinâmica de Personalidade**: Mudança durante a conversa em **ambas interfaces**
   - **CLI**: Comandos especiais `/personalidade [nome]` e `/help`
   - **Web**: Dropdown interativo com troca instantânea
+- **🎲 Respostas Aleatórias (Task 09)**: Variabilidade nas respostas para a mesma pergunta, melhorando engajamento - [Issue #10](https://github.com/ufca-es/educalin-chat/issues/10)
 - **🛡️ Correções de Segurança**: Issues críticas resolvidas para maior robustez
 - **🎯 Arquitetura Limpa**: Separação clara entre lógica e apresentação
 
@@ -197,6 +199,10 @@ python app.py
 - Sistema de ensino com botões dedicados
 - Acesso via navegador (normalmente http://localhost:7860)
 
+### 🧪 Testes
+- **Testes Unitários**: Execute `python test_*.py` para validar correções críticas, personalidades e variabilidade de respostas.
+- **Teste de Variabilidade (Task 09)**: `python test_respostas_aleatorias.py` - Confirma aleatoriedade em respostas e fallback.
+
 ### 🔧 Dependências
 
 #### Interface CLI (main.py)
@@ -217,6 +223,7 @@ educalin-chat/
 ├── core_data.json              # Base de conhecimento principal
 ├── new_data.json              # Dados aprendidos (gerado automaticamente)
 ├── test_personalidade.py      # Suite de testes para Task 08
+├── test_respostas_aleatorias.py # Teste de variabilidade para Task 09
 ├── PERSONALIDADE_DINAMICA.md  # Documentação da Task 08
 ├── requirements.txt            # Dependências Python
 ├── README.md                  # Este arquivo
@@ -351,7 +358,7 @@ Aline (Engraçada): Obrigada! Aprendi uma nova resposta.
 
 ### 🔄 **Funcionalidades Pendentes**
 - **Sistema de Histórico**: Não implementado (bloqueia estatísticas)
-- **Respostas Aleatórias**: Estrutura suporta mas não implementado
+- **Respostas Aleatórias**: ✅ Implementado (Task 09)
 - **Modularização Completa**: Código ainda em poucos arquivos
 - **Estatísticas de Uso**: Dependente do sistema de histórico
 
@@ -363,7 +370,7 @@ Aline (Engraçada): Obrigada! Aprendi uma nova resposta.
 
 ## 📈 Progresso do Projeto
 
-### 📊 **Status Atual: 52.2% Concluído**
+### 📊 **Status Atual: 53.3% Concluído** (após Task 09)
 
 | Categoria | Progresso | Status |
 |-----------|-----------|--------|

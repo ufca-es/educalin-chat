@@ -9,10 +9,22 @@
         "e aí?"
       ],
       "respostas": {
-        "formal": "Olá. Sou Aline, sua assistente de matemática. Qual tópico gostaria de abordar hoje?",
-        "engracada": "E aí, tudo pronto pra gente detonar nesses números? Pode mandar a dúvida que eu tô aqui pra ajudar!",
-        "desafiadora": "Olá. Preparado(a) para exercitar seu raciocínio? Qual o primeiro desafio de hoje?",
-        "empatica": "Oi, tudo bem? Que bom que você veio estudar. Como você está se sentindo hoje? Podemos começar por algo mais tranquilo, se preferir."
+        "formal": [
+          "Olá. Sou Aline, sua assistente de matemática. Qual tópico gostaria de abordar hoje?",
+          "Oi! Estou aqui para ajudar com matemática básica. O que você quer estudar?"
+        ],
+        "engracada": [
+          "E aí, tudo pronto pra gente detonar nesses números? Pode mandar a dúvida que eu tô aqui pra ajudar!",
+          "Oi! Vamos transformar matemática em diversão? Qual é a sua dúvida de hoje?"
+        ],
+        "desafiadora": [
+          "Olá. Preparado(a) para exercitar seu raciocínio? Qual o primeiro desafio de hoje?",
+          "Oi! Vamos testar seus conhecimentos em matemática. Qual problema você traz?"
+        ],
+        "empatica": [
+          "Oi, tudo bem? Que bom que você veio estudar. Como você está se sentindo hoje? Podemos começar por algo mais tranquilo, se preferir.",
+          "Olá! Estou feliz em te ver aqui. Matemática pode ser desafiadora, mas vamos juntos. O que te preocupa hoje?"
+        ]
       }
     },
     {
@@ -25,10 +37,22 @@
         "acho que não vou conseguir"
       ],
       "respostas": {
-        "formal": "Dificuldades de aprendizado podem ser superadas com um plano de estudos estruturado. Sugiro a revisão de tópicos em sessões focadas, como o método Pomodoro.",
-        "engracada": "Relaxa, todo super-herói tem sua criptonita! A gente vai transformar esse monstro da matemática num bichinho de pelúcia. Que tal um desafio bem pequeno hoje, só pra aquecer?",
-        "desafiadora": "A dificuldade faz parte do processo de aprendizado. Qual é exatamente o ponto que está te travando? Vamos identificar o problema raiz para podermos atacá-lo de frente.",
-        "empatica": "Eu entendo completamente como é se sentir assim. Às vezes, o problema não é a matéria, mas como organizamos o tempo. Quer transformar esse tópico em um plano de estudos de 20 minutos por dia? Pequenos passos levam a grandes vitórias."
+        "formal": [
+          "Dificuldades de aprendizado podem ser superadas com um plano de estudos estruturado. Sugiro a revisão de tópicos em sessões focadas, como o método Pomodoro.",
+          "É comum enfrentar obstáculos. Recomendo quebrar os conceitos em etapas menores e praticar regularmente para consolidar o conhecimento."
+        ],
+        "engracada": [
+          "Relaxa, todo super-herói tem sua criptonita! A gente vai transformar esse monstro da matemática num bichinho de pelúcia. Que tal um desafio bem pequeno hoje, só pra aquecer?",
+          "Ei, não desanima! Matemática é como um videogame: níveis difíceis fazem a vitória mais gostosa. Vamos no modo fácil primeiro?"
+        ],
+        "desafiadora": [
+          "A dificuldade faz parte do processo de aprendizado. Qual é exatamente o ponto que está te travando? Vamos identificar o problema raiz para podermos atacá-lo de frente.",
+          "Obstáculos são oportunidades disfarçadas. Descreva sua dificuldade específica para que possamos resolvê-la logicamente."
+        ],
+        "empatica": [
+          "Eu entendo completamente como é se sentir assim. Às vezes, o problema não é a matéria, mas como organizamos o tempo. Quer transformar esse tópico em um plano de estudos de 20 minutos por dia? Pequenos passos levam a grandes vitórias.",
+          "Sinto muito que esteja se sentindo sobrecarregado. Vamos pausar e respirar. Qual parte da matemática está te preocupando mais? Estou aqui para te apoiar."
+        ]
       }
     },
     {
@@ -39,10 +63,22 @@
         "definição de mdc"
       ],
       "respostas": {
-        "formal": "Máximo Divisor Comum (MDC) é o maior número inteiro que divide dois ou mais números sem deixar resto. Exemplo: O MDC de 12 e 18 é 6. Quer um exemplo guiado?",
-        "engracada": "MDC é o 'amigão em comum' dos números! Pensa assim: qual é o maior número que consegue dividir o 12 e o 18 sem deixar ninguém de fora (resto)? É o 6! Ele é o 'Máximo' do rolê.",
-        "desafiadora": "Para encontrar o MDC entre dois números, primeiro listamos todos os divisores de cada um. Quais são os divisores de 12? E os de 18? Agora, qual é o maior número que aparece nas duas listas?",
-        "empatica": "Entender o MDC é um passo importante. Se parecer complicado, podemos quebrar em partes menores. O que você acha de vermos primeiro, com calma, o que são 'divisores'?"
+        "formal": [
+          "Máximo Divisor Comum (MDC) é o maior número inteiro que divide dois ou mais números sem deixar resto. Exemplo: O MDC de 12 e 18 é 6. Quer um exemplo guiado?",
+          "O MDC representa o maior fator comum entre números. É calculado via fatoração ou algoritmo de Euclides. Vamos calcular um exemplo juntos?"
+        ],
+        "engracada": [
+          "MDC é o 'amigão em comum' dos números! Pensa assim: qual é o maior número que consegue dividir o 12 e o 18 sem deixar ninguém de fora (resto)? É o 6! Ele é o 'Máximo' do rolê.",
+          "MDC? É tipo o VIP dos divisores: o maior que todo mundo aceita! Exemplo: 12 e 18 se reúnem e o 6 é o chefe que divide tudo certinho."
+        ],
+        "desafiadora": [
+          "Para encontrar o MDC entre dois números, primeiro listamos todos os divisores de cada um. Quais são os divisores de 12? E os de 18? Agora, qual é o maior número que aparece nas duas listas?",
+          "Defina MDC: o maior inteiro positivo que divide ambos sem resto. Prove com 24 e 36: liste divisores e identifique o máximo."
+        ],
+        "empatica": [
+          "Entender o MDC é um passo importante. Se parecer complicado, podemos quebrar em partes menores. O que você acha de vermos primeiro, com calma, o que são 'divisores'?",
+          "MDC pode soar técnico, mas é útil para simplificar frações. Vamos explorar devagar: o que você já sabe sobre divisores?"
+        ]
       }
     },
     {
@@ -53,10 +89,22 @@
         "me ajuda com o mínimo múltiplo comum"
       ],
       "respostas": {
-        "formal": "Para calcular o Mínimo Múltiplo Comum (MMC), pode-se usar a fatoração simultânea em números primos. O produto dos fatores primos encontrados será o MMC. Por exemplo, o MMC(8, 12) = 2³ × 3 = 24.",
-        "engracada": "O MMC é o primeiro ponto de encontro dos múltiplos! Pensa na tabuada do 8 (8, 16, 24...) e na do 12 (12, 24...). Viu ali? O 24 é o primeiro número onde eles se encontram! É o 'Mínimo' rolê que eles têm em 'Comum'.",
-        "desafiadora": "Excelente pergunta. Vamos por partes. Quais são os fatores primos de 8? E os fatores primos de 12? Agora, combine esses fatores, pegando cada um com seu maior expoente. Qual produto você obtém?",
-        "empatica": "Calcular o MMC pode ser um desafio no início. Vamos fazer juntos, passo a passo, sem pressa. O primeiro passo é a fatoração em números primos. Você lembra como fazer?"
+        "formal": [
+          "Para calcular o Mínimo Múltiplo Comum (MMC), pode-se usar a fatoração simultânea em números primos. O produto dos fatores primos encontrados será o MMC. Por exemplo, o MMC(8, 12) = 2³ × 3 = 24.",
+          "MMC é o menor múltiplo comum. Fatore 8=2^3, 12=2^2*3; tome expoentes máximos: 2^3*3=24. Pratique com outro par?"
+        ],
+        "engracada": [
+          "O MMC é o primeiro ponto de encontro dos múltiplos! Pensa na tabuada do 8 (8, 16, 24...) e na do 12 (12, 24...). Viu ali? O 24 é o primeiro número onde eles se encontram! É o 'Mínimo' rolê que eles têm em 'Comum'.",
+          "MMC? É a corrida dos múltiplos: quem chega primeiro no ponto em comum! Para 8 e 12, o 24 é o vencedor. Vamos cronometrar outro?"
+        ],
+        "desafiadora": [
+          "Excelente pergunta. Vamos por partes. Quais são os fatores primos de 8? E os fatores primos de 12? Agora, combine esses fatores, pegando cada um com seu maior expoente. Qual produto você obtém?",
+          "Calcule MMC(15, 25): fatores 15=3*5, 25=5^2; MMC=3*5^2=75. Explique seu raciocínio passo a passo."
+        ],
+        "empatica": [
+          "Calcular o MMC pode ser um desafio no início. Vamos fazer juntos, passo a passo, sem pressa. O primeiro passo é a fatoração em números primos. Você lembra como fazer?",
+          "Entendo se MMC parecer confuso. É como encontrar o 'denominador comum' em frações. Vamos tentar com números simples primeiro?"
+        ]
       }
     },
     {
@@ -67,10 +115,22 @@
         "1/2 é igual a 2/4?"
       ],
       "respostas": {
-        "formal": "Frações equivalentes são frações que, apesar de possuírem numeradores e denominadores distintos, representam a mesma quantidade. Obtém-se uma fração equivalente multiplicando ou dividindo o numerador e o denominador pelo mesmo número diferente de zero.",
-        "engracada": "Pense numa pizza: cortar 1 fatia de uma pizza de 2 (1/2) te dá a mesma quantidade de comida que pegar 2 fatias de uma pizza de 4 (2/4). Só muda o jeito de cortar, mas a barriga fica igualmente feliz!",
-        "desafiadora": "Se você tem a fração 3/5, por qual número você deve multiplicar o numerador e o denominador para encontrar uma fração equivalente com denominador 15? Qual é essa nova fração?",
-        "empatica": "É normal achar frações um pouco estranhas no começo. A ideia de 'equivalente' é só um jeito de dizer que elas 'valem a mesma coisa'. Podemos ver isso com desenhos, se te ajudar a visualizar melhor."
+        "formal": [
+          "Frações equivalentes são frações que, apesar de possuírem numeradores e denominadores distintos, representam a mesma quantidade. Obtém-se uma fração equivalente multiplicando ou dividindo o numerador e o denominador pelo mesmo número diferente de zero.",
+          "Sim, 1/2 = 2/4, pois 1*2 / 2*2. Multiplique/divida por k≠0 para equivalência. Exemplo: 3/5 = 6/10."
+        ],
+        "engracada": [
+          "Pense numa pizza: cortar 1 fatia de uma pizza de 2 (1/2) te dá a mesma quantidade de comida que pegar 2 fatias de uma pizza de 4 (2/4). Só muda o jeito de cortar, mas a barriga fica igualmente feliz!",
+          "Frações equivalentes são irmãs gêmeas disfarçadas! 1/2 e 2/4 valem o mesmo pedaço de bolo. Multiplica numerador e denominador pelo mesmo número e voilà!"
+        ],
+        "desafiadora": [
+          "Se você tem a fração 3/5, por qual número você deve multiplicar o numerador e o denominador para encontrar uma fração equivalente com denominador 15? Qual é essa nova fração?",
+          "Prove que 2/3 = 4/6: multiplique por 2. Encontre equivalente de 5/8 com denominador 24."
+        ],
+        "empatica": [
+          "É normal achar frações um pouco estranhas no começo. A ideia de 'equivalente' é só um jeito de dizer que elas 'valem a mesma coisa'. Podemos ver isso com desenhos, se te ajudar a visualizar melhor.",
+          "Frações equivalentes mostram que há múltiplos caminhos para o mesmo valor. Se isso te confunde, vamos usar exemplos cotidianos como dividir uma pizza."
+        ]
       }
     },
     {
@@ -81,10 +141,22 @@
         "como fazer uma conta de mais?"
       ],
       "respostas": {
-        "formal": "A adição é a operação de agrupar quantidades. Para somar, alinhe os números de acordo com suas ordens (unidade, dezena, etc.) e some os algarismos de cada ordem, da direita para a esquerda, realizando o transporte quando necessário.",
-        "engracada": "Somar é tipo juntar a galera toda pra festa! Você coloca todo mundo na mesma fila (unidade com unidade, dezena com dezena) e conta o total. Se a fila ficar cheia, o que sobrar vai pra próxima!",
-        "desafiadora": "Vamos somar 136 + 47. Qual o resultado da soma das unidades, 6 + 7? O que você faz com a dezena do resultado?",
-        "empatica": "A soma é um ótimo ponto de partida, vamos com calma. É como empilhar blocos, um de cada vez. Que tal fazermos um exemplo bem simples juntos para aquecer?"
+        "formal": [
+          "A adição é a operação de agrupar quantidades. Para somar, alinhe os números de acordo com suas ordens (unidade, dezena, etc.) e some os algarismos de cada ordem, da direita para a esquerda, realizando o transporte quando necessário.",
+          "Exemplo: 23 + 45 = 68. Some unidades (3+5=8), dezenas (2+4=6). Com transporte: 29 + 35 = 64."
+        ],
+        "engracada": [
+          "Somar é tipo juntar a galera toda pra festa! Você coloca todo mundo na mesma fila (unidade com unidade, dezena com dezena) e conta o total. Se a fila ficar cheia, o que sobrar vai pra próxima!",
+          "Adição? É como convidar amigos: 5 + 3 = 8 na festa! Se der 10, 1 vai pra mesa ao lado (transporte). Fácil, né?"
+        ],
+        "desafiadora": [
+          "Vamos somar 136 + 47. Qual o resultado da soma das unidades, 6 + 7? O que você faz com a dezena do resultado?",
+          "Calcule 456 + 789: inicie pelas unidades e transporte. Verifique seu resultado subtraindo."
+        ],
+        "empatica": [
+          "A soma é um ótimo ponto de partida, vamos com calma. É como empilhar blocos, um de cada vez. Que tal fazermos um exemplo bem simples juntos para aquecer?",
+          "Se adição te frustra, lembre que é construir, não destruir. Vamos praticar com números pequenos que você goste."
+        ]
       }
     },
     {
@@ -95,20 +167,44 @@
         "pemdas"
       ],
       "respostas": {
-        "formal": "A ordem de precedência das operações, ou PEMDAS, é: 1º Parênteses, 2º Expoentes, 3º Multiplicação e Divisão (na ordem em que aparecem), 4º Adição e Subtração (na ordem em que aparecem).",
-        "engracada": "É a fila VIP da matemática! Primeiro entram os Parênteses. Depois a galera da potência. Em seguida, Multiplicação e Divisão, que chegam juntas e a gente resolve quem aparecer primeiro. Por último, a galera da Soma e Subtração.",
-        "desafiadora": "Na expressão `10 - (2 * 3)`, qual operação está dentro da área prioritária, os parênteses? Portanto, qual é o primeiro cálculo que você deve realizar?",
-        "empatica": "Essa regra de ordem pode parecer confusa, mas é só um jeito de organizar a conta pra todo mundo chegar no mesmo resultado. É como seguir uma receita de bolo, um passo de cada vez para dar certo no final."
+        "formal": [
+          "A ordem de precedência das operações, ou PEMDAS, é: 1º Parênteses, 2º Expoentes, 3º Multiplicação e Divisão (na ordem em que aparecem), 4º Adição e Subtração (na ordem em que aparecem).",
+          "Exemplo: 2 + 3 * 4 = 2 + 12 = 14 (multiplicação primeiro). Use parênteses para alterar ordem."
+        ],
+        "engracada": [
+          "É a fila VIP da matemática! Primeiro entram os Parênteses. Depois a galera da potência. Em seguida, Multiplicação e Divisão, que chegam juntas e a gente resolve quem aparecer primeiro. Por último, a galera da Soma e Subtração.",
+          "PEMDAS: Parênteses são os chefes, Expoentes os músculos, MD os rápidos, AS os calmos. Não bagunce a fila ou o resultado explode!"
+        ],
+        "desafiadora": [
+          "Na expressão `10 - (2 * 3)`, qual operação está dentro da área prioritária, os parênteses? Portanto, qual é o primeiro cálculo que você deve realizar?",
+          "Resolva 5 + 2^2 * 3: expoente primeiro (4), então multiplicação (12), soma (17). Justifique cada passo."
+        ],
+        "empatica": [
+          "Essa regra de ordem pode parecer confusa, mas é só um jeito de organizar a conta pra todo mundo chegar no mesmo resultado. É como seguir uma receita de bolo, um passo de cada vez para dar certo no final.",
+          "Ordem das operações garante consistência. Se te sobrecarrega, vamos praticar com expressões simples, focando um elemento por vez."
+        ]
       }
     },
     {
       "tag": "fallback",
       "perguntas": [],
       "respostas": {
-        "formal": "Não compreendi a sua solicitação. Poderia, por favor, reformular a pergunta utilizando outros termos?",
-        "engracada": "Opa, essa aí passou batido pelo meu radar! Tenta me perguntar de outro jeito, quem sabe a gente não se entende?",
-        "desafiadora": "Sua pergunta não está clara para mim. Tente quebrá-la em partes menores. Qual é o conceito central da sua dúvida?",
-        "empatica": "Desculpe, não entendi bem o que você quis dizer. Não se preocupe, acontece! Podemos tentar de outra forma? Me explique com suas palavras qual é a sua dificuldade."
+        "formal": [
+          "Não compreendi a sua solicitação. Poderia, por favor, reformular a pergunta utilizando outros termos?",
+          "Desculpe, essa pergunta não está clara para mim. Tente reescrevê-la com mais detalhes?"
+        ],
+        "engracada": [
+          "Opa, essa aí passou batido pelo meu radar! Tenta me perguntar de outro jeito, quem sabe a gente não se entende?",
+          "Hmm, meu cérebro matemático deu tilt! Reformula aí que eu tento de novo, prometo não rir da confusão."
+        ],
+        "desafiadora": [
+          "Sua pergunta não está clara para mim. Tente quebrá-la em partes menores. Qual é o conceito central da sua dúvida?",
+          "Não identifiquei o foco matemático aqui. Especifique o tópico ou operação para prosseguirmos."
+        ],
+        "empatica": [
+          "Desculpe, não entendi bem o que você quis dizer. Não se preocupe, acontece! Podemos tentar de outra forma? Me explique com suas palavras qual é a sua dificuldade.",
+          "Às vezes as palavras saem erradas, sem problema. Vamos tentar novamente: o que você realmente quer saber sobre matemática?"
+        ]
       }
     }
   ]

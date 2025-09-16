@@ -1,0 +1,47 @@
+import sys
+import os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from main import Chatbot
+import random
+
+# Fix seed for reproducible testing
+random.seed(42)
+
+def test_aleatoriedade():
+    bot = Chatbot('core_data.json', 'new_data.json')
+    bot.trocar_personalidade('formal')
+    
+    pergunta_teste = "oi"
+    
+    respostas = []
+    for i in range(5):
+        resposta, is_fallback = bot.processar_mensagem(pergunta_teste, 'formal')
+        respostas.append(resposta)
+        print(f"Run {i+1}: {resposta}")
+    
+    # Check for variability
+    unique_respostas = set(respostas)
+    print(f"\nRespostas únicas: {len(unique_respostas)}/5")
+    if len(unique_respostas) > 1:
+        print("✅ Variabilidade confirmada!")
+    else:
+        print("❌ Sem variabilidade detectada.")
+    
+    # Test fallback
+    pergunta_fallback = "pergunta desconhecida"
+    respostas_fallback = []
+    for i in range(3):
+        resposta, is_fallback = bot.processar_mensagem(pergunta_fallback, 'engracada')
+        respostas_fallback.append(resposta)
+        print(f"Fallback Run {i+1}: {resposta} (is_fallback: {is_fallback})")
+    
+    unique_fallback = set(respostas_fallback)
+    print(f"Fallback únicas: {len(unique_fallback)}/3")
+    if len(unique_fallback) > 1:
+        print("✅ Fallback variabilidade confirmada!")
+    else:
+        print("❌ Fallback sem variabilidade.")
+
+if __name__ == "__main__":
+    test_aleatoriedade()
