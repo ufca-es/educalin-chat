@@ -5,6 +5,7 @@ import shutil
 import logging
 import codecs
 import random
+from datetime import datetime
 from difflib import get_close_matches, SequenceMatcher
 from typing import Optional, Dict, List, Any
 
@@ -16,9 +17,12 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
 
         self.core_data_path = core_data_path
         self.new_data_path = new_data_path
+        self.historico_path = 'historico.json'
         self.logger = self._setup_logging()
         self.intencoes: List[Dict[str, Any]] = self._carregar_base_conhecimento()
         self.aprendidos: List[Dict[str, str]] = self._carregar_dados_aprendidos()
+        self.historico: List[Dict[str, Any]] = self._carregar_historico()
+        self.interacoes_count = len(self.historico)  # Preparação para estatísticas (Task 13)
         self.personalidade: Optional[str] = None
         self.nome_personalidade: Optional[str] = None
 
@@ -160,6 +164,89 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
                 dados = json.load(file)
                 return dados if isinstance(dados, list) else []
         except (FileNotFoundError, json.JSONDecodeError):
+            return []
+
+    def _salvar_historico(self, pergunta: str, resposta: str, personalidade: str) -> bool:
+        """
+        Salva uma nova interação no histórico, mantendo apenas as últimas 5.
+        Usa salvamento atômico similar ao de dados aprendidos.
+        """
+        # Validação básica
+        if not pergunta.strip() or not resposta.strip():
+            self.logger.warning("Tentativa de salvar histórico com entrada vazia ignorada.")
+            return False
+
+        timestamp = datetime.now().isoformat()
+        nova_entrada = {
+            "timestamp": timestamp,
+            "pergunta": pergunta,
+            "resposta": resposta,
+            "personalidade": personalidade
+        }
+
+        # Adicionar à lista em memória
+        self.historico.append(nova_entrada)
+        # Manter apenas últimas 5 (rotação)
+        self.historico = self.historico[-5:]
+        self.interacoes_count = len(self.historico)  # Atualizar contador para stats
+
+        # Salvamento atômico (reutilizando lógica similar a _salvar_dados_aprendidos)
+        backup_file = f"{self.historico_path}.backup"
+        temp_file = f"{self.historico_path}.tmp"
+
+        try:
+            # Backup se existir
+            if os.path.exists(self.historico_path):
+                shutil.copy2(self.historico_path, backup_file)
+                self.logger.info("Backup de histórico criado")
+
+            # Validar JSON antes de escrever
+            json_string = json.dumps(self.historico, indent=2, ensure_ascii=False)
+            json.loads(json_string)  # Validação
+
+            # Escrita atômica
+            with open(temp_file, 'w', encoding='utf-8') as f:
+                f.write(json_string)
+
+            # Verificação
+            with open(temp_file, 'r', encoding='utf-8') as f:
+                json.load(f)
+
+            # Commit
+            os.replace(temp_file, self.historico_path)
+
+            # Cleanup backup
+            if os.path.exists(backup_file):
+                os.remove(backup_file)
+
+            self.logger.info(f"Histórico salvo: {len(self.historico)} interações")
+            return True
+
+        except Exception as e:
+            self.logger.error(f"Erro ao salvar histórico: {e}")
+            # Rollback
+            if os.path.exists(backup_file) and os.path.exists(self.historico_path):
+                shutil.copy2(backup_file, self.historico_path)
+                os.remove(backup_file)
+            if os.path.exists(temp_file):
+                os.remove(temp_file)
+            return False
+
+    def _carregar_historico(self) -> List[Dict[str, Any]]:
+        """
+        Carrega o histórico de conversas do arquivo historico.json.
+        Retorna as últimas 5 interações ou lista vazia se não existir.
+        """
+        try:
+            with open(self.historico_path, 'r', encoding="utf-8") as file:
+                dados = json.load(file)
+                if isinstance(dados, list):
+                    # Retorna últimas 5
+                    return dados[-5:]
+                else:
+                    return []
+        except (FileNotFoundError, json.JSONDecodeError):
+            self.logger.info("Arquivo de histórico não encontrado ou inválido. Iniciando com histórico vazio.")
             return []
 
     def _achar_melhor_intencao(self, pergunta_usuario: str) -> Optional[Dict[str, Any]]:
@@ -459,6 +546,19 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
             return
 
         self.selecionar_personalidade()
+
+        # Task 11: Exibir histórico anterior se existir
+        if self.historico:
+            print("\n📜 Resumo do histórico anterior:")
+            print("-" * 50)
+            for entry in self.historico:
+                ts = entry["timestamp"][:16]  # Formato legível: YYYY-MM-DD HH:MM
+                pers = entry["personalidade"].capitalize()
+                print(f"[{ts}] Você: {entry['pergunta']}")
+                print(f"     Aline ({pers}): {entry['resposta'][:100]}...")  # Truncar se longa
+                print()
+            print("-" * 50)
+            print("Continuando a conversa...\n")
         
         print(f"Você está conversando com Aline {self.nome_personalidade}. Digite 'quit' para sair ou '/help' para ver comandos.")
 
@@ -478,6 +578,9 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
             # Processar como mensagem normal usando método corrigido
             resposta, is_fallback = self.processar_mensagem(entrada_usuario, self.personalidade)
             print(f'Aline ({self.nome_personalidade}): {resposta}')
+
+            # Task 12: Salvar interação no histórico
+            self._salvar_historico(entrada_usuario, resposta, self.personalidade)
             
             # Se for fallback, perguntar se quer ensinar
             if is_fallback:

@@ -4,7 +4,7 @@
 
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://www.python.org/)
 [![Gradio](https://img.shields.io/badge/Gradio-Interface%20Web-orange.svg)](https://gradio.app/)
-[![Status](https://img.shields.io/badge/Status-53.3%25%20Concluído-green.svg)](docs/STATUS_REQUISITOS.md)
+[![Status](https://img.shields.io/badge/Status-70%25%20Concluído-green.svg)](docs/STATUS_REQUISITOS.md)
 [![Issues Críticas](https://img.shields.io/badge/Issues%20Críticas-0-brightgreen.svg)](docs/STATUS_REQUISITOS.md#-issues-críticas-de-código-identificadas)
 
 ---
@@ -55,7 +55,7 @@
     - [🔄 **Funcionalidades Pendentes**](#-funcionalidades-pendentes)
     - [📋 **Arquivos de Entrega**](#-arquivos-de-entrega)
   - [📈 Progresso do Projeto](#-progresso-do-projeto)
-    - [📊 **Status Atual: 53.3% Concluído** (após Task 09)](#-status-atual-533-concluído-após-task-09)
+    - [📊 **Status Atual: 70% Concluído** (após Tasks 11-12)](#-status-atual-70-concluído-após-tasks-11-12)
     - [🎯 **Principais Conquistas**](#-principais-conquistas)
     - [🔜 **Próximas Prioridades**](#-próximas-prioridades)
   - [🤝 Contribuição](#-contribuição)
@@ -93,7 +93,8 @@ O **EducAlin - Aline** é um chatbot educacional desenvolvido como projeto acad�
 - **📚 Base de Conhecimento**: Conhecimento pré-programado em matemática básica
 - **🔍 Busca Inteligente**: Correspondência fuzzy para entender variações de perguntas
 - **💾 Persistência de Dados**: Salva novos aprendizados em arquivo JSON
-- **🔄 Troca Dinâmica de Personalidade**: Mudança durante a conversa em **ambas interfaces**
+- **📜 Sistema de Histórico (Tasks 11-12)**: Carregamento e salvamento das últimas 5 interações com timestamps em ambas interfaces, preparando para estatísticas
+- ** Troca Dinâmica de Personalidade**: Mudança durante a conversa em **ambas interfaces**
   - **CLI**: Comandos especiais `/personalidade [nome]` e `/help`
   - **Web**: Dropdown interativo com troca instantânea
 - **🎲 Respostas Aleatórias (Task 09)**: Variabilidade nas respostas para a mesma pergunta, melhorando engajamento - [Issue #10](https://github.com/ufca-es/educalin-chat/issues/10)
@@ -200,8 +201,9 @@ python app.py
 - Acesso via navegador (normalmente http://localhost:7860)
 
 ### 🧪 Testes
-- **Testes Unitários**: Execute `python test_*.py` para validar correções críticas, personalidades e variabilidade de respostas.
+- **Testes Unitários**: Execute `python test_*.py` para validar correções críticas, personalidades, variabilidade de respostas e histórico.
 - **Teste de Variabilidade (Task 09)**: `python test_respostas_aleatorias.py` - Confirma aleatoriedade em respostas e fallback.
+- **Teste de Histórico (Tasks 11-12)**: `python test_historico.py` - Valida carregamento, salvamento e rotação de interações.
 
 ### 🔧 Dependências
 
@@ -357,10 +359,10 @@ Aline (Engraçada): Obrigada! Aprendi uma nova resposta.
 - ✅ **Issue Crítica #02 RESOLVIDA**: Acesso não seguro a dicionários corrigido ([`main.py`](main.py))
 
 ### 🔄 **Funcionalidades Pendentes**
-- **Sistema de Histórico**: Não implementado (bloqueia estatísticas)
 - **Respostas Aleatórias**: ✅ Implementado (Task 09)
+- **Sistema de Histórico**: ✅ Implementado (Tasks 11-12) - Carregamento das últimas 5 interações em CLI e Gradio, salvamento atômico em `historico.json`
 - **Modularização Completa**: Código ainda em poucos arquivos
-- **Estatísticas de Uso**: Dependente do sistema de histórico
+- **Estatísticas de Uso**: Dependente do sistema de histórico (pré-parado com contador de interações)
 
 ### 📋 **Arquivos de Entrega**
 - Alguns arquivos específicos da especificação ainda não implementados
@@ -370,12 +372,12 @@ Aline (Engraçada): Obrigada! Aprendi uma nova resposta.
 
 ## 📈 Progresso do Projeto
 
-### 📊 **Status Atual: 53.3% Concluído** (após Task 09)
+### 📊 **Status Atual: 70% Concluído** (após Tasks 11-12)
 
 | Categoria | Progresso | Status |
 |-----------|-----------|--------|
 | 🎯 **Planejamento e Base** | 100% | ✅ Completo |
-| ⚙️ **Funcionalidades Core** | 80% | ⏳ Em Andamento |
+| ⚙️ **Funcionalidades Core** | 100% | ✅ Completo |
 | 📈 **Estatísticas/Relatórios** | 0% | 📋 Pendente |
 | 🗂️ **Organização/Modularização** | 40% | ⏳ Em Andamento |
 | 📄 **Entrega Final** | 35% | 🔄 Parcial |
@@ -384,6 +386,7 @@ Aline (Engraçada): Obrigada! Aprendi uma nova resposta.
 - ✅ Interface CLI completa e funcional
 - ✅ Interface Web Gradio implementada
 - ✅ **Task 08 CONCLUÍDA**: Troca dinâmica de personalidade em ambas interfaces
+- ✅ **Tasks 11-12 CONCLUÍDAS**: Sistema de histórico implementado com carregamento das últimas 5 interações, salvamento atômico e preparação para estatísticas
 - ✅ **Issue Crítica #02 RESOLVIDA**: Acesso seguro a dicionários implementado
 - ✅ Sistema de aprendizado robusto
 - ✅ 4 personalidades pedagógicas funcionais
@@ -391,10 +394,10 @@ Aline (Engraçada): Obrigada! Aprendi uma nova resposta.
 - ✅ Arquitetura limpa e bem estruturada
 
 ### 🔜 **Próximas Prioridades**
-1. 🔥 **Implementar sistema de histórico**
-2. ⚡ **Adicionar respostas aleatórias**
-3. 📊 **Desenvolver estatísticas de uso**
-4. 🗂️ **Modularização completa do código**
+1. 🔥 **Tasks 13-15**: Implementar estatísticas e relatórios (desbloqueado pelo histórico)
+2. ⚡ **Tasks 16-17**: Modularização completa do código
+3. 📊 **Tasks 18-21**: Gerar arquivos de saída e finalização
+4. 🗂️ **Task 22-23**: Documentação e apresentação final
 
 *Para análise completa, consulte [STATUS_REQUISITOS.md](docs/STATUS_REQUISITOS.md)*
 

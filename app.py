@@ -15,11 +15,27 @@ aline_bot = Chatbot(core_data_path=CORE_FILE, new_data_path=NEW_DATA_FILE)
 # Funções conectadas ao Gradio
 # -------------------------
 
-def iniciar_chat():
-    """Retorna estado inicial do chat (lista de mensagens) e estado interno."""
+def load_initial_history():
+    """Carrega histórico inicial automaticamente para Gradio."""
     bot_name = "Aline"
     welcome = f"Olá! Eu sou a {bot_name}. Escolha uma personalidade e escreva sua mensagem abaixo."
-    return [(bot_name, welcome)], {"awaiting_teach": False, "last_question": None}
+    
+    # Task 11: Carregar e exibir histórico anterior no Gradio automaticamente
+    chat_history = [(bot_name, welcome)]
+    if aline_bot.historico:
+        for entry in aline_bot.historico:
+            ts = entry["timestamp"][:16]  # Formato legível
+            pers = entry["personalidade"].capitalize()
+            hist_msg_user = f"[{ts}] Você: {entry['pergunta']}"
+            hist_msg_bot = f"Aline ({pers}): {entry['resposta']}"
+            chat_history.append((hist_msg_user, hist_msg_bot))
+        chat_history.append((bot_name, "📜 Histórico anterior carregado. Continuando a conversa..."))
+    
+    return chat_history
+
+def reset_chat():
+    """Reseta o chat para histórico inicial."""
+    return load_initial_history(), {"awaiting_teach": False, "last_question": None}
 
 def enviar_mensagem(user_message: str, personalidade: str, chat_history, internal_state):
     """
@@ -49,7 +65,10 @@ def enviar_mensagem(user_message: str, personalidade: str, chat_history, interna
         internal_state["awaiting_teach"] = False
         internal_state["last_question"] = None
 
-    return chat, internal_state
+    # Task 12: Salvar interação no histórico para Gradio
+    aline_bot._salvar_historico(user_message, resposta_bot, personalidade)
+
+    return chat, internal_state, ""  # Limpa input
 
 def ensinar_resposta(resposta_ensinada: str, personalidade: str, chat_history, internal_state):
     """
@@ -59,7 +78,7 @@ def ensinar_resposta(resposta_ensinada: str, personalidade: str, chat_history, i
     chat = list(chat_history) if chat_history else []
     if not internal_state or not internal_state.get("awaiting_teach") or not internal_state.get("last_question"):
         chat.append(("Aline", "Não há pergunta pendente para ensinar. Envie uma nova pergunta primeiro."))
-        return chat, {"awaiting_teach": False, "last_question": None}
+        return chat, {"awaiting_teach": False, "last_question": None}, ""
 
     pergunta = internal_state["last_question"]
     
@@ -73,7 +92,7 @@ def ensinar_resposta(resposta_ensinada: str, personalidade: str, chat_history, i
         chat.append(("Aline", "Erro ao salvar a nova resposta. Tente novamente."))
     
     # resetar estado de ensino
-    return chat, {"awaiting_teach": False, "last_question": None}
+    return chat, {"awaiting_teach": False, "last_question": None}, ""
 
 def pular_ensino(chat_history, internal_state, personalidade):
     chat = list(chat_history) if chat_history else []
@@ -81,7 +100,7 @@ def pular_ensino(chat_history, internal_state, personalidade):
         chat.append((f"Aline ({personalidade.capitalize()})", "Tudo bem, podemos deixar para depois."))
     else:
         chat.append((f"Aline ({personalidade.capitalize()})", "Não há nada para pular no momento."))
-    return chat, {"awaiting_teach": False, "last_question": None}
+    return chat, {"awaiting_teach": False, "last_question": None}, ""
 
 # -------------------------
 # Construção da interface Gradio
@@ -99,7 +118,7 @@ with gr.Blocks(title="Aline Chatbot (Gradio)") as demo:
         )
         limpar_btn = gr.Button("Limpar Chat")
 
-    chatbot = gr.Chatbot(label="Conversa")
+    chatbot = gr.Chatbot(value=load_initial_history(), label="Conversa")  # Auto-carregamento inicial
     user_input = gr.Textbox(label="Sua mensagem", placeholder="Digite aqui e pressione Enter")
     enviar_btn = gr.Button("Enviar")
 
@@ -111,35 +130,35 @@ with gr.Blocks(title="Aline Chatbot (Gradio)") as demo:
     # estados internos: (waiting flag, last_question)
     estado_interno = gr.State({"awaiting_teach": False, "last_question": None})
 
-    # inicializa chat
-    init_chat_btn = gr.Button("Iniciar/Resetar chat")
-    init_chat_btn.click(fn=iniciar_chat, inputs=[], outputs=[chatbot, estado_interno])
+    # Reset chat (antigo init)
+    reset_btn = gr.Button("Resetar Chat")
+    reset_btn.click(fn=reset_chat, inputs=[], outputs=[chatbot, estado_interno])
 
     # enviar mensagem
     enviar_btn.click(
         fn=enviar_mensagem,
         inputs=[user_input, personalidade_dropdown, chatbot, estado_interno],
-        outputs=[chatbot, estado_interno]
+        outputs=[chatbot, estado_interno, user_input]
     )
     # permitir enviar também ao pressionar enter
     user_input.submit(
         fn=enviar_mensagem,
         inputs=[user_input, personalidade_dropdown, chatbot, estado_interno],
-        outputs=[chatbot, estado_interno]
+        outputs=[chatbot, estado_interno, user_input]
     )
 
     # ensinar resposta
     ensinar_btn.click(
         fn=ensinar_resposta,
         inputs=[teach_input, personalidade_dropdown, chatbot, estado_interno],
-        outputs=[chatbot, estado_interno]
+        outputs=[chatbot, estado_interno, teach_input]
     )
 
     # pular
     pular_btn.click(
         fn=pular_ensino,
         inputs=[chatbot, estado_interno, personalidade_dropdown],
-        outputs=[chatbot, estado_interno]
+        outputs=[chatbot, estado_interno, teach_input]
     )
 
     # limpar chat

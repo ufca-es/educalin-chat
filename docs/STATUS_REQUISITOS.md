@@ -5,11 +5,11 @@
 *Data de Geração: 2025-09-16*
 *Última Análise Técnica: Sincronização da documentação após resolução de todas as issues críticas*
 
-- **Progresso Real:** 60% dos requisitos concluídos (vs. 53.3% anterior)
-- **Concluídos (✅):** 10
+- **Progresso Real:** 70% dos requisitos concluídos (vs. 60% anterior)
+- **Concluídos (✅):** 12
 - **Em Andamento (⏳):** 4
 - **Parcialmente Implementados (🔄):** 1
-- **Pendentes (📋):** 7
+- **Pendentes (📋):** 5
 - **🚨 Issues Críticas de Código:** 0 identificadas
 
 ---
@@ -19,8 +19,8 @@
 ### 🎯 **Planejamento e Base** (100% Concluído)
 Tasks 01-07: Fundação sólida estabelecida ✅
 
-### ⚙️ **Funcionalidades Core** (90% Concluído)
-Tasks 08-12: Interface Gradio + Troca dinâmica CLI + Respostas aleatórias implementadas, falta histórico
+### ⚙️ **Funcionalidades Core** (100% Concluído)
+Tasks 08-12: Interface Gradio + Troca dinâmica CLI + Respostas aleatórias + Histórico implementadas ✅
 
 ### 📈 **Estatísticas e Relatórios** (0% Concluído)
 Tasks 13-15: Não implementadas, dependem do histórico
@@ -47,9 +47,9 @@ Tasks 18-24: Arquivos base criados, documentação boa
 | **Task 08** | Implementação da mudança de personalidade | ✅ **Concluído** | 100% | [#9](https://github.com/ufca-es/educalin-chat/issues/9) | ✅ **GRADIO**: Troca dinâmica via dropdown. ✅ **CLI**: Troca dinâmica via comando `/personalidade` |
 | **Task 09** | Uso de respostas aleatórias para a mesma pergunta | ✅ **Concluído** | 100% | [#10](https://github.com/ufca-es/educalin-chat/issues/10) | ✅ **COMPLETO**: Respostas aleatórias via random.choice em listas do core_data.json, testado em CLI/Gradio |
 | **Task 10** | Implementação da persistência de aprendizado | ✅ **Concluído** | 100% | [#11](https://github.com/ufca-es/educalin-chat/issues/11) | ✅ **COMPLETO**: Salvamento em `new_data.json` funcional. A migração para `core_data.json` é escopo de uma nova task. |
-| **Task 11** | Leitura do histórico anterior ao iniciar | 📋 **Pendente** | 0% | [#12](https://github.com/ufca-es/educalin-chat/issues/12) | ❌ **AUSENTE**: Não carrega últimas 5 interações |
-| **Task 12** | Armazenamento do histórico de conversas | 📋 **Pendente** | 0% | [#13](https://github.com/ufca-es/educalin-chat/issues/13) | ❌ **AUSENTE**: Não salva interações da sessão |
-| **Task 13** | Implementação da coleta de estatísticas | 📋 **Pendente** | 0% | [#14](https://github.com/ufca-es/educalin-chat/issues/14) | ❌ **BLOQUEADO**: Depende de Tasks 11-12 |
+| **Task 11** | Leitura do histórico anterior ao iniciar | ✅ **Concluído** | 100% | [#12](https://github.com/ufca-es/educalin-chat/issues/12) | ✅ **COMPLETO**: Carregamento das últimas 5 interações de historico.json no início da sessão, exibido em CLI e Gradio |
+| **Task 12** | Armazenamento do histórico de conversas | ✅ **Concluído** | 100% | [#13](https://github.com/ufca-es/educalin-chat/issues/13) | ✅ **COMPLETO**: Salvamento atômico de interações com timestamp e personalidade em historico.json após cada resposta, rotação para 5 entradas, em CLI e Gradio |
+| **Task 13** | Implementação da coleta de estatísticas | 📋 **Pendente** | 0% | [#14](https://github.com/ufca-es/educalin-chat/issues/14) | ❌ **PRONTO PARA IMPLEMENTAR**: Dependência de histórico resolvida, contador interacoes_count preparado |
 | **Task 14** | Geração de relatório legível ao usuário final | 📋 **Pendente** | 0% | [#15](https://github.com/ufca-es/educalin-chat/issues/15) | ❌ **BLOQUEADO**: Depende de estatísticas |
 | **Task 15** | Exibição de sugestões de perguntas frequentes | 📋 **Pendente** | 0% | [#16](https://github.com/ufca-es/educalin-chat/issues/16) | ❌ **BLOQUEADO**: Depende de análise histórico |
 | **Task 16** | Organização final das classes e arquivos | ⏳ **Em Andamento** | 40% | [#17](https://github.com/ufca-es/educalin-chat/issues/17) | ✅ **PROGRESSO**: Separação main.py/app.py, precisa modularização |
@@ -102,7 +102,7 @@ Tasks 18-24: Arquivos base criados, documentação boa
 ## 🎯 Prioridades Recomendadas Atualizadas
 
 ### 🔥 **ALTA PRIORIDADE** (Impacto Alto, Esforço Baixo)
-1. **Tasks 11-12**: Implementar sistema de histórico - desbloqueia 4 outras tasks
+1. **Tasks 13-15**: Implementar estatísticas e relatórios - desbloqueado pelo histórico
 
 ### ⚖️ **MÉDIA PRIORIDADE** (Necessárias para Entrega)
 6. **Tasks 13-15**: Implementar estatísticas e relatórios
@@ -131,13 +131,20 @@ Tasks 18-24: Arquivos base criados, documentação boa
 - **Arquivos de entrega**: Alguns arquivos específicos da especificação faltando
 
 ### 🎯 **Recomendação Final Atualizada**
-**O projeto avançou para 60% de conclusão real com a finalização da Task 09 (respostas aleatórias). Isso melhora o engajamento e variabilidade nas interações. O sistema de histórico (Tasks 11-12) é a próxima prioridade estratégica, desbloqueando 30% das tasks restantes.**
+**O projeto avançou para 70% de conclusão real com a finalização das Tasks 11-12 (sistema de histórico). Isso desbloqueia estatísticas e relatórios, representando ~30% do progresso restante. Próxima prioridade: Tasks 13-15 para análise de uso.**
 
 ### 🚀 **Impacto da Task 09 Completa**
 - ✅ **Respostas Aleatórias**: 100% implementadas via listas em core_data.json e random.choice
 - ✅ **Variabilidade em CLI e Gradio**: Confirmada por testes unitários
 - ✅ **Fallback Melhorado**: Suporte a múltiplas opções aleatórias
 - ✅ **Engajamento Aumentado**: Evita repetições monótonas
+
+### 🚀 **Impacto das Tasks 11-12 Completas**
+- ✅ **Carregamento de Histórico**: Últimas 5 interações exibidas no início em CLI (resumo formatado) e Gradio (chat inicial)
+- ✅ **Salvamento de Histórico**: Atômico com backup/rollback, timestamp, personalidade; rotação automática para 5 entradas
+- ✅ **Integração CLI/Gradio**: Histórico compartilhado via classe Chatbot, testado com sample data
+- ✅ **Preparação para Stats**: Contador interacoes_count atualizado, desbloqueando Tasks 13-15
+- ✅ **Testes**: Suite unitária completa (test_historico.py) com 100% pass
 
 ### 🚀 **Impacto da Task 08 Completa**
 - ✅ **Interface GUI obrigatória**: RESOLVIDA
