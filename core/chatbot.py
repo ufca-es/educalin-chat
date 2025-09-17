@@ -1,5 +1,8 @@
 from typing import Optional, Tuple, Dict, Any
 import random
+import re
+import codecs
+from datetime import datetime
 from infra.repositories import StatsRepo
 
 class Chatbot:
@@ -17,31 +20,57 @@ class Chatbot:
         self.nome_personalidade = nome_exibicao
 
     def processar_mensagem(self, pergunta: str, personalidade: str) -> Tuple[str, bool, Optional[str]]:
+        # Validação robusta de entrada (portada do original main.py)
+        CONTROL_CHAR_REGEX = re.compile(r'[\x00-\x1f\x7f-\x9f]')
+        if not pergunta or len(pergunta.strip()) == 0:
+            self.logger.warning("Entrada vazia rejeitada")
+            return "Entrada inválida. Tente novamente.", True, None
+        if len(pergunta) > 1000:
+            self.logger.warning(f"Entrada muito longa rejeitada: {len(pergunta)} caracteres")
+            return "Entrada muito longa. Limite: 1000 caracteres.", True, None
+        try:
+            texto_decodificado = codecs.decode(pergunta, 'unicode_escape')
+        except UnicodeDecodeError:
+            self.logger.warning("Entrada com sequência de escape inválida rejeitada.")
+            return "Entrada com caracteres inválidos. Tente novamente.", True, None
+        if CONTROL_CHAR_REGEX.search(texto_decodificado):
+            self.logger.warning("Entrada com caracteres de controle rejeitada")
+            return "Entrada contém caracteres não permitidos. Tente novamente.", True, None
+
+        now_in = datetime.now().isoformat()
         match = self.matcher.match(pergunta)
 
         if match is None:
             respostas_fallback = self.matcher.get_fallback_respostas(personalidade)
             resposta = random.choice(respostas_fallback) if isinstance(respostas_fallback, list) else respostas_fallback
-            self.history_repo.append(pergunta, resposta, personalidade)
-            return resposta, True, None
+            now_out = datetime.now().isoformat()
+            self.history_repo.append(pergunta, resposta, personalidade, tag_intencao="fallback", is_fallback=True, timestamp_in=now_in, timestamp_out=now_out)
+            self.update_stats(True, personalidade, "fallback")
+            return resposta, True, "fallback"
 
         if match["tipo"] == "intent":
             intencao = match["intencao"]
             respostas = intencao.get("respostas", {}).get(personalidade, ["Desculpe, não tenho uma resposta para essa personalidade."])
             resposta = random.choice(respostas) if isinstance(respostas, list) else respostas
             tag = intencao.get("tag")
-            self.history_repo.append(pergunta, resposta, personalidade)
+            now_out = datetime.now().isoformat()
+            self.history_repo.append(pergunta, resposta, personalidade, tag_intencao=tag, is_fallback=False, timestamp_in=now_in, timestamp_out=now_out)
+            self.update_stats(False, personalidade, tag)
             return resposta, False, tag
 
         if match["tipo"] == "aprendido":
             resposta = match["resposta"]
-            self.history_repo.append(pergunta, resposta, personalidade)
-            return resposta, False, None
+            now_out = datetime.now().isoformat()
+            self.history_repo.append(pergunta, resposta, personalidade, tag_intencao="aprendido", is_fallback=False, timestamp_in=now_in, timestamp_out=now_out)
+            self.update_stats(False, personalidade, "aprendido")
+            return resposta, False, "aprendido"
 
         respostas_fallback = self.matcher.get_fallback_respostas(personalidade)
         resposta = random.choice(respostas_fallback) if isinstance(respostas_fallback, list) else respostas_fallback
-        self.history_repo.append(pergunta, resposta, personalidade)
-        return resposta, True, None
+        now_out = datetime.now().isoformat()
+        self.history_repo.append(pergunta, resposta, personalidade, tag_intencao="fallback", is_fallback=True, timestamp_in=now_in, timestamp_out=now_out)
+        self.update_stats(True, personalidade, "fallback")
+        return resposta, True, "fallback"
 
     def ensinar_nova_resposta(self, pergunta: str, resposta: str) -> bool:
         ok = self.learned_repo.append(pergunta, resposta)

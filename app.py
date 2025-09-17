@@ -77,7 +77,13 @@ def enviar_mensagem(user_message: str, personalidade: str, chat_history, interna
     chat.append(("Você", user_message))
 
     # Task 13: Usa retorno expandido (resposta, is_fallback, tag) - integra Samuel ao modular
-    resposta_bot, is_fallback, tag = aline_bot.processar_mensagem(user_message, pers)
+    try:
+        resposta_bot, is_fallback, tag = aline_bot.processar_mensagem(user_message, pers)
+    except Exception as e:
+        logger.error(f"Erro em processar_mensagem: {e}")
+        resposta_bot = "Desculpe, ocorreu um erro interno. Tente reformular."
+        is_fallback = True
+        tag = None
     
     # Verifica fallback usando flag robusta
     if is_fallback:

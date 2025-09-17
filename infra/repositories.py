@@ -60,6 +60,7 @@ class HistoryRepo(BaseRepo):
     """
     Persiste o histórico em historico.json.
     Mantém apenas as últimas `max_len` interações (padrão: 5).
+    Suporta tag_intencao, is_fallback, timestamp_in/out opcionais para compatibilidade com stats.
     """
     def load_last(self, n: int = 5) -> List[Dict[str, Any]]:
         data = self._read_json()
@@ -67,16 +68,22 @@ class HistoryRepo(BaseRepo):
             return data[-n:]
         return []
 
-    def append(self, pergunta: str, resposta: str, personalidade: str, max_len: int = 5) -> bool:
+    def append(self, pergunta: str, resposta: str, personalidade: str, max_len: int = 5, tag_intencao: Optional[str] = None, is_fallback: bool = False, timestamp_in: Optional[str] = None, timestamp_out: Optional[str] = None) -> bool:
         historico = self._read_json()
         if not isinstance(historico, list):
             historico = []
 
+        now_in = timestamp_in or datetime.now().isoformat()
+        now_out = timestamp_out or datetime.now().isoformat()
+
         historico.append({
-            "timestamp": datetime.now().isoformat(),
+            "timestamp_in": now_in,
+            "timestamp_out": now_out,
             "pergunta": pergunta,
             "resposta": resposta,
-            "personalidade": personalidade
+            "personalidade": personalidade,
+            "tag_intencao": tag_intencao,
+            "is_fallback": is_fallback
         })
 
         historico = historico[-max_len:]  # rotação
