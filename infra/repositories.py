@@ -81,3 +81,51 @@ class HistoryRepo(BaseRepo):
 
         historico = historico[-max_len:]  # rotação
         return self.atomic.write_json_atomic(self.path, historico, ensure_ascii=False, indent=2)
+
+class StatsRepo(BaseRepo):
+    def load(self) -> Dict[str, Any]:
+        data = self._read_json()
+        if isinstance(data, dict):
+            return data
+        return {
+            "total_interactions": 0,
+            "fallback_count": 0,
+            "por_personalidade": {},
+            "por_tag": {}
+        }
+
+    def update_interaction(self, is_fallback: bool, personalidade: str, tag: Optional[str]) -> bool:
+        if self.logger:
+            self.logger.info(f"Atualizando stats: fallback={is_fallback}, pers={personalidade}, tag={tag}")
+        data = self.load()
+        data["total_interactions"] += 1
+        if is_fallback:
+            data["fallback_count"] += 1
+        data["por_personalidade"][personalidade] = data["por_personalidade"].get(personalidade, 0) + 1
+        if tag:
+            data["por_tag"][tag] = data["por_tag"].get(tag, 0) + 1
+        success = self.atomic.write_json_atomic(self.path, data, ensure_ascii=False, indent=2)
+        if self.logger:
+            self.logger.info(f"Stats salvo: {success}")
+        return success
+class StatsRepo(BaseRepo):
+    def load(self) -> Dict[str, Any]:
+        data = self._read_json()
+        if isinstance(data, dict):
+            return data
+        return {
+            "total_interactions": 0,
+            "fallback_count": 0,
+            "por_personalidade": {},
+            "por_tag": {}
+        }
+
+    def update_interaction(self, is_fallback: bool, personalidade: str, tag: Optional[str]) -> bool:
+        data = self.load()
+        data["total_interactions"] += 1
+        if is_fallback:
+            data["fallback_count"] += 1
+        data["por_personalidade"][personalidade] = data["por_personalidade"].get(personalidade, 0) + 1
+        if tag:
+            data["por_tag"][tag] = data["por_tag"].get(tag, 0) + 1
+        return self.atomic.write_json_atomic(self.path, data, ensure_ascii=False, indent=2)
