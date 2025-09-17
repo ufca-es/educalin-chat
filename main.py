@@ -45,8 +45,7 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
             level=logging.INFO,
             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
             handlers=[
-                logging.FileHandler('chatbot.log', encoding='utf-8'),
-                logging.StreamHandler()
+                logging.FileHandler('chatbot.log', encoding='utf-8')
             ]
         )
         return logging.getLogger('chatbot')
@@ -248,7 +247,35 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
         except (FileNotFoundError, json.JSONDecodeError):
             self.logger.info("Arquivo de histórico não encontrado ou inválido. Iniciando com histórico vazio.")
             return []
+    def mostrar_historico(self) -> str: # Mostra o historico quando solicitado
+        if not self.historico:
+            return "Não há histórico de conversas anteriores."
 
+        output = "\n Histórico de conversas:"
+        output += "\n" + "-" * 50
+        for entry in self.historico:
+            ts = entry["timestamp"][:16] #Formato YYYY/MM/DD HH:MM
+            pers = entry["personalidade"].capitalize()
+            output += f"\n[{ts}] Você: {entry['pergunta']}"
+            output += f"\n     Aline ({pers}): {entry['resposta']}"
+            output += "\n"
+        output += "-" * 50
+        return output
+    
+    def _limpar_historico(self) -> bool: # Limpa o histórico se o usuário solicitar
+        try: 
+            self.historico = []
+            self.interacoes_count = 0
+
+            with open(self.historico_path, 'w', encoding='utf-8') as f:
+                json.dump([], f)
+            
+            self.logger.info("Histórico limpo com sucesso!")
+            return True
+        except Exception as e:
+            self.logger.error(f"Erro ao limpar histórico: {e}")
+            return False
+    
     def _achar_melhor_intencao(self, pergunta_usuario: str) -> Optional[Dict[str, Any]]:
         """
         🚀 MÉTODO CORRIGIDO - Versão com threshold mais rigoroso e busca exata primeiro
@@ -422,7 +449,7 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
         return resposta
     def ensinar_nova_resposta(self, pergunta: str, resposta: str) -> bool:
         """
-        🚀 MÉTODO CORRIGIDO - Usa novo método de salvamento seguro
+        MÉTODO CORRIGIDO - Usa novo método de salvamento seguro
         """
         # Validação básica antes de chamar método seguro
         if not pergunta.strip() or not resposta.strip():
@@ -455,6 +482,16 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
         
         if comando == "help":
             return True, self.mostrar_help_personalidades()
+        
+        elif comando == "historico":
+            return True, self.mostrar_historico()
+
+        elif comando == "limpar":
+            if self._limpar_historico():
+                return True, "Histórico de conversas foi limpo com sucesso!"
+            else:
+                return True, "Houve um ao tentar limpar o histórico."
+        
         
         elif comando == "personalidade":
             if len(partes) < 2:
@@ -497,6 +534,8 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
         help_text += "\n" + "="*50
         help_text += "\n\nComandos disponíveis:"
         help_text += "\n• /personalidade [nome] - Troca a personalidade"
+        help_text += "\n• /historico - Mostrar histórico de conversas"
+        help_text += "\n• /limpar - Limpar histórico de conversas"
         help_text += "\n• /help - Mostra esta ajuda"
         help_text += "\n\nPersonalidades disponíveis:"
         help_text += "\n• formal      - A Professora Profissional"
@@ -546,19 +585,6 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
             return
 
         self.selecionar_personalidade()
-
-        # Task 11: Exibir histórico anterior se existir
-        if self.historico:
-            print("\n📜 Resumo do histórico anterior:")
-            print("-" * 50)
-            for entry in self.historico:
-                ts = entry["timestamp"][:16]  # Formato legível: YYYY-MM-DD HH:MM
-                pers = entry["personalidade"].capitalize()
-                print(f"[{ts}] Você: {entry['pergunta']}")
-                print(f"     Aline ({pers}): {entry['resposta'][:100]}...")  # Truncar se longa
-                print()
-            print("-" * 50)
-            print("Continuando a conversa...\n")
         
         print(f"Você está conversando com Aline {self.nome_personalidade}. Digite 'quit' para sair ou '/help' para ver comandos.")
 
