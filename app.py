@@ -1,5 +1,11 @@
 import gradio as gr
-from main import Chatbot
+
+# --- imports da arquitetura modular ---
+from infra.logging_conf import get_logger
+from infra.repositories import CoreRepo, LearnedRepo, HistoryRepo
+from core.intent_matcher import IntentMatcher
+from core.chatbot import Chatbot
+from core.personalities import canonicalize, display_name, is_valid
 
 # -------------------------
 # Inicialização do Chatbot
@@ -7,9 +13,22 @@ from main import Chatbot
 
 CORE_FILE = 'core_data.json'
 NEW_DATA_FILE = 'new_data.json'
+HIST_FILE = 'historico.json'
 
-# Instância global do chatbot
-aline_bot = Chatbot(core_data_path=CORE_FILE, new_data_path=NEW_DATA_FILE)
+logger = get_logger("chatbot")
+
+# Repositórios de dados
+core_repo = CoreRepo(CORE_FILE, logger=logger)
+learned_repo = LearnedRepo(NEW_DATA_FILE, logger=logger)
+history_repo = HistoryRepo(HIST_FILE, logger=logger)
+
+# Carrega dados
+intencoes = core_repo.load_intents()
+aprendidos = learned_repo.load()
+
+# Matcher + Chatbot
+matcher = IntentMatcher(intencoes=intencoes, aprendidos=aprendidos, logger=logger)
+aline_bot = Chatbot(matcher=matcher, learned_repo=learned_repo, history_repo=history_repo, logger=logger)
 
 # -------------------------
 # Funções conectadas ao Gradio
@@ -19,18 +38,21 @@ def load_initial_history():
     """Carrega histórico inicial automaticamente para Gradio."""
     bot_name = "Aline"
     welcome = f"Olá! Eu sou a {bot_name}. Escolha uma personalidade e escreva sua mensagem abaixo."
-    
-    # Task 11: Carregar e exibir histórico anterior no Gradio automaticamente
+
     chat_history = [(bot_name, welcome)]
-    if aline_bot.historico:
-        for entry in aline_bot.historico:
-            ts = entry["timestamp"][:16]  # Formato legível
-            pers = entry["personalidade"].capitalize()
-            hist_msg_user = f"[{ts}] Você: {entry['pergunta']}"
-            hist_msg_bot = f"Aline ({pers}): {entry['resposta']}"
+
+    # Usa a API pública do Chatbot para obter as últimas mensagens
+    historico = aline_bot.carregar_historico_inicial(n=5)
+    if historico:
+        for entry in historico:
+            ts = entry.get("timestamp", "")[:16]  # YYYY-MM-DD HH:MM
+            pers = entry.get("personalidade", "formal")
+            pers_exibe = display_name(pers)
+            hist_msg_user = f"[{ts}] Você: {entry.get('pergunta','')}"
+            hist_msg_bot = f"Aline ({pers_exibe}): {entry.get('resposta','')}"
             chat_history.append((hist_msg_user, hist_msg_bot))
         chat_history.append((bot_name, "📜 Histórico anterior carregado. Continuando a conversa..."))
-    
+
     return chat_history
 
 def reset_chat():
@@ -39,41 +61,41 @@ def reset_chat():
 
 def enviar_mensagem(user_message: str, personalidade: str, chat_history, internal_state):
     """
-    🚀 FUNÇÃO CORRIGIDA - Solução para Issue Crítica #01
-    
     Função disparada quando o usuário envia uma mensagem.
     Retorna chat atualizado e estado interno.
     """
     if internal_state is None:
         internal_state = {"awaiting_teach": False, "last_question": None}
 
-    # adiciona a mensagem do usuário ao histórico
+    # Normaliza/valida personalidade
+    pers = canonicalize(personalidade) or "formal"
+    pers_exibe = display_name(pers)
+
+    # adiciona a mensagem do usuário ao histórico local do componente
     chat = list(chat_history) if chat_history else []
     chat.append(("Você", user_message))
 
-    # 🚨 CORREÇÃO: Usa o método corrigido que retorna tupla (resposta, is_fallback)
-    resposta_bot, is_fallback = aline_bot.processar_mensagem(user_message, personalidade)
-    
-    # 🚨 CORREÇÃO: Verifica fallback usando flag robusta ao invés de string matching
+    # Pede resposta ao Chatbot (ele mesmo registra o histórico via HistoryRepo)
+    resposta_bot, is_fallback = aline_bot.processar_mensagem(user_message, pers)
+
     if is_fallback:
-        chat.append((f"Aline ({personalidade.capitalize()})", resposta_bot + " Você pode me ensinar a resposta ideal?"))
-        # estado para ensinar
+        chat.append((f"Aline ({pers_exibe})", resposta_bot + " Você pode me ensinar a resposta ideal?"))
         internal_state["awaiting_teach"] = True
         internal_state["last_question"] = user_message
     else:
-        chat.append((f"Aline ({personalidade.capitalize()})", resposta_bot))
+        chat.append((f"Aline ({pers_exibe})", resposta_bot))
         internal_state["awaiting_teach"] = False
         internal_state["last_question"] = None
 
-    # Task 12: Salvar interação no histórico para Gradio
-    aline_bot._salvar_historico(user_message, resposta_bot, personalidade)
+    # ❌ NÃO chamamos métodos privados nem salvamos histórico aqui:
+    # o próprio Chatbot já persistiu via HistoryRepo na chamada acima.
 
-    return chat, internal_state, ""  # Limpa input
+    return chat, internal_state, ""  # limpa o input
 
 def ensinar_resposta(resposta_ensinada: str, personalidade: str, chat_history, internal_state):
     """
-    Função disparada quando o usuário ensina uma resposta para a última pergunta desconhecida.
-    Salva em new_data.json.
+    Quando o usuário ensina uma resposta para a última pergunta desconhecida.
+    Salva em new_data.json via LearnedRepo (encapsulado em Chatbot.ensinar_nova_resposta).
     """
     chat = list(chat_history) if chat_history else []
     if not internal_state or not internal_state.get("awaiting_teach") or not internal_state.get("last_question"):
@@ -81,25 +103,29 @@ def ensinar_resposta(resposta_ensinada: str, personalidade: str, chat_history, i
         return chat, {"awaiting_teach": False, "last_question": None}, ""
 
     pergunta = internal_state["last_question"]
-    
-    # usa o método da classe Chatbot para ensinar nova resposta
+
     sucesso = aline_bot.ensinar_nova_resposta(pergunta, resposta_ensinada)
-    
+
+    pers = canonicalize(personalidade) or "formal"
+    pers_exibe = display_name(pers)
+
     if sucesso:
         chat.append(("Você", f"(ensinou) {resposta_ensinada}"))
-        chat.append((f"Aline ({personalidade.capitalize()})", "Obrigada! Aprendi uma nova resposta."))
+        chat.append((f"Aline ({pers_exibe})", "Obrigada! Aprendi uma nova resposta."))
     else:
         chat.append(("Aline", "Erro ao salvar a nova resposta. Tente novamente."))
-    
-    # resetar estado de ensino
-    return chat, {"awaiting_teach": False, "last_question": None}, ""
+
+    return chat, {"awaiting_teach": False, "last_question": None}, ""  # limpa o campo de ensino
 
 def pular_ensino(chat_history, internal_state, personalidade):
     chat = list(chat_history) if chat_history else []
+    pers = canonicalize(personalidade) or "formal"
+    pers_exibe = display_name(pers)
+
     if internal_state and internal_state.get("awaiting_teach"):
-        chat.append((f"Aline ({personalidade.capitalize()})", "Tudo bem, podemos deixar para depois."))
+        chat.append((f"Aline ({pers_exibe})", "Tudo bem, podemos deixar para depois."))
     else:
-        chat.append((f"Aline ({personalidade.capitalize()})", "Não há nada para pular no momento."))
+        chat.append((f"Aline ({pers_exibe})", "Não há nada para pular no momento."))
     return chat, {"awaiting_teach": False, "last_question": None}, ""
 
 # -------------------------
@@ -118,7 +144,7 @@ with gr.Blocks(title="Aline Chatbot (Gradio)") as demo:
         )
         limpar_btn = gr.Button("Limpar Chat")
 
-    chatbot = gr.Chatbot(value=load_initial_history(), label="Conversa")  # Auto-carregamento inicial
+    chatbot = gr.Chatbot(value=load_initial_history(), label="Conversa")
     user_input = gr.Textbox(label="Sua mensagem", placeholder="Digite aqui e pressione Enter")
     enviar_btn = gr.Button("Enviar")
 
@@ -127,20 +153,20 @@ with gr.Blocks(title="Aline Chatbot (Gradio)") as demo:
     ensinar_btn = gr.Button("Ensinar")
     pular_btn = gr.Button("Pular Ensino")
 
-    # estados internos: (waiting flag, last_question)
+    # estado interno: (flag de ensino pendente, última pergunta)
     estado_interno = gr.State({"awaiting_teach": False, "last_question": None})
 
-    # Reset chat (antigo init)
+    # Reset chat
     reset_btn = gr.Button("Resetar Chat")
     reset_btn.click(fn=reset_chat, inputs=[], outputs=[chatbot, estado_interno])
 
-    # enviar mensagem
+    # enviar mensagem (botão)
     enviar_btn.click(
         fn=enviar_mensagem,
         inputs=[user_input, personalidade_dropdown, chatbot, estado_interno],
         outputs=[chatbot, estado_interno, user_input]
     )
-    # permitir enviar também ao pressionar enter
+    # enviar mensagem (enter)
     user_input.submit(
         fn=enviar_mensagem,
         inputs=[user_input, personalidade_dropdown, chatbot, estado_interno],
@@ -154,14 +180,14 @@ with gr.Blocks(title="Aline Chatbot (Gradio)") as demo:
         outputs=[chatbot, estado_interno, teach_input]
     )
 
-    # pular
+    # pular ensino
     pular_btn.click(
         fn=pular_ensino,
         inputs=[chatbot, estado_interno, personalidade_dropdown],
         outputs=[chatbot, estado_interno, teach_input]
     )
 
-    # limpar chat
+    # limpar chat (só limpa a UI; o histórico persistido continua salvo)
     def limpar(chat_history, internal_state):
         return [], {"awaiting_teach": False, "last_question": None}
     limpar_btn.click(fn=limpar, inputs=[chatbot, estado_interno], outputs=[chatbot, estado_interno])
