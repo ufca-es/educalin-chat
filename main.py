@@ -257,6 +257,48 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
         except (FileNotFoundError, json.JSONDecodeError):
             self.logger.info("Arquivo de histórico não encontrado ou inválido. Iniciando com histórico vazio.")
             return []
+        
+    def _obter_sugestoes_historico(self) -> List[str]:
+        """
+        Obtém sugestões de perguntas baseadas na frequência global.
+        """
+        perguntas = []
+        # Pega todas as perguntas do histórico para análise de frequência
+        for entrada in self.historico:
+            perguntas.append(entrada['pergunta'])
+        
+        contador = Counter(perguntas)
+        # Pega as 3 perguntas mais frequentes
+        mais_frequentes = contador.most_common(3)
+        return [pergunta for pergunta, _ in mais_frequentes]
+
+    def _obter_sugestoes_core(self) -> List[str]:
+        """
+        Obtém sugestões aleatórias do core_data.
+        """
+        todas_perguntas = []
+        for intencao in self.intencoes:
+            if intencao.get("tag") not in ["fallback", "saudacao"]:
+                perguntas = intencao.get("perguntas", [])
+                todas_perguntas.extend(perguntas)
+        
+        # Retorna 3 perguntas aleatórias se houver disponíveis
+        num_sugestoes = min(3, len(todas_perguntas))
+        if num_sugestoes > 0:
+            return random.sample(todas_perguntas, num_sugestoes)
+        return []
+
+    def mostrar_sugestoes(self):
+        """
+        Mostra sugestões de perguntas ao usuário de forma limpa
+        """
+        sugestoes = self._obter_sugestoes_core()
+        
+        if sugestoes:
+            print("Sugestões de perguntas:")
+            for sugestao in sugestoes:
+                print(f"→ {sugestao}")
+            print()
 
     def _carregar_stats(self) -> Dict[str, Any]:
         """
@@ -615,6 +657,7 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
                 resposta = random.choice(respostas_pers)
             else:
                 resposta = respostas_pers
+           
             return resposta, False, tag
         
         elif melhor_intencao and melhor_intencao.get("tag") == "aprendido":
@@ -697,6 +740,10 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
         elif comando == "stats":
             return True, self._formatar_stats()
         
+        elif comando == "sugestoes":
+            self.mostrar_sugestoes()
+            return True, ""
+        
         elif comando == "personalidade":
             if len(partes) < 2:
                 return True, "Uso: /personalidade [formal|engracada|desafiadora|empatica]"
@@ -742,6 +789,7 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
         help_text += "\n• /limpar - Limpar histórico de conversas"
         help_text += "\n• /help - Mostra esta ajuda"
         help_text += "\n• /stats - Mostrar estatísticas do chatbot"
+        help_text += "\n• /sugestoes - Mostrar sugestões de perguntas"
         help_text += "\n\nPersonalidades disponíveis:"
         help_text += "\n• formal      - A Professora Profissional"
         help_text += "\n• engracada   - A Coach Descontraída"
@@ -792,6 +840,9 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
         self.selecionar_personalidade()
         
         print(f"Você está conversando com Aline {self.nome_personalidade}. Digite 'quit' para sair ou '/help' para ver comandos.")
+        print("Use '/sugestoes' para ver sugestões de perguntas.\n")
+
+        self.mostrar_sugestoes()
 
         while True:
             entrada_usuario = input('Você: ').strip()
