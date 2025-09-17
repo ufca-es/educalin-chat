@@ -24,7 +24,7 @@ def load_initial_history():
     chat_history = [(bot_name, welcome)]
     if aline_bot.historico:
         for entry in aline_bot.historico:
-            ts = entry["timestamp"][:16]  # Formato legível
+            ts = entry["timestamp_in"][:16]  # Formato legível (Task 13 update)
             pers = entry["personalidade"].capitalize()
             hist_msg_user = f"[{ts}] Você: {entry['pergunta']}"
             hist_msg_bot = f"Aline ({pers}): {entry['resposta']}"
@@ -39,7 +39,8 @@ def reset_chat():
 
 def enviar_mensagem(user_message: str, personalidade: str, chat_history, internal_state):
     """
-    🚀 FUNÇÃO CORRIGIDA - Solução para Issue Crítica #01
+    FUNÇÃO CORRIGIDA - Solução para Issue Crítica #01
+    ATUALIZADO Task 13 - Usa novo retorno de processar_mensagem e passa tag/is_fallback para histórico
     
     Função disparada quando o usuário envia uma mensagem.
     Retorna chat atualizado e estado interno.
@@ -51,10 +52,10 @@ def enviar_mensagem(user_message: str, personalidade: str, chat_history, interna
     chat = list(chat_history) if chat_history else []
     chat.append(("Você", user_message))
 
-    # 🚨 CORREÇÃO: Usa o método corrigido que retorna tupla (resposta, is_fallback)
-    resposta_bot, is_fallback = aline_bot.processar_mensagem(user_message, personalidade)
+    # Task 13: Usa retorno expandido (resposta, is_fallback, tag)
+    resposta_bot, is_fallback, tag = aline_bot.processar_mensagem(user_message, personalidade)
     
-    # 🚨 CORREÇÃO: Verifica fallback usando flag robusta ao invés de string matching
+    # Verifica fallback usando flag robusta
     if is_fallback:
         chat.append((f"Aline ({personalidade.capitalize()})", resposta_bot + " Você pode me ensinar a resposta ideal?"))
         # estado para ensinar
@@ -65,8 +66,8 @@ def enviar_mensagem(user_message: str, personalidade: str, chat_history, interna
         internal_state["awaiting_teach"] = False
         internal_state["last_question"] = None
 
-    # Task 12: Salvar interação no histórico para Gradio
-    aline_bot._salvar_historico(user_message, resposta_bot, personalidade)
+    # Task 12 + 13: Salvar interação no histórico com tag e is_fallback
+    aline_bot._salvar_historico(user_message, resposta_bot, personalidade, tag, is_fallback)
 
     return chat, internal_state, ""  # Limpa input
 
@@ -106,6 +107,25 @@ def pular_ensino(chat_history, internal_state, personalidade):
 # Construção da interface Gradio
 # -------------------------
 
+def mostrar_stats(personalidade, chat_history, internal_state):
+    stats = aline_bot.get_stats()
+    output = f"📊 ESTATÍSTICAS ATUAIS (Personalidade: {personalidade.capitalize()})\n\n"
+    output += f"Total de Interações: {stats['total_interactions']}\n"
+    output += f"Taxa de Fallback: {stats['fallback_rate']:.1%}\n"
+    output += f"Duração Média de Sessão: {stats['media_duracao_sessao_min']:.1f} min\n\n"
+    
+    output += "Por Personalidade:\n"
+    for pers, count in stats['por_personalidade'].items():
+        perc = stats['por_personalidade_perc'].get(pers, 0)
+        output += f"  {pers.capitalize()}: {count} ({perc:.1f}%)\n"
+    
+    output += "\nPor Tag:\n"
+    for tag, count in stats['por_tag'].items():
+        perc = stats['por_tag_perc'].get(tag, 0)
+        output += f"  {tag}: {count} ({perc:.1f}%)\n"
+    
+    return output
+
 with gr.Blocks(title="Aline Chatbot (Gradio)") as demo:
     gr.Markdown("# Aline: Seu chatbot de matemática")
     gr.Markdown("Escolha uma personalidade e converse. Se o bot não souber responder, você poderá **ensinar** a resposta.")
@@ -117,6 +137,7 @@ with gr.Blocks(title="Aline Chatbot (Gradio)") as demo:
             value="formal"
         )
         limpar_btn = gr.Button("Limpar Chat")
+        ver_stats_btn = gr.Button("Ver Stats")
 
     chatbot = gr.Chatbot(value=load_initial_history(), label="Conversa")  # Auto-carregamento inicial
     user_input = gr.Textbox(label="Sua mensagem", placeholder="Digite aqui e pressione Enter")
@@ -126,6 +147,8 @@ with gr.Blocks(title="Aline Chatbot (Gradio)") as demo:
     teach_input = gr.Textbox(label="Resposta que você quer ensinar", placeholder="Escreva a resposta que o bot deve aprender")
     ensinar_btn = gr.Button("Ensinar")
     pular_btn = gr.Button("Pular Ensino")
+
+    textbox_stats = gr.Textbox(label="Estatísticas", lines=10, visible=True)
 
     # estados internos: (waiting flag, last_question)
     estado_interno = gr.State({"awaiting_teach": False, "last_question": None})
@@ -159,6 +182,13 @@ with gr.Blocks(title="Aline Chatbot (Gradio)") as demo:
         fn=pular_ensino,
         inputs=[chatbot, estado_interno, personalidade_dropdown],
         outputs=[chatbot, estado_interno, teach_input]
+    )
+
+    # ver stats
+    ver_stats_btn.click(
+        fn=mostrar_stats,
+        inputs=[personalidade_dropdown, chatbot, estado_interno],
+        outputs=[textbox_stats]
     )
 
     # limpar chat

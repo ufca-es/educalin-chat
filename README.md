@@ -53,6 +53,7 @@
   - [⚠️ Limitações Conhecidas](#️-limitações-conhecidas)
     - [🚨 **Issues Críticas de Código**](#-issues-críticas-de-código)
     - [🔄 **Funcionalidades Pendentes**](#-funcionalidades-pendentes)
+    - [📊 **Estatísticas de Uso (Task 13)**](#-estatísticas-de-uso-task-13)
     - [📋 **Arquivos de Entrega**](#-arquivos-de-entrega)
   - [📈 Progresso do Projeto](#-progresso-do-projeto)
     - [📊 **Status Atual: 70% Concluído** (após Tasks 11-12)](#-status-atual-70-concluído-após-tasks-11-12)
@@ -362,7 +363,19 @@ Aline (Engraçada): Obrigada! Aprendi uma nova resposta.
 - **Respostas Aleatórias**: ✅ Implementado (Task 09)
 - **Sistema de Histórico**: ✅ Implementado (Tasks 11-12) - Carregamento das últimas 5 interações em CLI e Gradio, salvamento atômico em `historico.json`
 - **Modularização Completa**: Código ainda em poucos arquivos
-- **Estatísticas de Uso**: Dependente do sistema de histórico (pré-parado com contador de interações)
+
+### 📊 **Estatísticas de Uso (Task 13)**
+- **Coleta Automática**: Rastreia interações, personalidades, fallbacks, tags de intenção e duração de sessão após cada mensagem em CLI e Gradio.
+- **Persistência**: Agregados salvos em `stats.json` atomicamente, independente da rotação do histórico.
+- **Métricas**:
+  - Total de interações e taxa de fallback (%).
+  - Distribuição por personalidade e tag de intenção (%).
+  - Duração média de sessão: Agrupa interações com intervalo <5 minutos entre timestamp_out e timestamp_in, calculando (timestamp_out_último - timestamp_in_primeiro) por grupo.
+- **Acesso**:
+  - **CLI**: Comando `/stats` exibe relatório formatado.
+  - **Gradio**: Botão "Ver Stats" popula textbox com métricas legíveis.
+- **Compatibilidade**: Sem impacto em performance, validações incluídas para arquivos corrompidos.
+
 
 ### 📋 **Arquivos de Entrega**
 - Alguns arquivos específicos da especificação ainda não implementados

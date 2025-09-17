@@ -8,6 +8,7 @@ import random
 from datetime import datetime
 from difflib import get_close_matches, SequenceMatcher
 from typing import Optional, Dict, List, Any
+from collections import Counter
 
 CONTROL_CHAR_REGEX = re.compile(r'[\x00-\x1f\x7f-\x9f]')
 
@@ -18,11 +19,13 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
         self.core_data_path = core_data_path
         self.new_data_path = new_data_path
         self.historico_path = 'historico.json'
+        self.stats_path = 'stats.json'
         self.logger = self._setup_logging()
         self.intencoes: List[Dict[str, Any]] = self._carregar_base_conhecimento()
         self.aprendidos: List[Dict[str, str]] = self._carregar_dados_aprendidos()
         self.historico: List[Dict[str, Any]] = self._carregar_historico()
-        self.interacoes_count = len(self.historico)  # Preparação para estatísticas (Task 13)
+        self.stats: Dict[str, Any] = self._carregar_stats()
+        self.interacoes_count = len(self.historico)
         self.personalidade: Optional[str] = None
         self.nome_personalidade: Optional[str] = None
 
@@ -165,9 +168,10 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
         except (FileNotFoundError, json.JSONDecodeError):
             return []
 
-    def _salvar_historico(self, pergunta: str, resposta: str, personalidade: str) -> bool:
+    def _salvar_historico(self, pergunta: str, resposta: str, personalidade: str, tag_intencao: Optional[str] = None, is_fallback: bool = False) -> bool:
         """
         Salva uma nova interação no histórico, mantendo apenas as últimas 5.
+        ATUALIZADO Task 13 - Inclui tag_intencao, is_fallback, timestamps in/out para stats.
         Usa salvamento atômico similar ao de dados aprendidos.
         """
         # Validação básica
@@ -175,19 +179,25 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
             self.logger.warning("Tentativa de salvar histórico com entrada vazia ignorada.")
             return False
 
-        timestamp = datetime.now().isoformat()
+        timestamp_in = datetime.now().isoformat()
+        timestamp_out = datetime.now().isoformat()
         nova_entrada = {
-            "timestamp": timestamp,
+            "timestamp_in": timestamp_in,
+            "timestamp_out": timestamp_out,
             "pergunta": pergunta,
             "resposta": resposta,
-            "personalidade": personalidade
+            "personalidade": personalidade,
+            "tag_intencao": tag_intencao,
+            "is_fallback": is_fallback
         }
 
         # Adicionar à lista em memória
         self.historico.append(nova_entrada)
-        # Manter apenas últimas 5 (rotação)
+        # Atualizar stats antes da rotação (agregados independentes)
+        self._atualizar_stats(nova_entrada)
+        # Manter apenas últimas 5 (rotação para histórico recente)
         self.historico = self.historico[-5:]
-        self.interacoes_count = len(self.historico)  # Atualizar contador para stats
+        self.interacoes_count = len(self.historico)  # Contagem recente
 
         # Salvamento atômico (reutilizando lógica similar a _salvar_dados_aprendidos)
         backup_file = f"{self.historico_path}.backup"
@@ -218,7 +228,7 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
             if os.path.exists(backup_file):
                 os.remove(backup_file)
 
-            self.logger.info(f"Histórico salvo: {len(self.historico)} interações")
+            self.logger.info(f"Histórico salvo: {len(self.historico)} interações recentes (total: {self.stats['total_interactions']})")
             return True
 
         except Exception as e:
@@ -247,6 +257,194 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
         except (FileNotFoundError, json.JSONDecodeError):
             self.logger.info("Arquivo de histórico não encontrado ou inválido. Iniciando com histórico vazio.")
             return []
+
+    def _carregar_stats(self) -> Dict[str, Any]:
+        """
+        Carrega as estatísticas agregadas de stats.json.
+        Retorna dict com defaults se arquivo não existir ou inválido.
+        """
+        try:
+            with open(self.stats_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                if isinstance(data, dict):
+                    # Garantir keys com defaults
+                    data.setdefault('total_interactions', 0)
+                    data.setdefault('fallback_count', 0)
+                    data.setdefault('por_personalidade', {})
+                    data.setdefault('por_tag', {})
+                    self.logger.info("Stats carregados com sucesso")
+                    return data
+                else:
+                    self.logger.warning("stats.json tem estrutura inválida, usando defaults")
+        except (FileNotFoundError, json.JSONDecodeError) as e:
+            self.logger.info(f"stats.json não encontrado ou inválido ({e}), iniciando com defaults")
+        except Exception as e:
+            self.logger.error(f"Erro ao carregar stats: {e}, usando defaults")
+        
+        defaults = {
+            'total_interactions': 0,
+            'fallback_count': 0,
+            'por_personalidade': {},
+            'por_tag': {}
+        }
+        return defaults
+
+
+
+    def _atualizar_stats(self, entry: Dict[str, Any]) -> bool:
+        """
+        Atualiza estatísticas agregadas após salvar uma nova entrada no histórico.
+        Incrementa contadores e persiste em stats.json atomicamente.
+        
+        Args:
+            entry: A nova entrada do histórico com campos (personalidade, tag_intencao, is_fallback)
+        
+        Returns:
+            bool: True se atualização e salvamento bem-sucedidos, False caso contrário
+        """
+        try:
+            # Atualizar contadores em memória
+            self.stats['total_interactions'] += 1
+            
+            personalidade = entry.get('personalidade', 'desconhecida')
+            if personalidade not in self.stats['por_personalidade']:
+                self.stats['por_personalidade'][personalidade] = 0
+            self.stats['por_personalidade'][personalidade] += 1
+            
+            if entry.get('is_fallback'):
+                self.stats['fallback_count'] += 1
+            
+            tag = entry.get('tag_intencao')
+            if tag:
+                if tag not in self.stats['por_tag']:
+                    self.stats['por_tag'][tag] = 0
+                self.stats['por_tag'][tag] += 1
+            
+            self.logger.info(f"Stats atualizados: total={self.stats['total_interactions']}, fallback={self.stats['fallback_count']}, pers={personalidade}, tag={tag}")
+            
+            # Salvamento atômico de stats.json (similar a _salvar_historico)
+            backup_file = f"{self.stats_path}.backup"
+            temp_file = f"{self.stats_path}.tmp"
+            
+            # Backup se existir
+            if os.path.exists(self.stats_path):
+                shutil.copy2(self.stats_path, backup_file)
+                self.logger.info("Backup de stats criado")
+            
+            # Validar e escrever JSON
+            json_string = json.dumps(self.stats, indent=2, ensure_ascii=False)
+            json.loads(json_string)  # Validação
+            
+            with open(temp_file, 'w', encoding='utf-8') as f:
+                f.write(json_string)
+            
+            # Verificação
+            with open(temp_file, 'r', encoding='utf-8') as f:
+                json.load(f)
+            
+            # Commit
+            os.replace(temp_file, self.stats_path)
+            
+            # Cleanup backup
+            if os.path.exists(backup_file):
+                os.remove(backup_file)
+            
+            self.logger.info("Stats salvos atomicamente com sucesso")
+            return True
+            
+        except Exception as e:
+            self.logger.error(f"Erro ao atualizar stats: {e}")
+            # Rollback
+            if os.path.exists(backup_file) and os.path.exists(self.stats_path):
+                shutil.copy2(backup_file, self.stats_path)
+                os.remove(backup_file)
+            if os.path.exists(temp_file):
+                os.remove(temp_file)
+            return False
+    def get_stats(self) -> Dict[str, Any]:
+        """
+        Retorna estatísticas computadas: rates, % por personalidade/tag, duração média de sessão.
+        Duração: agrupa histórico por sessões (delta <5min entre out/in), média (out_last - in_first) por sessão.
+        """
+        if not self.stats:
+            self.stats = self._carregar_stats()
+        
+        total_interactions = self.stats['total_interactions']
+        fallback_count = self.stats['fallback_count']
+        fallback_rate = fallback_count / total_interactions if total_interactions > 0 else 0.0
+        
+        por_personalidade = self.stats['por_personalidade']
+        total_pers = sum(por_personalidade.values()) if por_personalidade else 0
+        por_personalidade_perc = {k: (v / total_pers * 100) if total_pers > 0 else 0 for k, v in por_personalidade.items()}
+        
+        por_tag = self.stats['por_tag']
+        total_tags = sum(por_tag.values()) if por_tag else 0
+        por_tag_perc = {k: (v / total_tags * 100) if total_tags > 0 else 0 for k, v in por_tag.items()}
+        
+        # Duração média de sessão
+        media_duracao_sessao = 0.0
+        if self.historico:
+            from datetime import timedelta
+            duracoes_sessoes = []
+            sessao_atual = [self.historico[0]]
+            for i in range(1, len(self.historico)):
+                prev_out = datetime.fromisoformat(sessao_atual[-1]['timestamp_out'])
+                curr_in = datetime.fromisoformat(self.historico[i]['timestamp_in'])
+                if (curr_in - prev_out) <= timedelta(minutes=5):
+                    sessao_atual.append(self.historico[i])
+                else:
+                    # Calcular duração da sessão
+                    first_in = datetime.fromisoformat(sessao_atual[0]['timestamp_in'])
+                    last_out = datetime.fromisoformat(sessao_atual[-1]['timestamp_out'])
+                    duracao = (last_out - first_in).total_seconds() / 60  # minutos
+                    duracoes_sessoes.append(duracao)
+                    sessao_atual = [self.historico[i]]
+            # Última sessão
+            if len(sessao_atual) > 0:
+                first_in = datetime.fromisoformat(sessao_atual[0]['timestamp_in'])
+                last_out = datetime.fromisoformat(sessao_atual[-1]['timestamp_out'])
+                duracao = (last_out - first_in).total_seconds() / 60
+                duracoes_sessoes.append(duracao)
+            
+            media_duracao_sessao = sum(duracoes_sessoes) / len(duracoes_sessoes) if duracoes_sessoes else 0.0
+        
+        stats = {
+            'total_interactions': total_interactions,
+            'fallback_count': fallback_count,
+            'fallback_rate': round(fallback_rate, 2),
+            'por_personalidade': por_personalidade,
+            'por_personalidade_perc': {k: round(v, 2) for k, v in por_personalidade_perc.items()},
+            'por_tag': por_tag,
+            'por_tag_perc': {k: round(v, 2) for k, v in por_tag_perc.items()},
+            'media_duracao_sessao_min': round(media_duracao_sessao, 2)
+        }
+        
+        self.logger.debug(f"Stats computados: {stats}")
+        return stats
+
+    def _formatar_stats(self) -> str:
+        """
+        Formata get_stats() como string legível para CLI.
+        """
+        stats = self.get_stats()
+        output = "\n📊 ESTATÍSTICAS DO CHATBOT 📊\n"
+        output += "=" * 40 + "\n"
+        output += f"Total de Interações: {stats['total_interactions']}\n"
+        output += f"Taxa de Fallback: {stats['fallback_rate']:.1%} ({stats['fallback_count']} casos)\n"
+        output += f"Duração Média de Sessão: {stats['media_duracao_sessao_min']:.1f} minutos\n\n"
+        
+        output += "Por Personalidade:\n"
+        for pers, count in stats['por_personalidade'].items():
+            perc = stats['por_personalidade_perc'].get(pers, 0)
+            output += f"  {pers.capitalize()}: {count} ({perc:.1f}%)\n"
+        
+        output += "\nPor Tag de Intenção:\n"
+        for tag, count in stats['por_tag'].items():
+            perc = stats['por_tag_perc'].get(tag, 0)
+            output += f"  {tag}: {count} ({perc:.1f}%)\n"
+        
+        output += "=" * 40 + "\n"
+        return output
     def mostrar_historico(self) -> str: # Mostra o historico quando solicitado
         if not self.historico:
             return "Não há histórico de conversas anteriores."
@@ -254,7 +452,7 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
         output = "\n Histórico de conversas:"
         output += "\n" + "-" * 50
         for entry in self.historico:
-            ts = entry["timestamp"][:16] #Formato YYYY/MM/DD HH:MM
+            ts = entry["timestamp_in"][:16] #Formato YYYY/MM/DD HH:MM
             pers = entry["personalidade"].capitalize()
             output += f"\n[{ts}] Você: {entry['pergunta']}"
             output += f"\n     Aline ({pers}): {entry['resposta']}"
@@ -263,9 +461,9 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
         return output
     
     def _limpar_historico(self) -> bool: # Limpa o histórico se o usuário solicitar
-        try: 
+        try:
             self.historico = []
-            self.interacoes_count = 0
+            self.interacoes_count = 0  # Reset contagem recente; stats agregados mantidos
 
             with open(self.historico_path, 'w', encoding='utf-8') as f:
                 json.dump([], f)
@@ -278,7 +476,7 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
     
     def _achar_melhor_intencao(self, pergunta_usuario: str) -> Optional[Dict[str, Any]]:
         """
-        🚀 MÉTODO CORRIGIDO - Versão com threshold mais rigoroso e busca exata primeiro
+        MÉTODO CORRIGIDO - Versão com threshold mais rigoroso e busca exata primeiro
         
         Args:
             pergunta_usuario: Pergunta do usuário para buscar correspondência
@@ -390,48 +588,52 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
         self.logger.info(f"❌ Nenhuma correspondência encontrada para: '{pergunta_usuario}' - ativando fallback")
         return None
 
-    def processar_mensagem(self, pergunta: str, personalidade: str) -> tuple[str, bool]:
+    def processar_mensagem(self, pergunta: str, personalidade: str) -> tuple[str, bool, Optional[str]]:
         """
-        🚀 MÉTODO CORRIGIDO - Solução para Issue Crítica #01
-        🚀 ATUALIZADO - Suporte a respostas aleatórias (Task 09)
+        MÉTODO CORRIGIDO - Solução para Issue Crítica #01
+        ATUALIZADO - Suporte a respostas aleatórias (Task 09)
+        ATUALIZADO Task 13 - Retorna também tag_intencao para stats
         
-        Retorna a resposta do chatbot e uma flag indicando se é fallback.
+        Retorna a resposta do chatbot, flag de fallback e tag da intenção.
         
         Args:
             pergunta: A pergunta do usuário
             personalidade: A personalidade a ser usada
             
         Returns:
-            tuple[str, bool]: (resposta, is_fallback)
+            tuple[str, bool, Optional[str]]: (resposta, is_fallback, tag_intencao)
                 - resposta: A resposta gerada pelo chatbot
                 - is_fallback: True se for resposta de fallback, False caso contrário
+                - tag_intencao: Tag da intenção encontrada ou None se desconhecida
         """
         melhor_intencao = self._achar_melhor_intencao(pergunta.lower())
         
         if melhor_intencao and melhor_intencao.get("tag") != "aprendido":
+            tag = melhor_intencao.get("tag")
             respostas_pers = melhor_intencao.get("respostas", {}).get(personalidade, ["Desculpe, não tenho uma resposta para essa personalidade."])
             if isinstance(respostas_pers, list):
                 resposta = random.choice(respostas_pers)
             else:
                 resposta = respostas_pers
-            return resposta, False
+            return resposta, False, tag
         
         elif melhor_intencao and melhor_intencao.get("tag") == "aprendido":
-            return melhor_intencao["resposta"], False
+            return melhor_intencao["resposta"], False, "aprendido"
         
         else:
             # Busca fallback
             fallback_intencao = next((i for i in self.intencoes if i.get("tag") == "fallback"), None)
             if fallback_intencao:
+                tag = "fallback"
                 respostas_fallback = fallback_intencao.get("respostas", {}).get(personalidade, ["Desculpe, não entendi."])
                 if isinstance(respostas_fallback, list):
                     resposta = random.choice(respostas_fallback)
                 else:
                     resposta = respostas_fallback
-                return resposta, True  # 🚨 CORREÇÃO: Retorna True para indicar fallback
+                return resposta, True, tag  # 🚨 CORREÇÃO: Retorna True para indicar fallback
             else:
                 fallback_respostas = ["Eu não sei a resposta para essa pergunta.", "Desculpe, não consegui processar isso."]
-                return random.choice(fallback_respostas), True  # 🚨 CORREÇÃO: Retorna True para indicar fallback
+                return random.choice(fallback_respostas), True, None  # 🚨 CORREÇÃO: Retorna True para indicar fallback
 
     def processar_mensagem_cli(self, pergunta: str, personalidade: str) -> str:
         """
@@ -445,7 +647,7 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
         Returns:
             str: A resposta do chatbot (sem flag de fallback)
         """
-        resposta, _ = self.processar_mensagem(pergunta, personalidade)
+        resposta, _, _ = self.processar_mensagem(pergunta, personalidade)
         return resposta
     def ensinar_nova_resposta(self, pergunta: str, resposta: str) -> bool:
         """
@@ -492,6 +694,8 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
             else:
                 return True, "Houve um ao tentar limpar o histórico."
         
+        elif comando == "stats":
+            return True, self._formatar_stats()
         
         elif comando == "personalidade":
             if len(partes) < 2:
@@ -537,6 +741,7 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
         help_text += "\n• /historico - Mostrar histórico de conversas"
         help_text += "\n• /limpar - Limpar histórico de conversas"
         help_text += "\n• /help - Mostra esta ajuda"
+        help_text += "\n• /stats - Mostrar estatísticas do chatbot"
         help_text += "\n\nPersonalidades disponíveis:"
         help_text += "\n• formal      - A Professora Profissional"
         help_text += "\n• engracada   - A Coach Descontraída"
@@ -602,11 +807,11 @@ class Chatbot: # Classe que irá representar o chatbot Aline, gerencia os dados,
                 continue
 
             # Processar como mensagem normal usando método corrigido
-            resposta, is_fallback = self.processar_mensagem(entrada_usuario, self.personalidade)
+            resposta, is_fallback, tag = self.processar_mensagem(entrada_usuario, self.personalidade)
             print(f'Aline ({self.nome_personalidade}): {resposta}')
 
-            # Task 12: Salvar interação no histórico
-            self._salvar_historico(entrada_usuario, resposta, self.personalidade)
+            # Task 12 + 13: Salvar interação no histórico com tag e fallback
+            self._salvar_historico(entrada_usuario, resposta, self.personalidade, tag, is_fallback)
             
             # Se for fallback, perguntar se quer ensinar
             if is_fallback:

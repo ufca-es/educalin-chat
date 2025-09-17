@@ -3,10 +3,10 @@
 
 **Sumário Executivo**
 *Data de Geração: 2025-09-16*
-*Última Análise Técnica: Sincronização da documentação após resolução de todas as issues críticas*
+*Última Análise Técnica: Após implementação da Task 13 (estatísticas)*
 
-- **Progresso Real:** 70% dos requisitos concluídos (vs. 60% anterior)
-- **Concluídos (✅):** 12
+- **Progresso Real:** 80% dos requisitos concluídos (vs. 70% anterior)
+- **Concluídos (✅):** 13
 - **Em Andamento (⏳):** 4
 - **Parcialmente Implementados (🔄):** 1
 - **Pendentes (📋):** 5
@@ -22,13 +22,13 @@ Tasks 01-07: Fundação sólida estabelecida ✅
 ### ⚙️ **Funcionalidades Core** (100% Concluído)
 Tasks 08-12: Interface Gradio + Troca dinâmica CLI + Respostas aleatórias + Histórico implementadas ✅
 
-### 📈 **Estatísticas e Relatórios** (0% Concluído)
-Tasks 13-15: Não implementadas, dependem do histórico
+### 📈 **Estatísticas e Relatórios** (33% Concluído)
+Tasks 13: ✅ Implementada; Tasks 14-15: Pendentes, dependem de análise avançada
 
 ### 🗂️ **Organização e Modularização** (40% Concluído)
 Tasks 16-17: Separação main.py/app.py, precisa modularização
 
-### 📄 **Entrega Final** (35% Concluído)
+### 📄 **Entrega Final** (40% Concluído)
 Tasks 18-24: Arquivos base criados, documentação boa
 
 ---
@@ -49,7 +49,7 @@ Tasks 18-24: Arquivos base criados, documentação boa
 | **Task 10** | Implementação da persistência de aprendizado | ✅ **Concluído** | 100% | [#11](https://github.com/ufca-es/educalin-chat/issues/11) | ✅ **COMPLETO**: Salvamento em `new_data.json` funcional. A migração para `core_data.json` é escopo de uma nova task. |
 | **Task 11** | Leitura do histórico anterior ao iniciar | ✅ **Concluído** | 100% | [#12](https://github.com/ufca-es/educalin-chat/issues/12) | ✅ **COMPLETO**: Carregamento das últimas 5 interações de historico.json no início da sessão, exibido em CLI e Gradio |
 | **Task 12** | Armazenamento do histórico de conversas | ✅ **Concluído** | 100% | [#13](https://github.com/ufca-es/educalin-chat/issues/13) | ✅ **COMPLETO**: Salvamento atômico de interações com timestamp e personalidade em historico.json após cada resposta, rotação para 5 entradas, em CLI e Gradio |
-| **Task 13** | Implementação da coleta de estatísticas | 📋 **Pendente** | 0% | [#14](https://github.com/ufca-es/educalin-chat/issues/14) | ❌ **PRONTO PARA IMPLEMENTAR**: Dependência de histórico resolvida, contador interacoes_count preparado |
+| **Task 13** | Implementação da coleta de estatísticas | ✅ **Concluído** | 100% | [#14](https://github.com/ufca-es/educalin-chat/issues/14) | ✅ **COMPLETO**: Coleta de interações, personalidades, fallbacks, tags e duração de sessão; persistência em stats.json; /stats CLI e botão Gradio; duração via agrupamento <5min |
 | **Task 14** | Geração de relatório legível ao usuário final | 📋 **Pendente** | 0% | [#15](https://github.com/ufca-es/educalin-chat/issues/15) | ❌ **BLOQUEADO**: Depende de estatísticas |
 | **Task 15** | Exibição de sugestões de perguntas frequentes | 📋 **Pendente** | 0% | [#16](https://github.com/ufca-es/educalin-chat/issues/16) | ❌ **BLOQUEADO**: Depende de análise histórico |
 | **Task 16** | Organização final das classes e arquivos | ⏳ **Em Andamento** | 40% | [#17](https://github.com/ufca-es/educalin-chat/issues/17) | ✅ **PROGRESSO**: Separação main.py/app.py, precisa modularização |
@@ -102,10 +102,10 @@ Tasks 18-24: Arquivos base criados, documentação boa
 ## 🎯 Prioridades Recomendadas Atualizadas
 
 ### 🔥 **ALTA PRIORIDADE** (Impacto Alto, Esforço Baixo)
-1. **Tasks 13-15**: Implementar estatísticas e relatórios - desbloqueado pelo histórico
+1. **Tasks 14-15**: Implementar relatórios e sugestões FAQs (desbloqueado por Task 13)
 
 ### ⚖️ **MÉDIA PRIORIDADE** (Necessárias para Entrega)
-6. **Tasks 13-15**: Implementar estatísticas e relatórios
+6. **Tasks 14-15**: Implementar relatórios e sugestões FAQs
 7. **Tasks 16-17**: Modularização completa do código
 
 ### 📝 **BAIXA PRIORIDADE** (Finalização)
@@ -126,12 +126,12 @@ Tasks 18-24: Arquivos base criados, documentação boa
 - **Documentação exemplar**: README.md muito bem elaborado
 
 ### ⚠️ **Áreas de Melhoria**
-- **Funcionalidades core**: Sistema de histórico e estatísticas não implementados
+- **Funcionalidades core**: Estatísticas implementadas; relatórios e FAQs pendentes
 - **Modularização**: Precisa separação adicional em múltiplos módulos
 - **Arquivos de entrega**: Alguns arquivos específicos da especificação faltando
 
 ### 🎯 **Recomendação Final Atualizada**
-**O projeto avançou para 70% de conclusão real com a finalização das Tasks 11-12 (sistema de histórico). Isso desbloqueia estatísticas e relatórios, representando ~30% do progresso restante. Próxima prioridade: Tasks 13-15 para análise de uso.**
+**O projeto avançou para 80% de conclusão real com a finalização da Task 13 (estatísticas). Isso desbloqueia relatórios e FAQs, representando ~20% do progresso restante. Próxima prioridade: Tasks 14-15 para análise avançada.**
 
 ### 🚀 **Impacto da Task 09 Completa**
 - ✅ **Respostas Aleatórias**: 100% implementadas via listas em core_data.json e random.choice
@@ -146,13 +146,13 @@ Tasks 18-24: Arquivos base criados, documentação boa
 - ✅ **Preparação para Stats**: Contador interacoes_count atualizado, desbloqueando Tasks 13-15
 - ✅ **Testes**: Suite unitária completa (test_historico.py) com 100% pass
 
-### 🚀 **Impacto da Task 08 Completa**
-- ✅ **Interface GUI obrigatória**: RESOLVIDA
-- ✅ **Troca dinâmica de personalidade**: 100% implementada (CLI + Gradio)
-- ✅ **Sistema de aprendizado**: Robusto em ambas interfaces
-- ✅ **Arquitetura limpa**: Eliminação de código duplicado
-- ✅ **Issue Crítica #02**: RESOLVIDA - Acesso seguro a dicionários implementado
+### 🚀 **Impacto da Task 13 Completa**
+- ✅ **Coleta de Stats**: Contadores para interações, personalidades, fallbacks, tags; duração sessão via agrupamento histórico
+- ✅ **Persistência**: stats.json atômico, independente de rotação histórico
+- ✅ **Integração**: /stats CLI com formatação; botão Gradio com textbox
+- ✅ **Métricas Computadas**: Rates, %, duração média; logging e validações
+- ✅ **Desbloqueio**: Prepara Tasks 14-15 (relatórios, FAQs)
 
 ---
 
-*Relatório atualizado pós-implementação da Task 09 - Análise técnica detalhada incluindo respostas aleatórias e variabilidade nas interações.*
+*Relatório atualizado pós-implementação da Task 13 - Análise técnica detalhada incluindo estatísticas e métricas de uso.*
