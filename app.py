@@ -92,7 +92,7 @@ def enviar_mensagem(user_message: str, personalidade: str, chat_history, interna
     # ❌ NÃO chamamos métodos privados nem salvamos histórico aqui:
     # o próprio Chatbot já persistiu via HistoryRepo na chamada acima.
     # Task 13: Atualize stats se não interno (opcional; remova se get_stats() coleta tag/fallback)
-    # aline_bot.update_stats(is_fallback, tag)
+    aline_bot.update_stats(is_fallback, pers, tag)
 
     return chat, internal_state, ""  # limpa o input
 
