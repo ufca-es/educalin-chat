@@ -2,23 +2,36 @@ import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from main import Chatbot
+from core.chatbot import Chatbot
+from core.personalities import canonicalize
 import random
 
 # Fix seed for reproducible testing
 random.seed(42)
 
 def test_aleatoriedade():
-    bot = Chatbot('core_data.json', 'new_data.json')
-    bot.trocar_personalidade('formal')
+    from infra.repositories import CoreRepo, LearnedRepo, HistoryRepo
+    from infra.logging_conf import get_logger
+    from core.intent_matcher import IntentMatcher
+    
+    logger = get_logger("test")
+    core_repo = CoreRepo('core_data.json', logger=logger)
+    learned_repo = LearnedRepo('new_data.json', logger=logger)
+    history_repo = HistoryRepo('historico.json', logger=logger)
+    
+    intencoes = core_repo.load_intents()
+    aprendidos = learned_repo.load()
+    matcher = IntentMatcher(intencoes=intencoes, aprendidos=aprendidos, logger=logger)
+    bot = Chatbot(matcher=matcher, learned_repo=learned_repo, history_repo=history_repo, logger=logger)
+    bot.set_personalidade(canonicalize('formal'), 'Formal')
     
     pergunta_teste = "oi"
     
     respostas = []
     for i in range(5):
-        resposta, is_fallback = bot.processar_mensagem(pergunta_teste, 'formal')
+        resposta, is_fallback, tag = bot.processar_mensagem(pergunta_teste, 'formal')
         respostas.append(resposta)
-        print(f"Run {i+1}: {resposta}")
+        print(f"Run {i+1}: {resposta} (tag: {tag})")
     
     # Check for variability
     unique_respostas = set(respostas)
@@ -32,9 +45,9 @@ def test_aleatoriedade():
     pergunta_fallback = "pergunta desconhecida"
     respostas_fallback = []
     for i in range(3):
-        resposta, is_fallback = bot.processar_mensagem(pergunta_fallback, 'engracada')
+        resposta, is_fallback, tag = bot.processar_mensagem(pergunta_fallback, 'engracada')
         respostas_fallback.append(resposta)
-        print(f"Fallback Run {i+1}: {resposta} (is_fallback: {is_fallback})")
+        print(f"Fallback Run {i+1}: {resposta} (is_fallback: {is_fallback}, tag: {tag})")
     
     unique_fallback = set(respostas_fallback)
     print(f"Fallback únicas: {len(unique_fallback)}/3")

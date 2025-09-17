@@ -73,7 +73,7 @@ class IntentMatcher:
             self._log(f"✅ EXATA base -> tag '{intencao.get('tag')}'")
             return {"tipo": "intent", "intencao": intencao}
 
-        # 2) FUZZY nas intenções base (cutoff 0.8 + thresholds)
+        # 2) FUZZY nas intenções base (thresholds originais: cutoff 0.8, sim>=0.92, jac>=0.9)
         matches = get_close_matches(pergunta_norm, self._todas_perguntas, n=1, cutoff=0.8)
         if matches:
             cand = matches[0]
@@ -106,7 +106,7 @@ class IntentMatcher:
             self._log("✅ EXATA aprendido (CI)")
             return {"tipo": "aprendido", "resposta": d.get("resposta_ensinada", "")}
 
-        # 4) FUZZY nos aprendidos (cutoff 0.9 + thresholds)
+        # 4) FUZZY nos aprendidos (thresholds originais: cutoff 0.9, sim>=0.92, jac>=0.95)
         perguntas_aprendidas = list(mapa_aprendidos_cs.keys())
         matches_apr = get_close_matches(pergunta_norm, perguntas_aprendidas, n=1, cutoff=0.9)
         if matches_apr:
