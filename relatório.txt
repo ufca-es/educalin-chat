@@ -1,0 +1,26 @@
+==== Relatório de Interações do Chatbot ====
+
+[2025-09-18 00:00:10] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-18 00:00:10] Interação registrada
+  - Total: 2
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-18 00:23:03] Interação registrada
+  - Total: 3
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-18 00:23:03] Interação registrada
+  - Total: 4
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------

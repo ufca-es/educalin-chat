@@ -1,0 +1,20 @@
+[
+  {
+    "timestamp_in": "2025-09-18T00:00:09.835096",
+    "timestamp_out": "2025-09-18T00:00:09.840908",
+    "pergunta": "Oi",
+    "resposta": "Olá. Sou Aline, sua assistente de matemática. Qual tópico gostaria de abordar hoje?",
+    "personalidade": "formal",
+    "tag_intencao": "saudacao",
+    "is_fallback": false
+  },
+  {
+    "timestamp_in": "2025-09-18T00:23:02.879972",
+    "timestamp_out": "2025-09-18T00:23:02.884551",
+    "pergunta": "Olá",
+    "resposta": "Oi! Estou aqui para ajudar com matemática básica. O que você quer estudar?",
+    "personalidade": "formal",
+    "tag_intencao": "saudacao",
+    "is_fallback": false
+  }
+]
