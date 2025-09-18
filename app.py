@@ -102,6 +102,16 @@ def enviar_mensagem(user_message: str, personalidade: str, chat_history, interna
 
     return chat, internal_state, ""  # limpa o input
 
+def mostrar_sugestoes():
+    sugestoes = aline_bot.get_faq_suggestions()
+    if not sugestoes:
+        return "Não há sugestões no momento."
+    
+    output = "### 🤔 Sugestões de Perguntas:\n"
+    for s in sugestoes:
+        output += f"- {s}\n"
+    return output
+
 def ensinar_resposta(resposta_ensinada: str, personalidade: str, chat_history, internal_state):
     """
     Quando o usuário ensina uma resposta para a última pergunta desconhecida.
@@ -173,10 +183,13 @@ with gr.Blocks(title="Aline Chatbot (Gradio)") as demo:
         )
         limpar_btn = gr.Button("Limpar Chat")
         ver_stats_btn = gr.Button("Ver Stats")
+        sugestoes_btn = gr.Button("Mostrar Sugestões")
 
     chatbot = gr.Chatbot(value=load_initial_history(), label="Conversa")
     user_input = gr.Textbox(label="Sua mensagem", placeholder="Digite aqui e pressione Enter")
     enviar_btn = gr.Button("Enviar")
+
+    sugestoes_box = gr.Markdown(value=mostrar_sugestoes())
 
     gr.Markdown("### Ensinar resposta (quando o bot não souber)")
     teach_input = gr.Textbox(label="Resposta que você quer ensinar", placeholder="Escreva a resposta que o bot deve aprender")
@@ -225,6 +238,13 @@ with gr.Blocks(title="Aline Chatbot (Gradio)") as demo:
         fn=mostrar_stats,
         inputs=[personalidade_dropdown, chatbot, estado_interno],
         outputs=[textbox_stats]
+    )
+
+    # mostrar sugestões
+    sugestoes_btn.click(
+        fn=mostrar_sugestoes,
+        inputs=[],
+        outputs=[sugestoes_box]
     )
 
     # limpar chat (só limpa a UI; o histórico persistido continua salvo) - de Pedro

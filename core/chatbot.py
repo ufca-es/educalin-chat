@@ -1,9 +1,9 @@
 from typing import Optional, Tuple, Dict, Any
 import random
-import re
-import codecs
 from datetime import datetime
 from infra.repositories import StatsRepo
+from core.faq_suggestions import FAQSuggestions
+from core.validation import validate_input
 
 class Chatbot:
     def __init__(self, matcher, learned_repo, history_repo, logger):
@@ -12,6 +12,7 @@ class Chatbot:
         self.history_repo = history_repo
         self.stats_repo = StatsRepo('stats.json', logger=logger)
         self.logger = logger
+        self.faq_suggestions = FAQSuggestions(history_repo=history_repo, intent_matcher=matcher, logger=logger)
         self.personalidade: Optional[str] = None
         self.nome_personalidade: Optional[str] = None
 
@@ -20,22 +21,8 @@ class Chatbot:
         self.nome_personalidade = nome_exibicao
 
     def processar_mensagem(self, pergunta: str, personalidade: str) -> Tuple[str, bool, Optional[str]]:
-        # Validação robusta de entrada (portada do original main.py)
-        CONTROL_CHAR_REGEX = re.compile(r'[\x00-\x1f\x7f-\x9f]')
-        if not pergunta or len(pergunta.strip()) == 0:
-            self.logger.warning("Entrada vazia rejeitada")
+        if not validate_input(pergunta, self.logger):
             return "Entrada inválida. Tente novamente.", True, None
-        if len(pergunta) > 1000:
-            self.logger.warning(f"Entrada muito longa rejeitada: {len(pergunta)} caracteres")
-            return "Entrada muito longa. Limite: 1000 caracteres.", True, None
-        try:
-            texto_decodificado = codecs.decode(pergunta, 'unicode_escape')
-        except UnicodeDecodeError:
-            self.logger.warning("Entrada com sequência de escape inválida rejeitada.")
-            return "Entrada com caracteres inválidos. Tente novamente.", True, None
-        if CONTROL_CHAR_REGEX.search(texto_decodificado):
-            self.logger.warning("Entrada com caracteres de controle rejeitada")
-            return "Entrada contém caracteres não permitidos. Tente novamente.", True, None
 
         now_in = datetime.now().isoformat()
         match = self.matcher.match(pergunta)
@@ -114,3 +101,9 @@ class Chatbot:
             "por_tag_perc": por_tag_perc,
             "media_duracao_sessao_min": media_duracao
         }
+
+    def get_faq_suggestions(self, n_total: int = 3) -> list[str]:
+        """
+        Retorna uma lista de sugestões de perguntas para o usuário.
+        """
+        return self.faq_suggestions.get_combined_suggestions(n_total=n_total)
