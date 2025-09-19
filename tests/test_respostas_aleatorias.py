@@ -1,11 +1,11 @@
 import sys
 import os
+import random
+
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from core.chatbot import Chatbot
 from core.personalities import canonicalize
-import random
-
 from infra.repositories import CoreRepo, LearnedRepo, HistoryRepo
 from infra.logging_conf import get_logger
 from core.intent_matcher import IntentMatcher
@@ -14,8 +14,6 @@ from core.intent_matcher import IntentMatcher
 random.seed(42)
 
 def test_aleatoriedade():
-    # Já importado no topo
-    
     logger = get_logger("test")
     core_repo = CoreRepo('data/core_data.json', logger=logger)
     learned_repo = LearnedRepo('data/new_data.json', logger=logger)

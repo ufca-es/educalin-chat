@@ -5,7 +5,6 @@ Testa todos os casos de uso implementados na Task 08
 """
 
 import sys
-import json
 from infra.repositories import CoreRepo, LearnedRepo, HistoryRepo
 from infra.logging_conf import get_logger
 from core.intent_matcher import IntentMatcher
@@ -25,7 +24,7 @@ def test_chatbot_personalidade():
         logger = get_logger("test_personalidade")
         core_repo = CoreRepo(CORE_DATA_FILE, logger=logger)
         learned_repo = LearnedRepo(NEW_DATA_FILE, logger=logger)
-        history_repo = HistoryRepo('data/historico.json', logger=logger) # Usar um arquivo de histórico temporário ou mock
+        history_repo = HistoryRepo('data/historico.json', logger=logger)
         matcher = IntentMatcher(intencoes=core_repo.load_intents(), aprendidos=learned_repo.load(), logger=logger)
         bot = Chatbot(matcher=matcher, learned_repo=learned_repo, history_repo=history_repo, logger=logger)
         print("✅ Chatbot inicializado com sucesso")

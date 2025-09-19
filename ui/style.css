@@ -70,7 +70,6 @@ textarea, input, .gr-textbox, .gr-dropdown {
     color: var(--color-text-on-primary);
     margin: 0 !important;
     padding: 0 !important;
-    /* line-height: 1; */
 }
 
 /* Remove efeito de espaçamento entre eles */

@@ -35,13 +35,13 @@ class TestHistorico(unittest.TestCase):
             try:
                 os.remove(historico_temp)
             except PermissionError:
-                pass  # Ignora se em uso
+                pass
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
     def test_carregar_historico_arquivo_inexistente(self):
         """Testa carregamento quando arquivo não existe (deve retornar [])."""
         historico = self.history_repo._read_json()
-        self.assertIsNone(historico) # Deve retornar None se o arquivo não existe
+        self.assertIsNone(historico)
 
     def test_carregar_historico_com_dados(self):
         """Testa carregamento com 1 entrada usando arquivo temp."""
@@ -226,20 +226,6 @@ class TestHistorico(unittest.TestCase):
     def test_get_stats_duracao_sessao(self):
         """Testa duração média de sessão."""
         # Este teste é mais complexo e depende do StatsRepo, que será testado em seu próprio arquivo.
-        pass
-    def test_formatar_stats(self):
-        """Testa formatação de stats para CLI."""
-        # Esta funcionalidade foi movida para a camada de apresentação (app.py)
-        pass
-    
-    def test_processar_comando_stats(self):
-        """Testa comando /stats."""
-        # Esta funcionalidade foi movida para a camada de apresentação (app.py)
-        pass
-    
-    def test_mostrar_stats_gradio(self):
-        """Testa mostrar_stats em app.py para Gradio."""
-        # Este é um teste de integração que pertence a test_app.py
         pass
 if __name__ == '__main__':
     unittest.main()

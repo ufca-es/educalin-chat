@@ -96,7 +96,6 @@ class StatsRepo(BaseRepo):
         if not isinstance(data, dict):
             data = {}
 
-        # Garante que as chaves principais existam
         data.setdefault("total_interactions", 0)
         data.setdefault("fallback_count", 0)
         data.setdefault("por_personalidade", {})
@@ -127,7 +126,6 @@ class StatsRepo(BaseRepo):
         if tag:
             data["por_tag"][tag] = data["por_tag"].get(tag, 0) + 1
 
-        # Lógica de Sessão
         try:
             ts_in = datetime.fromisoformat(timestamp_in)
             ts_out = datetime.fromisoformat(timestamp_out)
@@ -173,7 +171,6 @@ class StatsRepo(BaseRepo):
 
         success = self.atomic.write_json_atomic(self.path, data, ensure_ascii=False, indent=2)
 
-        # Opcional: manter o relatório de texto
         self._write_to_report(data, personalidade, tag)
 
         if self.logger:

@@ -10,7 +10,6 @@ tema_aline = gr.themes.Base(
     body_background_fill="#F4F3F2",           # Fundo principal
     background_fill_primary="#F4F3F2",           # Fundo principal
     background_fill_secondary="#FFFFFF",         # Fundo card/bloco
-    # Não existe text_color_primary. Use o CSS customizado para títulos, etc.
 
     button_primary_background_fill_hover="#17a085",              # Tom escurecido para hover
     button_primary_text_color="#FFFFFF",

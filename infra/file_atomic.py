@@ -13,14 +13,7 @@ class AtomicWriter:
             getattr(self.logger, level)(msg)
 
     def write_json_atomic(self, path: str, data: Any, ensure_ascii: bool = False, indent: int = 2) -> bool:
-        """
-        1) Cria backup do arquivo atual (se existir)
-        2) Serializa para string e valida
-        3) Escreve em <path>.tmp
-        4) Revalida leitura do tmp
-        5) os.replace(tmp, path) (commit atômico)
-        6) Remove backup se tudo OK; senão faz rollback
-        """
+        """Escrita atômica com backup/rollback para JSON (UTF-8)."""
         backup = f"{path}.backup"
         tmp = f"{path}.tmp"
 
@@ -49,7 +42,6 @@ class AtomicWriter:
         except Exception as e:
             self._log('error', f"Erro na escrita atômica: {e}")
 
-            # rollback
             if os.path.exists(backup):
                 if os.path.exists(path):
                     try:
