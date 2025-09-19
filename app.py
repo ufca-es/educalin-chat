@@ -1,6 +1,8 @@
 import gradio as gr
 from gradio import themes
 from gradio.themes.utils import fonts, sizes
+from datetime import datetime, timezone
+import pytz # Para conversão de fuso horário
 
 # --- imports da arquitetura modular ---
 from infra.logging_conf import get_logger
@@ -62,9 +64,24 @@ def load_initial_history():
     historico = aline_bot.carregar_historico_inicial(n=5)
     if historico:
         for entry in historico:
-            ts = entry.get("timestamp", "")[:16]  # YYYY-MM-DD HH:MM
-            pers = entry.get("personalidade", "formal").capitalize()  # Integra capitalize de Samuel
-            hist_msg_user = f"[{ts}] Você: {entry.get('pergunta','')}"
+            ts_str = entry.get("timestamp_in", "")
+            ts_formatado = ""
+            if ts_str:
+                try:
+                    # Converte de string ISO UTC para datetime object
+                    ts_utc = datetime.fromisoformat(ts_str.replace("Z", "+00:00"))
+                    
+                    # Converte para o fuso horário de São Paulo
+                    fuso_horario_sp = pytz.timezone("America/Sao_Paulo")
+                    ts_local = ts_utc.astimezone(fuso_horario_sp)
+                    
+                    # Formata para exibição
+                    ts_formatado = ts_local.strftime("%Y-%m-%d %H:%M")
+                except (ValueError, TypeError):
+                    ts_formatado = "Timestamp inválido" # Fallback
+
+            pers = entry.get("personalidade", "formal").capitalize()
+            hist_msg_user = f"[{ts_formatado}] Você: {entry.get('pergunta','')}"
             hist_msg_bot = f"Aline ({pers}): {entry.get('resposta','')}"
 
             # ➜ Empilha como duas mensagens separadas (user e assistant)
@@ -118,9 +135,8 @@ def enviar_mensagem(user_message: str, personalidade: str, chat_history, interna
         internal_state["last_question"] = None
 
     # ❌ NÃO chamamos métodos privados nem salvamos histórico aqui:
-    # o próprio Chatbot já persistiu via HistoryRepo na chamada acima.
-    # Task 13: Atualize stats se não interno (opcional; remova se get_stats() coleta tag/fallback)
-    aline_bot.update_stats(is_fallback, pers, tag)
+    # o próprio Chatbot já persistiu via HistoryRepo e atualizou as estatísticas
+    # na chamada a `processar_mensagem` acima.
 
     return chat, internal_state, ""  # limpa o input
 
