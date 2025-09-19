@@ -25,8 +25,15 @@ def validate_input(texto: Optional[str], logger=None) -> bool:
             logger.warning(f"Entrada muito longa rejeitada: {len(texto)} caracteres")
         return False
 
-    # Verifica caracteres de controle diretamente
-    if CONTROL_CHAR_REGEX.search(texto):
+    try:
+        texto_decodificado = codecs.decode(texto, 'unicode_escape')
+    except UnicodeDecodeError:
+        if logger:
+            logger.warning("Entrada com sequência de escape inválida rejeitada.")
+        return False
+
+    # Verifica caracteres de controle
+    if CONTROL_CHAR_REGEX.search(texto_decodificado):
         if logger:
             logger.warning("Entrada com caracteres de controle rejeitada")
         return False
