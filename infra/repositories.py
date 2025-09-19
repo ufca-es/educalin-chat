@@ -89,6 +89,10 @@ class HistoryRepo(BaseRepo):
         historico = historico[-max_len:]  # rotação
         return self.atomic.write_json_atomic(self.path, historico, ensure_ascii=False, indent=2)
 
+from typing import Dict, Any, Optional
+from datetime import datetime
+import os
+
 class StatsRepo(BaseRepo):
     def load(self) -> Dict[str, Any]:
         data = self._read_json()
@@ -104,35 +108,42 @@ class StatsRepo(BaseRepo):
     def update_interaction(self, is_fallback: bool, personalidade: str, tag: Optional[str]) -> bool:
         if self.logger:
             self.logger.info(f"Atualizando stats: fallback={is_fallback}, pers={personalidade}, tag={tag}")
+
+        # Carrega dados existentes
         data = self.load()
+
+        # Atualiza métricas
         data["total_interactions"] += 1
         if is_fallback:
             data["fallback_count"] += 1
         data["por_personalidade"][personalidade] = data["por_personalidade"].get(personalidade, 0) + 1
         if tag:
             data["por_tag"][tag] = data["por_tag"].get(tag, 0) + 1
+
+        # Salva no JSON
         success = self.atomic.write_json_atomic(self.path, data, ensure_ascii=False, indent=2)
+
+        # Garante que relatório.txt exista
+        relatorio_path = "relatório.txt"
+        if not os.path.exists(relatorio_path):
+            with open(relatorio_path, "w", encoding="utf-8") as f:
+                f.write("==== Relatório de Interações do Chatbot ====\n\n")
+
+        # Registra a nova interação no relatório
+        try:
+            with open(relatorio_path, "a", encoding="utf-8") as f:
+                timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                f.write(f"[{timestamp}] Interação registrada\n")
+                f.write(f"  - Total: {data['total_interactions']}\n")
+                f.write(f"  - Fallbacks: {data['fallback_count']}\n")
+                f.write(f"  - Personalidade usada: {personalidade}\n")
+                if tag:
+                    f.write(f"  - Tag: {tag}\n")
+                f.write("-" * 40 + "\n")
+        except Exception as e:
+            if self.logger:
+                self.logger.error(f"Erro ao salvar no relatório.txt: {e}")
+
         if self.logger:
             self.logger.info(f"Stats salvo: {success}")
         return success
-class StatsRepo(BaseRepo):
-    def load(self) -> Dict[str, Any]:
-        data = self._read_json()
-        if isinstance(data, dict):
-            return data
-        return {
-            "total_interactions": 0,
-            "fallback_count": 0,
-            "por_personalidade": {},
-            "por_tag": {}
-        }
-
-    def update_interaction(self, is_fallback: bool, personalidade: str, tag: Optional[str]) -> bool:
-        data = self.load()
-        data["total_interactions"] += 1
-        if is_fallback:
-            data["fallback_count"] += 1
-        data["por_personalidade"][personalidade] = data["por_personalidade"].get(personalidade, 0) + 1
-        if tag:
-            data["por_tag"][tag] = data["por_tag"].get(tag, 0) + 1
-        return self.atomic.write_json_atomic(self.path, data, ensure_ascii=False, indent=2)

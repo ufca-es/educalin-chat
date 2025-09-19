@@ -1,4 +1,6 @@
 import gradio as gr
+from gradio import themes
+from gradio.themes.utils import fonts, sizes
 
 # --- imports da arquitetura modular ---
 from infra.logging_conf import get_logger
@@ -6,6 +8,75 @@ from infra.repositories import CoreRepo, LearnedRepo, HistoryRepo
 from core.intent_matcher import IntentMatcher
 from core.chatbot import Chatbot
 from core.personalities import canonicalize, display_name, is_valid
+
+#--------------------------
+#   Estilo
+#--------------------------
+
+custom_css = """
+/* Largura máxima e centralização */
+.gradio-container { max-width: 1000px; margin: 0 auto; }
+
+/* Fundo geral clean */
+body { background: #f1f5f9; }
+
+/* Cartões/blocos com cantos e sombra leve */
+.gr-block, .gr-panel, .gr-group { 
+  background: #ffffff; 
+  border-radius: 10px; 
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+}
+
+/* Botões: azul escuro, texto branco, cantos suaves */
+button { 
+  border-radius: 10px !important; 
+  font-weight: 500;
+}
+button.primary { 
+  background: #1e3a8a !important; 
+  color: #ffffff !important; 
+  border: 1px solid #1e40af !important;
+}
+button.secondary {
+  background: #e2e8f0 !important; 
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+/* Títulos */
+.markdown h1, .markdown h2 {
+  color: #0f172a;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Chatbot: bolhas */
+.gr-chatbot .message.user .bubble {
+  background: #1e3a8a;
+  color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #1e40af;
+}
+.gr-chatbot .message.assistant .bubble {
+  background: #f8fafc;
+  color: #0f172a;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+/* Textareas/inputs mais clean */
+textarea, input, .gr-textbox, .gr-dropdown { 
+  border-radius: 10px !important; 
+}
+"""
+
+theme = themes.Soft(
+    primary_hue="indigo",      # cor principal
+    secondary_hue="blue",      # cor secundária
+    neutral_hue="slate",       # escala neutra
+    font=fonts.GoogleFont("Inter")
+)
+
 
 # -------------------------
 # Inicialização do Chatbot
@@ -39,7 +110,8 @@ def load_initial_history():
     bot_name = "Aline"
     welcome = f"Olá! Eu sou a {bot_name}. Escolha uma personalidade e escreva sua mensagem abaixo."
 
-    chat_history = [(bot_name, welcome)]
+    # ➜ Usa formato "messages" (dicts com role/content)
+    chat_history = [{"role": "assistant", "content": welcome}]
 
     # Usa a API pública do Chatbot para obter as últimas mensagens (versão de Pedro, adaptada com formatação de Samuel)
     historico = aline_bot.carregar_historico_inicial(n=5)
@@ -49,8 +121,12 @@ def load_initial_history():
             pers = entry.get("personalidade", "formal").capitalize()  # Integra capitalize de Samuel
             hist_msg_user = f"[{ts}] Você: {entry.get('pergunta','')}"
             hist_msg_bot = f"Aline ({pers}): {entry.get('resposta','')}"
-            chat_history.append((hist_msg_user, hist_msg_bot))
-        chat_history.append((bot_name, "📜 Histórico anterior carregado. Continuando a conversa..."))
+
+            # ➜ Empilha como duas mensagens separadas (user e assistant)
+            chat_history.append({"role": "user", "content": hist_msg_user})
+            chat_history.append({"role": "assistant", "content": hist_msg_bot})
+
+        chat_history.append({"role": "assistant", "content": "📜 Histórico anterior carregado. Continuando a conversa..."})
 
     return chat_history
 
@@ -74,7 +150,8 @@ def enviar_mensagem(user_message: str, personalidade: str, chat_history, interna
 
     # adiciona a mensagem do usuário ao histórico local do componente
     chat = list(chat_history) if chat_history else []
-    chat.append(("Você", user_message))
+    # ➜ Mensagem do usuário com role="user"
+    chat.append({"role": "user", "content": user_message})
 
     # Task 13: Usa retorno expandido (resposta, is_fallback, tag) - integra Samuel ao modular
     try:
@@ -87,11 +164,11 @@ def enviar_mensagem(user_message: str, personalidade: str, chat_history, interna
     
     # Verifica fallback usando flag robusta
     if is_fallback:
-        chat.append((f"Aline ({pers_exibe})", resposta_bot + " Você pode me ensinar a resposta ideal?"))
+        chat.append({"role": "assistant", "content": f"Aline ({pers_exibe}): {resposta_bot} Você pode me ensinar a resposta ideal?"})
         internal_state["awaiting_teach"] = True
         internal_state["last_question"] = user_message
     else:
-        chat.append((f"Aline ({pers_exibe})", resposta_bot))
+        chat.append({"role": "assistant", "content": f"Aline ({pers_exibe}): {resposta_bot}"})
         internal_state["awaiting_teach"] = False
         internal_state["last_question"] = None
 
@@ -119,7 +196,8 @@ def ensinar_resposta(resposta_ensinada: str, personalidade: str, chat_history, i
     """
     chat = list(chat_history) if chat_history else []
     if not internal_state or not internal_state.get("awaiting_teach") or not internal_state.get("last_question"):
-        chat.append(("Aline", "Não há pergunta pendente para ensinar. Envie uma nova pergunta primeiro."))
+        # ➜ Assistant falando
+        chat.append({"role": "assistant", "content": "Não há pergunta pendente para ensinar. Envie uma nova pergunta primeiro."})
         return chat, {"awaiting_teach": False, "last_question": None}, ""
 
     pergunta = internal_state["last_question"]
@@ -130,10 +208,11 @@ def ensinar_resposta(resposta_ensinada: str, personalidade: str, chat_history, i
     pers_exibe = display_name(pers)
 
     if sucesso:
-        chat.append(("Você", f"(ensinou) {resposta_ensinada}"))
-        chat.append((f"Aline ({pers_exibe})", "Obrigada! Aprendi uma nova resposta."))
+        # ➜ Usuário "ensinou"
+        chat.append({"role": "user", "content": f"(ensinou) {resposta_ensinada}"})
+        chat.append({"role": "assistant", "content": f"Aline ({pers_exibe}): Obrigada! Aprendi uma nova resposta."})
     else:
-        chat.append(("Aline", "Erro ao salvar a nova resposta. Tente novamente."))
+        chat.append({"role": "assistant", "content": "Erro ao salvar a nova resposta. Tente novamente."})
 
     return chat, {"awaiting_teach": False, "last_question": None}, ""  # limpa o campo de ensino
 
@@ -143,9 +222,9 @@ def pular_ensino(chat_history, internal_state, personalidade):
     pers_exibe = display_name(pers)
 
     if internal_state and internal_state.get("awaiting_teach"):
-        chat.append((f"Aline ({pers_exibe})", "Tudo bem, podemos deixar para depois."))
+        chat.append({"role": "assistant", "content": f"Aline ({pers_exibe}): Tudo bem, podemos deixar para depois."})
     else:
-        chat.append((f"Aline ({pers_exibe})", "Não há nada para pular no momento."))
+        chat.append({"role": "assistant", "content": f"Aline ({pers_exibe}): Não há nada para pular no momento."})
     return chat, {"awaiting_teach": False, "last_question": None}, ""
 
 # -------------------------
@@ -171,7 +250,7 @@ def mostrar_stats(personalidade, chat_history, internal_state):
     
     return output
 
-with gr.Blocks(title="Aline Chatbot (Gradio)") as demo:
+with gr.Blocks(title="Aline Chatbot (Gradio)", theme=theme, css=custom_css) as demo:
     gr.Markdown("# Aline: Seu chatbot de matemática")
     gr.Markdown("Escolha uma personalidade e converse. Se o bot não souber responder, você poderá **ensinar** a resposta.")
 
@@ -185,7 +264,8 @@ with gr.Blocks(title="Aline Chatbot (Gradio)") as demo:
         ver_stats_btn = gr.Button("Ver Stats")
         sugestoes_btn = gr.Button("Mostrar Sugestões")
 
-    chatbot = gr.Chatbot(value=load_initial_history(), label="Conversa")
+    # ➜ Chatbot em modo "messages" para alinhar user (direita) e assistant (esquerda)
+    chatbot = gr.Chatbot(value=load_initial_history(), label="Conversa", type="messages")
     user_input = gr.Textbox(label="Sua mensagem", placeholder="Digite aqui e pressione Enter")
     enviar_btn = gr.Button("Enviar")
 
