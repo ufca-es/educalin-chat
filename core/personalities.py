@@ -1,4 +1,3 @@
-# core/personalities.py
 from typing import Dict, List, Optional, Tuple
 
 # Chaves canônicas

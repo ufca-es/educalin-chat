@@ -2,10 +2,8 @@ import re
 import codecs
 from typing import Optional
 
-# Mesmo regex do arquivo original
 CONTROL_CHAR_REGEX = re.compile(r'[\x00-\x1f\x7f-\x9f]')
 
-# Mesmo limite de tamanho do texto
 MAX_INPUT_LEN = 1000
 
 def validate_input(texto: Optional[str], logger=None) -> bool:
