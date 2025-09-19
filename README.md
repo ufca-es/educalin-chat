@@ -436,10 +436,10 @@ Quer contribuir com o EducAlin? Ficamos felizes em receber sua ajuda!
 
 | Nome | GitHub | Papel |
 |------|--------|-------|
-| Davi Maia Soares | [@davimso](https://github.com/davimso) | Desenvolvedor |
-| Elder Rayan Oliveira Silva | [@eldrayan](https://github.com/eldrayan) | Desenvolvedor |
-| Pedro Yan Alcantara Palácio | [@pedropalacioo](https://github.com/pedropalacioo) | Desenvolvedor |
-| Samuel Wagner Tiburi Silveira | [@samsilveira](https://github.com/samsilveira) | Desenvolvedor |
+| Davi Maia Soares | [@davimso](https://github.com/davimso) | Criação da base de dados core data.json <br> Primeira implementação de troca dinâmica de personalidade na GUI <br> Implementação inicial e final da interface gráfica |
+| Elder Rayan Oliveira Silva | [@eldrayan](https://github.com/eldrayan) | Sugestão de perguntas frequentes para o usuário <br> Implementação de histórico e solicitação do mesmo <br> Primeira implementação de troca dinâmica de personalidade na CLI |
+| Pedro Yan Alcantara Palácio | [@pedropalacioo](https://github.com/pedropalacioo) | MVP CLI <br> Primeira implementação de troca dinâmica de personalidade na CLI <br>  Modularização <br> Geração de relatórios <br> Alterações na interface com CSS |
+| Samuel Wagner Tiburi Silveira | [@samsilveira](https://github.com/samsilveira) | Configuração no GitHub e `README.md` <br> Melhora na implementação de troca dinâmica de personalidade na CLI <br> Respostas aleatórias para a mesma pergunta <br> Melhoria do intent matcher <br> Coleta de estatísticas <br> Testes e integrações |
 | Jayr Alencar Pereira | [@jayralencar](https://github.com/jayralencar) | Professor Orientador |
 
 ---
