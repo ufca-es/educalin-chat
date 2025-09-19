@@ -1,0 +1,2150 @@
+==== Relatório de Interações do Chatbot ====
+
+[2025-09-18 23:27:56] Interação registrada
+  - Total: 57
+  - Fallbacks: 19
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-18 23:27:56] Interação registrada
+  - Total: 58
+  - Fallbacks: 19
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 04:48:51] Interação registrada
+  - Total: 59
+  - Fallbacks: 19
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 04:48:51] Interação registrada
+  - Total: 60
+  - Fallbacks: 19
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 04:48:55] Interação registrada
+  - Total: 61
+  - Fallbacks: 19
+  - Personalidade usada: formal
+  - Tag: definicao_mdc
+----------------------------------------
+[2025-09-19 04:48:55] Interação registrada
+  - Total: 62
+  - Fallbacks: 19
+  - Personalidade usada: formal
+  - Tag: definicao_mdc
+----------------------------------------
+[2025-09-19 04:49:13] Interação registrada
+  - Total: 63
+  - Fallbacks: 20
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 04:49:13] Interação registrada
+  - Total: 64
+  - Fallbacks: 21
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 05:00:32] Interação registrada
+  - Total: 65
+  - Fallbacks: 21
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 05:00:32] Interação registrada
+  - Total: 66
+  - Fallbacks: 21
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 05:01:08] Interação registrada
+  - Total: 67
+  - Fallbacks: 21
+  - Personalidade usada: formal
+  - Tag: ordem_operacoes
+----------------------------------------
+[2025-09-19 05:01:08] Interação registrada
+  - Total: 68
+  - Fallbacks: 21
+  - Personalidade usada: formal
+  - Tag: ordem_operacoes
+----------------------------------------
+[2025-09-19 05:29:11 Hora oficial do Brasil] Interação registrada
+  - Total: 69
+  - Fallbacks: 21
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 05:29:17 Hora oficial do Brasil] Interação registrada
+  - Total: 70
+  - Fallbacks: 21
+  - Personalidade usada: formal
+  - Tag: soma
+----------------------------------------
+[2025-09-19 05:31:36 Hora oficial do Brasil] Interação registrada
+  - Total: 71
+  - Fallbacks: 21
+  - Personalidade usada: formal
+  - Tag: definicao_mdc
+----------------------------------------
+[2025-09-19 05:32:54 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 05:32:54 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 05:32:54 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: despedida
+----------------------------------------
+[2025-09-19 05:32:55 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 05:32:55 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 1
+  - Personalidade usada: engracada
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 05:32:55 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: teste_intencao
+----------------------------------------
+[2025-09-19 05:32:55 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: teste_intencao
+----------------------------------------
+[2025-09-19 05:35:24 Hora oficial do Brasil] Interação registrada
+  - Total: 72
+  - Fallbacks: 21
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 05:35:28 Hora oficial do Brasil] Interação registrada
+  - Total: 73
+  - Fallbacks: 21
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 05:35:36 Hora oficial do Brasil] Interação registrada
+  - Total: 74
+  - Fallbacks: 21
+  - Personalidade usada: engracada
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 05:36:02 Hora oficial do Brasil] Interação registrada
+  - Total: 75
+  - Fallbacks: 21
+  - Personalidade usada: engracada
+  - Tag: aprendido
+----------------------------------------
+[2025-09-19 05:36:19 Hora oficial do Brasil] Interação registrada
+  - Total: 76
+  - Fallbacks: 22
+  - Personalidade usada: engracada
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 05:36:50 Hora oficial do Brasil] Interação registrada
+  - Total: 77
+  - Fallbacks: 22
+  - Personalidade usada: engracada
+  - Tag: calcular_mmc
+----------------------------------------
+[2025-09-19 07:28:29 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:28:29 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:28:29 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: despedida
+----------------------------------------
+[2025-09-19 07:28:29 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:28:29 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 1
+  - Personalidade usada: engracada
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:28:29 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: teste_intencao
+----------------------------------------
+[2025-09-19 07:28:29 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: teste_intencao
+----------------------------------------
+[2025-09-19 07:39:27 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:39:27 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:39:27 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: despedida
+----------------------------------------
+[2025-09-19 07:39:27 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:39:27 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 1
+  - Personalidade usada: engracada
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:39:28 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: teste_intencao
+----------------------------------------
+[2025-09-19 07:39:28 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: teste_intencao
+----------------------------------------
+[2025-09-19 07:39:28 Hora oficial do Brasil] Interação registrada
+  - Total: 78
+  - Fallbacks: 23
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:39:28 Hora oficial do Brasil] Interação registrada
+  - Total: 79
+  - Fallbacks: 23
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:39:28 Hora oficial do Brasil] Interação registrada
+  - Total: 80
+  - Fallbacks: 24
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:39:28 Hora oficial do Brasil] Interação registrada
+  - Total: 81
+  - Fallbacks: 25
+  - Personalidade usada: engracada
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:39:29 Hora oficial do Brasil] Interação registrada
+  - Total: 82
+  - Fallbacks: 26
+  - Personalidade usada: desafiadora
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:39:29 Hora oficial do Brasil] Interação registrada
+  - Total: 83
+  - Fallbacks: 27
+  - Personalidade usada: empatica
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:39:29 Hora oficial do Brasil] Interação registrada
+  - Total: 84
+  - Fallbacks: 28
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:39:29 Hora oficial do Brasil] Interação registrada
+  - Total: 85
+  - Fallbacks: 28
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:39:29 Hora oficial do Brasil] Interação registrada
+  - Total: 86
+  - Fallbacks: 28
+  - Personalidade usada: engracada
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:39:29 Hora oficial do Brasil] Interação registrada
+  - Total: 87
+  - Fallbacks: 28
+  - Personalidade usada: desafiadora
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:39:30 Hora oficial do Brasil] Interação registrada
+  - Total: 88
+  - Fallbacks: 28
+  - Personalidade usada: empatica
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:39:30 Hora oficial do Brasil] Interação registrada
+  - Total: 89
+  - Fallbacks: 29
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:39:30 Hora oficial do Brasil] Interação registrada
+  - Total: 90
+  - Fallbacks: 29
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:39:30 Hora oficial do Brasil] Interação registrada
+  - Total: 91
+  - Fallbacks: 29
+  - Personalidade usada: engracada
+  - Tag: definicao_mdc
+----------------------------------------
+[2025-09-19 07:39:30 Hora oficial do Brasil] Interação registrada
+  - Total: 92
+  - Fallbacks: 29
+  - Personalidade usada: desafiadora
+  - Tag: soma
+----------------------------------------
+[2025-09-19 07:39:31 Hora oficial do Brasil] Interação registrada
+  - Total: 93
+  - Fallbacks: 30
+  - Personalidade usada: empatica
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:53:47 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:53:47 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:53:47 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: despedida
+----------------------------------------
+[2025-09-19 07:53:47 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:53:47 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 1
+  - Personalidade usada: engracada
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:53:47 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: teste_intencao
+----------------------------------------
+[2025-09-19 07:53:48 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: teste_intencao
+----------------------------------------
+[2025-09-19 07:53:48 Hora oficial do Brasil] Interação registrada
+  - Total: 94
+  - Fallbacks: 31
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:53:48 Hora oficial do Brasil] Interação registrada
+  - Total: 95
+  - Fallbacks: 31
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:53:48 Hora oficial do Brasil] Interação registrada
+  - Total: 96
+  - Fallbacks: 31
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:53:49 Hora oficial do Brasil] Interação registrada
+  - Total: 97
+  - Fallbacks: 32
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:53:49 Hora oficial do Brasil] Interação registrada
+  - Total: 98
+  - Fallbacks: 33
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:53:49 Hora oficial do Brasil] Interação registrada
+  - Total: 99
+  - Fallbacks: 34
+  - Personalidade usada: engracada
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:53:49 Hora oficial do Brasil] Interação registrada
+  - Total: 100
+  - Fallbacks: 35
+  - Personalidade usada: desafiadora
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:53:49 Hora oficial do Brasil] Interação registrada
+  - Total: 101
+  - Fallbacks: 36
+  - Personalidade usada: empatica
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:53:49 Hora oficial do Brasil] Interação registrada
+  - Total: 102
+  - Fallbacks: 37
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:53:50 Hora oficial do Brasil] Interação registrada
+  - Total: 103
+  - Fallbacks: 37
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:53:50 Hora oficial do Brasil] Interação registrada
+  - Total: 104
+  - Fallbacks: 37
+  - Personalidade usada: engracada
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:53:50 Hora oficial do Brasil] Interação registrada
+  - Total: 105
+  - Fallbacks: 37
+  - Personalidade usada: desafiadora
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:53:50 Hora oficial do Brasil] Interação registrada
+  - Total: 106
+  - Fallbacks: 37
+  - Personalidade usada: empatica
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:53:51 Hora oficial do Brasil] Interação registrada
+  - Total: 107
+  - Fallbacks: 38
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:53:51 Hora oficial do Brasil] Interação registrada
+  - Total: 108
+  - Fallbacks: 39
+  - Personalidade usada: engracada
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:53:51 Hora oficial do Brasil] Interação registrada
+  - Total: 109
+  - Fallbacks: 40
+  - Personalidade usada: desafiadora
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:53:51 Hora oficial do Brasil] Interação registrada
+  - Total: 110
+  - Fallbacks: 41
+  - Personalidade usada: empatica
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:53:51 Hora oficial do Brasil] Interação registrada
+  - Total: 111
+  - Fallbacks: 41
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:53:52 Hora oficial do Brasil] Interação registrada
+  - Total: 112
+  - Fallbacks: 41
+  - Personalidade usada: engracada
+  - Tag: definicao_mdc
+----------------------------------------
+[2025-09-19 07:53:52 Hora oficial do Brasil] Interação registrada
+  - Total: 113
+  - Fallbacks: 41
+  - Personalidade usada: desafiadora
+  - Tag: soma
+----------------------------------------
+[2025-09-19 07:53:52 Hora oficial do Brasil] Interação registrada
+  - Total: 114
+  - Fallbacks: 42
+  - Personalidade usada: empatica
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:55:06 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:55:06 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:55:06 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: despedida
+----------------------------------------
+[2025-09-19 07:55:06 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:55:06 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 1
+  - Personalidade usada: engracada
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:55:06 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: teste_intencao
+----------------------------------------
+[2025-09-19 07:55:06 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: teste_intencao
+----------------------------------------
+[2025-09-19 07:55:07 Hora oficial do Brasil] Interação registrada
+  - Total: 115
+  - Fallbacks: 43
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:55:07 Hora oficial do Brasil] Interação registrada
+  - Total: 116
+  - Fallbacks: 43
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:55:07 Hora oficial do Brasil] Interação registrada
+  - Total: 117
+  - Fallbacks: 43
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:55:07 Hora oficial do Brasil] Interação registrada
+  - Total: 118
+  - Fallbacks: 44
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:55:07 Hora oficial do Brasil] Interação registrada
+  - Total: 119
+  - Fallbacks: 45
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:55:08 Hora oficial do Brasil] Interação registrada
+  - Total: 120
+  - Fallbacks: 46
+  - Personalidade usada: engracada
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:55:08 Hora oficial do Brasil] Interação registrada
+  - Total: 121
+  - Fallbacks: 47
+  - Personalidade usada: desafiadora
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:55:08 Hora oficial do Brasil] Interação registrada
+  - Total: 122
+  - Fallbacks: 48
+  - Personalidade usada: empatica
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:55:08 Hora oficial do Brasil] Interação registrada
+  - Total: 123
+  - Fallbacks: 49
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:55:08 Hora oficial do Brasil] Interação registrada
+  - Total: 124
+  - Fallbacks: 49
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:55:08 Hora oficial do Brasil] Interação registrada
+  - Total: 125
+  - Fallbacks: 49
+  - Personalidade usada: engracada
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:55:08 Hora oficial do Brasil] Interação registrada
+  - Total: 126
+  - Fallbacks: 49
+  - Personalidade usada: desafiadora
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:55:09 Hora oficial do Brasil] Interação registrada
+  - Total: 127
+  - Fallbacks: 49
+  - Personalidade usada: empatica
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:55:09 Hora oficial do Brasil] Interação registrada
+  - Total: 128
+  - Fallbacks: 50
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:55:09 Hora oficial do Brasil] Interação registrada
+  - Total: 129
+  - Fallbacks: 51
+  - Personalidade usada: engracada
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:55:09 Hora oficial do Brasil] Interação registrada
+  - Total: 130
+  - Fallbacks: 52
+  - Personalidade usada: desafiadora
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:55:09 Hora oficial do Brasil] Interação registrada
+  - Total: 131
+  - Fallbacks: 53
+  - Personalidade usada: empatica
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 07:55:09 Hora oficial do Brasil] Interação registrada
+  - Total: 132
+  - Fallbacks: 53
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 07:55:10 Hora oficial do Brasil] Interação registrada
+  - Total: 133
+  - Fallbacks: 53
+  - Personalidade usada: engracada
+  - Tag: definicao_mdc
+----------------------------------------
+[2025-09-19 07:55:10 Hora oficial do Brasil] Interação registrada
+  - Total: 134
+  - Fallbacks: 53
+  - Personalidade usada: desafiadora
+  - Tag: soma
+----------------------------------------
+[2025-09-19 07:55:10 Hora oficial do Brasil] Interação registrada
+  - Total: 135
+  - Fallbacks: 54
+  - Personalidade usada: empatica
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 08:48:03 Hora oficial do Brasil] Interação registrada
+  - Total: 136
+  - Fallbacks: 54
+  - Personalidade usada: formal
+  - Tag: aprendido
+----------------------------------------
+[2025-09-19 08:48:03 Hora oficial do Brasil] Interação registrada
+  - Total: 137
+  - Fallbacks: 55
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 08:48:03 Hora oficial do Brasil] Interação registrada
+  - Total: 138
+  - Fallbacks: 56
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 08:48:03 Hora oficial do Brasil] Interação registrada
+  - Total: 139
+  - Fallbacks: 57
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 08:48:03 Hora oficial do Brasil] Interação registrada
+  - Total: 140
+  - Fallbacks: 58
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 08:48:03 Hora oficial do Brasil] Interação registrada
+  - Total: 141
+  - Fallbacks: 59
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 08:48:03 Hora oficial do Brasil] Interação registrada
+  - Total: 142
+  - Fallbacks: 60
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 08:48:04 Hora oficial do Brasil] Interação registrada
+  - Total: 143
+  - Fallbacks: 61
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 08:48:04 Hora oficial do Brasil] Interação registrada
+  - Total: 144
+  - Fallbacks: 62
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 08:48:04 Hora oficial do Brasil] Interação registrada
+  - Total: 145
+  - Fallbacks: 63
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 08:48:04 Hora oficial do Brasil] Interação registrada
+  - Total: 146
+  - Fallbacks: 64
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 08:48:04 Hora oficial do Brasil] Interação registrada
+  - Total: 147
+  - Fallbacks: 64
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 08:48:04 Hora oficial do Brasil] Interação registrada
+  - Total: 148
+  - Fallbacks: 64
+  - Personalidade usada: formal
+  - Tag: aprendido
+----------------------------------------
+[2025-09-19 08:48:04 Hora oficial do Brasil] Interação registrada
+  - Total: 149
+  - Fallbacks: 65
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 08:48:04 Hora oficial do Brasil] Interação registrada
+  - Total: 150
+  - Fallbacks: 65
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 08:48:05 Hora oficial do Brasil] Interação registrada
+  - Total: 151
+  - Fallbacks: 66
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 08:48:05 Hora oficial do Brasil] Interação registrada
+  - Total: 152
+  - Fallbacks: 67
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 08:48:05 Hora oficial do Brasil] Interação registrada
+  - Total: 153
+  - Fallbacks: 68
+  - Personalidade usada: engracada
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 08:48:05 Hora oficial do Brasil] Interação registrada
+  - Total: 154
+  - Fallbacks: 69
+  - Personalidade usada: desafiadora
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 08:48:05 Hora oficial do Brasil] Interação registrada
+  - Total: 155
+  - Fallbacks: 70
+  - Personalidade usada: empatica
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 08:48:06 Hora oficial do Brasil] Interação registrada
+  - Total: 156
+  - Fallbacks: 71
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 08:48:06 Hora oficial do Brasil] Interação registrada
+  - Total: 157
+  - Fallbacks: 71
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 08:48:06 Hora oficial do Brasil] Interação registrada
+  - Total: 158
+  - Fallbacks: 71
+  - Personalidade usada: engracada
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 08:48:06 Hora oficial do Brasil] Interação registrada
+  - Total: 159
+  - Fallbacks: 71
+  - Personalidade usada: desafiadora
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 08:48:06 Hora oficial do Brasil] Interação registrada
+  - Total: 160
+  - Fallbacks: 71
+  - Personalidade usada: empatica
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 08:48:07 Hora oficial do Brasil] Interação registrada
+  - Total: 161
+  - Fallbacks: 72
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 08:48:07 Hora oficial do Brasil] Interação registrada
+  - Total: 162
+  - Fallbacks: 73
+  - Personalidade usada: engracada
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 08:48:07 Hora oficial do Brasil] Interação registrada
+  - Total: 163
+  - Fallbacks: 74
+  - Personalidade usada: desafiadora
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 08:48:07 Hora oficial do Brasil] Interação registrada
+  - Total: 164
+  - Fallbacks: 75
+  - Personalidade usada: empatica
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 08:48:07 Hora oficial do Brasil] Interação registrada
+  - Total: 165
+  - Fallbacks: 75
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 08:48:07 Hora oficial do Brasil] Interação registrada
+  - Total: 166
+  - Fallbacks: 75
+  - Personalidade usada: engracada
+  - Tag: definicao_mdc
+----------------------------------------
+[2025-09-19 08:48:08 Hora oficial do Brasil] Interação registrada
+  - Total: 167
+  - Fallbacks: 75
+  - Personalidade usada: desafiadora
+  - Tag: soma
+----------------------------------------
+[2025-09-19 08:48:08 Hora oficial do Brasil] Interação registrada
+  - Total: 168
+  - Fallbacks: 76
+  - Personalidade usada: empatica
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 08:48:08 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 08:48:08 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 08:48:08 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: despedida
+----------------------------------------
+[2025-09-19 08:48:08 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 08:48:08 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 1
+  - Personalidade usada: engracada
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 08:48:08 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: teste_intencao
+----------------------------------------
+[2025-09-19 08:48:08 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: teste_intencao
+----------------------------------------
+[2025-09-19 09:00:09 Hora oficial do Brasil] Interação registrada
+  - Total: 169
+  - Fallbacks: 76
+  - Personalidade usada: formal
+  - Tag: aprendido
+----------------------------------------
+[2025-09-19 09:00:10 Hora oficial do Brasil] Interação registrada
+  - Total: 170
+  - Fallbacks: 77
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:00:10 Hora oficial do Brasil] Interação registrada
+  - Total: 171
+  - Fallbacks: 78
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:00:10 Hora oficial do Brasil] Interação registrada
+  - Total: 172
+  - Fallbacks: 79
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:00:10 Hora oficial do Brasil] Interação registrada
+  - Total: 173
+  - Fallbacks: 80
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:00:10 Hora oficial do Brasil] Interação registrada
+  - Total: 174
+  - Fallbacks: 81
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:00:10 Hora oficial do Brasil] Interação registrada
+  - Total: 175
+  - Fallbacks: 82
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:00:10 Hora oficial do Brasil] Interação registrada
+  - Total: 176
+  - Fallbacks: 83
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:00:10 Hora oficial do Brasil] Interação registrada
+  - Total: 177
+  - Fallbacks: 84
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:00:11 Hora oficial do Brasil] Interação registrada
+  - Total: 178
+  - Fallbacks: 85
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:00:11 Hora oficial do Brasil] Interação registrada
+  - Total: 179
+  - Fallbacks: 86
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:00:11 Hora oficial do Brasil] Interação registrada
+  - Total: 180
+  - Fallbacks: 86
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:00:11 Hora oficial do Brasil] Interação registrada
+  - Total: 181
+  - Fallbacks: 86
+  - Personalidade usada: formal
+  - Tag: aprendido
+----------------------------------------
+[2025-09-19 09:00:11 Hora oficial do Brasil] Interação registrada
+  - Total: 182
+  - Fallbacks: 87
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:00:11 Hora oficial do Brasil] Interação registrada
+  - Total: 183
+  - Fallbacks: 87
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:00:11 Hora oficial do Brasil] Interação registrada
+  - Total: 184
+  - Fallbacks: 88
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:00:12 Hora oficial do Brasil] Interação registrada
+  - Total: 185
+  - Fallbacks: 89
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:00:12 Hora oficial do Brasil] Interação registrada
+  - Total: 186
+  - Fallbacks: 90
+  - Personalidade usada: engracada
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:00:12 Hora oficial do Brasil] Interação registrada
+  - Total: 187
+  - Fallbacks: 91
+  - Personalidade usada: desafiadora
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:00:12 Hora oficial do Brasil] Interação registrada
+  - Total: 188
+  - Fallbacks: 92
+  - Personalidade usada: empatica
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:00:12 Hora oficial do Brasil] Interação registrada
+  - Total: 189
+  - Fallbacks: 93
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:00:13 Hora oficial do Brasil] Interação registrada
+  - Total: 190
+  - Fallbacks: 93
+  - Personalidade usada: formal
+  - Tag: aprendido
+----------------------------------------
+[2025-09-19 09:00:13 Hora oficial do Brasil] Interação registrada
+  - Total: 191
+  - Fallbacks: 93
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:00:13 Hora oficial do Brasil] Interação registrada
+  - Total: 192
+  - Fallbacks: 93
+  - Personalidade usada: engracada
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:00:13 Hora oficial do Brasil] Interação registrada
+  - Total: 193
+  - Fallbacks: 93
+  - Personalidade usada: desafiadora
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:00:13 Hora oficial do Brasil] Interação registrada
+  - Total: 194
+  - Fallbacks: 93
+  - Personalidade usada: empatica
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:00:14 Hora oficial do Brasil] Interação registrada
+  - Total: 195
+  - Fallbacks: 94
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:00:14 Hora oficial do Brasil] Interação registrada
+  - Total: 196
+  - Fallbacks: 95
+  - Personalidade usada: engracada
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:00:14 Hora oficial do Brasil] Interação registrada
+  - Total: 197
+  - Fallbacks: 96
+  - Personalidade usada: desafiadora
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:00:14 Hora oficial do Brasil] Interação registrada
+  - Total: 198
+  - Fallbacks: 97
+  - Personalidade usada: empatica
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:00:14 Hora oficial do Brasil] Interação registrada
+  - Total: 199
+  - Fallbacks: 97
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:00:14 Hora oficial do Brasil] Interação registrada
+  - Total: 200
+  - Fallbacks: 97
+  - Personalidade usada: engracada
+  - Tag: definicao_mdc
+----------------------------------------
+[2025-09-19 09:00:15 Hora oficial do Brasil] Interação registrada
+  - Total: 201
+  - Fallbacks: 97
+  - Personalidade usada: desafiadora
+  - Tag: soma
+----------------------------------------
+[2025-09-19 09:00:15 Hora oficial do Brasil] Interação registrada
+  - Total: 202
+  - Fallbacks: 98
+  - Personalidade usada: empatica
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:00:15 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:00:15 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:00:15 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: despedida
+----------------------------------------
+[2025-09-19 09:00:15 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:00:15 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 1
+  - Personalidade usada: engracada
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:00:15 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: teste_intencao
+----------------------------------------
+[2025-09-19 09:00:15 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: teste_intencao
+----------------------------------------
+[2025-09-19 09:01:07 Hora oficial do Brasil] Interação registrada
+  - Total: 203
+  - Fallbacks: 98
+  - Personalidade usada: formal
+  - Tag: aprendido
+----------------------------------------
+[2025-09-19 09:01:08 Hora oficial do Brasil] Interação registrada
+  - Total: 204
+  - Fallbacks: 99
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:01:08 Hora oficial do Brasil] Interação registrada
+  - Total: 205
+  - Fallbacks: 100
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:01:08 Hora oficial do Brasil] Interação registrada
+  - Total: 206
+  - Fallbacks: 101
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:01:08 Hora oficial do Brasil] Interação registrada
+  - Total: 207
+  - Fallbacks: 102
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:01:08 Hora oficial do Brasil] Interação registrada
+  - Total: 208
+  - Fallbacks: 103
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:01:08 Hora oficial do Brasil] Interação registrada
+  - Total: 209
+  - Fallbacks: 104
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:01:08 Hora oficial do Brasil] Interação registrada
+  - Total: 210
+  - Fallbacks: 105
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:01:08 Hora oficial do Brasil] Interação registrada
+  - Total: 211
+  - Fallbacks: 106
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:01:08 Hora oficial do Brasil] Interação registrada
+  - Total: 212
+  - Fallbacks: 107
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:01:09 Hora oficial do Brasil] Interação registrada
+  - Total: 213
+  - Fallbacks: 108
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:01:09 Hora oficial do Brasil] Interação registrada
+  - Total: 214
+  - Fallbacks: 108
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:01:09 Hora oficial do Brasil] Interação registrada
+  - Total: 215
+  - Fallbacks: 108
+  - Personalidade usada: formal
+  - Tag: aprendido
+----------------------------------------
+[2025-09-19 09:01:09 Hora oficial do Brasil] Interação registrada
+  - Total: 216
+  - Fallbacks: 109
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:01:09 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 1
+  - Personalidade usada: formal
+----------------------------------------
+[2025-09-19 09:01:09 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: math_basic
+----------------------------------------
+[2025-09-19 09:01:09 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+----------------------------------------
+[2025-09-19 09:01:09 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 1
+  - Personalidade usada: formal
+  - Tag: math
+----------------------------------------
+[2025-09-19 09:01:09 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:01:09 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 1
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:01:09 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 2
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:01:09 Hora oficial do Brasil] Interação registrada
+  - Total: 3
+  - Fallbacks: 3
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:01:09 Hora oficial do Brasil] Interação registrada
+  - Total: 4
+  - Fallbacks: 4
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:01:09 Hora oficial do Brasil] Interação registrada
+  - Total: 5
+  - Fallbacks: 5
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:01:09 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:01:09 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:01:09 Hora oficial do Brasil] Interação registrada
+  - Total: 3
+  - Fallbacks: 0
+  - Personalidade usada: engracada
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:01:09 Hora oficial do Brasil] Interação registrada
+  - Total: 4
+  - Fallbacks: 1
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:01:10 Hora oficial do Brasil] Interação registrada
+  - Total: 217
+  - Fallbacks: 109
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:01:10 Hora oficial do Brasil] Interação registrada
+  - Total: 218
+  - Fallbacks: 110
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:01:10 Hora oficial do Brasil] Interação registrada
+  - Total: 219
+  - Fallbacks: 111
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:01:10 Hora oficial do Brasil] Interação registrada
+  - Total: 220
+  - Fallbacks: 112
+  - Personalidade usada: engracada
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:01:11 Hora oficial do Brasil] Interação registrada
+  - Total: 221
+  - Fallbacks: 113
+  - Personalidade usada: desafiadora
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:01:11 Hora oficial do Brasil] Interação registrada
+  - Total: 222
+  - Fallbacks: 114
+  - Personalidade usada: empatica
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:01:11 Hora oficial do Brasil] Interação registrada
+  - Total: 223
+  - Fallbacks: 114
+  - Personalidade usada: formal
+  - Tag: aprendido
+----------------------------------------
+[2025-09-19 09:01:11 Hora oficial do Brasil] Interação registrada
+  - Total: 224
+  - Fallbacks: 114
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:01:11 Hora oficial do Brasil] Interação registrada
+  - Total: 225
+  - Fallbacks: 114
+  - Personalidade usada: engracada
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:01:11 Hora oficial do Brasil] Interação registrada
+  - Total: 226
+  - Fallbacks: 114
+  - Personalidade usada: desafiadora
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:01:12 Hora oficial do Brasil] Interação registrada
+  - Total: 227
+  - Fallbacks: 114
+  - Personalidade usada: empatica
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:01:12 Hora oficial do Brasil] Interação registrada
+  - Total: 228
+  - Fallbacks: 115
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:01:12 Hora oficial do Brasil] Interação registrada
+  - Total: 229
+  - Fallbacks: 116
+  - Personalidade usada: engracada
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:01:12 Hora oficial do Brasil] Interação registrada
+  - Total: 230
+  - Fallbacks: 117
+  - Personalidade usada: desafiadora
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:01:12 Hora oficial do Brasil] Interação registrada
+  - Total: 231
+  - Fallbacks: 118
+  - Personalidade usada: empatica
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:01:13 Hora oficial do Brasil] Interação registrada
+  - Total: 232
+  - Fallbacks: 118
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:01:13 Hora oficial do Brasil] Interação registrada
+  - Total: 233
+  - Fallbacks: 118
+  - Personalidade usada: engracada
+  - Tag: definicao_mdc
+----------------------------------------
+[2025-09-19 09:01:13 Hora oficial do Brasil] Interação registrada
+  - Total: 234
+  - Fallbacks: 118
+  - Personalidade usada: desafiadora
+  - Tag: soma
+----------------------------------------
+[2025-09-19 09:01:13 Hora oficial do Brasil] Interação registrada
+  - Total: 235
+  - Fallbacks: 119
+  - Personalidade usada: empatica
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:01:13 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:01:13 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:01:13 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: despedida
+----------------------------------------
+[2025-09-19 09:01:13 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:01:13 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 1
+  - Personalidade usada: engracada
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:01:13 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: teste_intencao
+----------------------------------------
+[2025-09-19 09:01:13 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: teste_intencao
+----------------------------------------
+[2025-09-19 09:04:54 Hora oficial do Brasil] Interação registrada
+  - Total: 236
+  - Fallbacks: 119
+  - Personalidade usada: formal
+  - Tag: aprendido
+----------------------------------------
+[2025-09-19 09:04:54 Hora oficial do Brasil] Interação registrada
+  - Total: 237
+  - Fallbacks: 120
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:04:54 Hora oficial do Brasil] Interação registrada
+  - Total: 238
+  - Fallbacks: 121
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:04:54 Hora oficial do Brasil] Interação registrada
+  - Total: 239
+  - Fallbacks: 122
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:04:55 Hora oficial do Brasil] Interação registrada
+  - Total: 240
+  - Fallbacks: 123
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:04:55 Hora oficial do Brasil] Interação registrada
+  - Total: 241
+  - Fallbacks: 124
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:04:55 Hora oficial do Brasil] Interação registrada
+  - Total: 242
+  - Fallbacks: 125
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:04:55 Hora oficial do Brasil] Interação registrada
+  - Total: 243
+  - Fallbacks: 126
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:04:55 Hora oficial do Brasil] Interação registrada
+  - Total: 244
+  - Fallbacks: 127
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:04:55 Hora oficial do Brasil] Interação registrada
+  - Total: 245
+  - Fallbacks: 128
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:04:55 Hora oficial do Brasil] Interação registrada
+  - Total: 246
+  - Fallbacks: 129
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:04:55 Hora oficial do Brasil] Interação registrada
+  - Total: 247
+  - Fallbacks: 129
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:04:55 Hora oficial do Brasil] Interação registrada
+  - Total: 248
+  - Fallbacks: 129
+  - Personalidade usada: formal
+  - Tag: aprendido
+----------------------------------------
+[2025-09-19 09:04:55 Hora oficial do Brasil] Interação registrada
+  - Total: 249
+  - Fallbacks: 130
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:04:56 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 1
+  - Personalidade usada: formal
+----------------------------------------
+[2025-09-19 09:04:56 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: math_basic
+----------------------------------------
+[2025-09-19 09:04:56 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+----------------------------------------
+[2025-09-19 09:04:56 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 1
+  - Personalidade usada: formal
+  - Tag: math
+----------------------------------------
+[2025-09-19 09:04:56 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:04:56 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 1
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:04:56 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 2
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:04:56 Hora oficial do Brasil] Interação registrada
+  - Total: 3
+  - Fallbacks: 3
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:04:56 Hora oficial do Brasil] Interação registrada
+  - Total: 4
+  - Fallbacks: 4
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:04:56 Hora oficial do Brasil] Interação registrada
+  - Total: 5
+  - Fallbacks: 5
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:04:56 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:04:56 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:04:56 Hora oficial do Brasil] Interação registrada
+  - Total: 3
+  - Fallbacks: 0
+  - Personalidade usada: engracada
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:04:56 Hora oficial do Brasil] Interação registrada
+  - Total: 4
+  - Fallbacks: 1
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:04:56 Hora oficial do Brasil] Interação registrada
+  - Total: 250
+  - Fallbacks: 130
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:04:57 Hora oficial do Brasil] Interação registrada
+  - Total: 251
+  - Fallbacks: 131
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:04:57 Hora oficial do Brasil] Interação registrada
+  - Total: 252
+  - Fallbacks: 132
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:04:57 Hora oficial do Brasil] Interação registrada
+  - Total: 253
+  - Fallbacks: 133
+  - Personalidade usada: engracada
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:04:57 Hora oficial do Brasil] Interação registrada
+  - Total: 254
+  - Fallbacks: 134
+  - Personalidade usada: desafiadora
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:04:57 Hora oficial do Brasil] Interação registrada
+  - Total: 255
+  - Fallbacks: 135
+  - Personalidade usada: empatica
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:04:57 Hora oficial do Brasil] Interação registrada
+  - Total: 256
+  - Fallbacks: 136
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:04:58 Hora oficial do Brasil] Interação registrada
+  - Total: 257
+  - Fallbacks: 136
+  - Personalidade usada: formal
+  - Tag: aprendido
+----------------------------------------
+[2025-09-19 09:04:58 Hora oficial do Brasil] Interação registrada
+  - Total: 258
+  - Fallbacks: 136
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:04:58 Hora oficial do Brasil] Interação registrada
+  - Total: 259
+  - Fallbacks: 136
+  - Personalidade usada: engracada
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:04:58 Hora oficial do Brasil] Interação registrada
+  - Total: 260
+  - Fallbacks: 136
+  - Personalidade usada: desafiadora
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:04:58 Hora oficial do Brasil] Interação registrada
+  - Total: 261
+  - Fallbacks: 136
+  - Personalidade usada: empatica
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:04:59 Hora oficial do Brasil] Interação registrada
+  - Total: 262
+  - Fallbacks: 137
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:04:59 Hora oficial do Brasil] Interação registrada
+  - Total: 263
+  - Fallbacks: 138
+  - Personalidade usada: engracada
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:04:59 Hora oficial do Brasil] Interação registrada
+  - Total: 264
+  - Fallbacks: 139
+  - Personalidade usada: desafiadora
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:04:59 Hora oficial do Brasil] Interação registrada
+  - Total: 265
+  - Fallbacks: 140
+  - Personalidade usada: empatica
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:04:59 Hora oficial do Brasil] Interação registrada
+  - Total: 266
+  - Fallbacks: 140
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:05:00 Hora oficial do Brasil] Interação registrada
+  - Total: 267
+  - Fallbacks: 140
+  - Personalidade usada: engracada
+  - Tag: definicao_mdc
+----------------------------------------
+[2025-09-19 09:05:00 Hora oficial do Brasil] Interação registrada
+  - Total: 268
+  - Fallbacks: 140
+  - Personalidade usada: desafiadora
+  - Tag: soma
+----------------------------------------
+[2025-09-19 09:05:00 Hora oficial do Brasil] Interação registrada
+  - Total: 269
+  - Fallbacks: 141
+  - Personalidade usada: empatica
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:05:00 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:05:00 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:05:00 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: despedida
+----------------------------------------
+[2025-09-19 09:05:00 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:05:00 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 1
+  - Personalidade usada: engracada
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:05:00 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: teste_intencao
+----------------------------------------
+[2025-09-19 09:05:00 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: teste_intencao
+----------------------------------------
+[2025-09-19 09:09:47 Hora oficial do Brasil] Interação registrada
+  - Total: 270
+  - Fallbacks: 141
+  - Personalidade usada: formal
+  - Tag: aprendido
+----------------------------------------
+[2025-09-19 09:09:47 Hora oficial do Brasil] Interação registrada
+  - Total: 271
+  - Fallbacks: 142
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:09:47 Hora oficial do Brasil] Interação registrada
+  - Total: 272
+  - Fallbacks: 143
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:09:47 Hora oficial do Brasil] Interação registrada
+  - Total: 273
+  - Fallbacks: 144
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:09:47 Hora oficial do Brasil] Interação registrada
+  - Total: 274
+  - Fallbacks: 145
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:09:47 Hora oficial do Brasil] Interação registrada
+  - Total: 275
+  - Fallbacks: 146
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:09:48 Hora oficial do Brasil] Interação registrada
+  - Total: 276
+  - Fallbacks: 147
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:09:48 Hora oficial do Brasil] Interação registrada
+  - Total: 277
+  - Fallbacks: 148
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:09:48 Hora oficial do Brasil] Interação registrada
+  - Total: 278
+  - Fallbacks: 149
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:09:48 Hora oficial do Brasil] Interação registrada
+  - Total: 279
+  - Fallbacks: 150
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:09:48 Hora oficial do Brasil] Interação registrada
+  - Total: 280
+  - Fallbacks: 151
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:09:48 Hora oficial do Brasil] Interação registrada
+  - Total: 281
+  - Fallbacks: 151
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:09:48 Hora oficial do Brasil] Interação registrada
+  - Total: 282
+  - Fallbacks: 151
+  - Personalidade usada: formal
+  - Tag: aprendido
+----------------------------------------
+[2025-09-19 09:09:48 Hora oficial do Brasil] Interação registrada
+  - Total: 283
+  - Fallbacks: 152
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:09:48 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 1
+  - Personalidade usada: formal
+----------------------------------------
+[2025-09-19 09:09:48 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: math_basic
+----------------------------------------
+[2025-09-19 09:09:48 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+----------------------------------------
+[2025-09-19 09:09:48 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 1
+  - Personalidade usada: formal
+  - Tag: math
+----------------------------------------
+[2025-09-19 09:09:48 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:09:49 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:09:49 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:09:49 Hora oficial do Brasil] Interação registrada
+  - Total: 3
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:09:49 Hora oficial do Brasil] Interação registrada
+  - Total: 4
+  - Fallbacks: 1
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:09:49 Hora oficial do Brasil] Interação registrada
+  - Total: 5
+  - Fallbacks: 2
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:09:49 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:09:49 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:09:49 Hora oficial do Brasil] Interação registrada
+  - Total: 3
+  - Fallbacks: 0
+  - Personalidade usada: engracada
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:09:49 Hora oficial do Brasil] Interação registrada
+  - Total: 4
+  - Fallbacks: 1
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:09:49 Hora oficial do Brasil] Interação registrada
+  - Total: 284
+  - Fallbacks: 152
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:09:49 Hora oficial do Brasil] Interação registrada
+  - Total: 285
+  - Fallbacks: 153
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:09:50 Hora oficial do Brasil] Interação registrada
+  - Total: 286
+  - Fallbacks: 154
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:09:50 Hora oficial do Brasil] Interação registrada
+  - Total: 287
+  - Fallbacks: 155
+  - Personalidade usada: engracada
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:09:50 Hora oficial do Brasil] Interação registrada
+  - Total: 288
+  - Fallbacks: 156
+  - Personalidade usada: desafiadora
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:09:50 Hora oficial do Brasil] Interação registrada
+  - Total: 289
+  - Fallbacks: 157
+  - Personalidade usada: empatica
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:09:50 Hora oficial do Brasil] Interação registrada
+  - Total: 290
+  - Fallbacks: 158
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:09:51 Hora oficial do Brasil] Interação registrada
+  - Total: 291
+  - Fallbacks: 158
+  - Personalidade usada: formal
+  - Tag: aprendido
+----------------------------------------
+[2025-09-19 09:09:51 Hora oficial do Brasil] Interação registrada
+  - Total: 292
+  - Fallbacks: 158
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:09:51 Hora oficial do Brasil] Interação registrada
+  - Total: 293
+  - Fallbacks: 158
+  - Personalidade usada: engracada
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:09:51 Hora oficial do Brasil] Interação registrada
+  - Total: 294
+  - Fallbacks: 158
+  - Personalidade usada: desafiadora
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:09:51 Hora oficial do Brasil] Interação registrada
+  - Total: 295
+  - Fallbacks: 158
+  - Personalidade usada: empatica
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:09:52 Hora oficial do Brasil] Interação registrada
+  - Total: 296
+  - Fallbacks: 159
+  - Personalidade usada: formal
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:09:52 Hora oficial do Brasil] Interação registrada
+  - Total: 297
+  - Fallbacks: 160
+  - Personalidade usada: engracada
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:09:52 Hora oficial do Brasil] Interação registrada
+  - Total: 298
+  - Fallbacks: 161
+  - Personalidade usada: desafiadora
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:09:52 Hora oficial do Brasil] Interação registrada
+  - Total: 299
+  - Fallbacks: 162
+  - Personalidade usada: empatica
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:09:52 Hora oficial do Brasil] Interação registrada
+  - Total: 300
+  - Fallbacks: 162
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:09:52 Hora oficial do Brasil] Interação registrada
+  - Total: 301
+  - Fallbacks: 162
+  - Personalidade usada: engracada
+  - Tag: definicao_mdc
+----------------------------------------
+[2025-09-19 09:09:53 Hora oficial do Brasil] Interação registrada
+  - Total: 302
+  - Fallbacks: 162
+  - Personalidade usada: desafiadora
+  - Tag: soma
+----------------------------------------
+[2025-09-19 09:09:53 Hora oficial do Brasil] Interação registrada
+  - Total: 303
+  - Fallbacks: 162
+  - Personalidade usada: empatica
+  - Tag: dificuldade_estudos
+----------------------------------------
+[2025-09-19 09:09:53 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:09:53 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:09:53 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: despedida
+----------------------------------------
+[2025-09-19 09:09:53 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: saudacao
+----------------------------------------
+[2025-09-19 09:09:53 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 1
+  - Personalidade usada: engracada
+  - Tag: fallback
+----------------------------------------
+[2025-09-19 09:09:53 Hora oficial do Brasil] Interação registrada
+  - Total: 1
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: teste_intencao
+----------------------------------------
+[2025-09-19 09:09:53 Hora oficial do Brasil] Interação registrada
+  - Total: 2
+  - Fallbacks: 0
+  - Personalidade usada: formal
+  - Tag: teste_intencao
+----------------------------------------

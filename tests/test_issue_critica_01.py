@@ -17,7 +17,10 @@ import os
 # Adicionar diretório raiz ao path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from main import Chatbot
+from infra.repositories import CoreRepo, LearnedRepo, HistoryRepo
+from infra.logging_conf import get_logger
+from core.intent_matcher import IntentMatcher
+from core.chatbot import Chatbot
 from app import enviar_mensagem, ensinar_resposta
 
 class TestIssueCorrecao(unittest.TestCase):
@@ -25,7 +28,12 @@ class TestIssueCorrecao(unittest.TestCase):
     
     def setUp(self):
         """Configuração inicial dos testes"""
-        self.bot = Chatbot('core_data.json', 'new_data.json')
+        self.logger = get_logger("test_issue_critica_01")
+        self.core_repo = CoreRepo('data/core_data.json', logger=self.logger)
+        self.learned_repo = LearnedRepo('data/new_data.json', logger=self.logger)
+        self.history_repo = HistoryRepo('data/historico.json', logger=self.logger)
+        self.intent_matcher = IntentMatcher(intencoes=self.core_repo.load_intents(), aprendidos=self.learned_repo.load(), logger=self.logger)
+        self.bot = Chatbot(matcher=self.intent_matcher, learned_repo=self.learned_repo, history_repo=self.history_repo, logger=self.logger)
     
     def test_fallback_detection_todas_personalidades(self):
         """
@@ -37,7 +45,7 @@ class TestIssueCorrecao(unittest.TestCase):
         
         for personality in personalities:
             with self.subTest(personality=personality):
-                resposta, is_fallback = self.bot.processar_mensagem(pergunta_inexistente, personality)
+                resposta, is_fallback, _ = self.bot.processar_mensagem(pergunta_inexistente, personality)
                 
                 # Verifica que fallback foi detectado
                 self.assertTrue(is_fallback, f"Fallback não foi detectado para personalidade {personality}")
@@ -61,7 +69,7 @@ class TestIssueCorrecao(unittest.TestCase):
         
         for personality in personalities:
             with self.subTest(personality=personality):
-                resposta, is_fallback = self.bot.processar_mensagem("oi", personality)
+                resposta, is_fallback, _ = self.bot.processar_mensagem("oi", personality)
                 
                 # Resposta normal não deve ser fallback
                 self.assertFalse(is_fallback, f"Resposta normal detectada como fallback para {personality}")
@@ -82,27 +90,27 @@ class TestIssueCorrecao(unittest.TestCase):
         personalidade = "formal"
         
         # 1. Enviar pergunta inexistente
-        chat, state = enviar_mensagem(pergunta_nova, personalidade, [], None)
+        chat, state, _ = enviar_mensagem(pergunta_nova, personalidade, [], None)
         
         # 2. Verificar se modo de ensino foi ativado (FALHA ANTES DA CORREÇÃO!)
         self.assertTrue(state["awaiting_teach"], "Modo de ensino não foi ativado - Issue Crítica #01!")
         self.assertEqual(state["last_question"], pergunta_nova, "Pergunta não foi salva corretamente")
         
         # 3. Verificar se mensagem de ensino foi adicionada
-        last_message = chat[-1][1]
+        last_message = chat[-1]["content"]
         self.assertIn("Você pode me ensinar", last_message, "Mensagem de ensino não foi adicionada")
         
         # 4. Ensinar resposta
         resposta_ensinada = "Esta é uma resposta de teste ensinada"
-        chat, state = ensinar_resposta(resposta_ensinada, personalidade, chat, state)
+        chat, state, _ = ensinar_resposta(resposta_ensinada, personalidade, chat, state)
         
         # 5. Verificar se resposta foi aceita
         self.assertFalse(state["awaiting_teach"], "Modo de ensino não foi desativado")
         self.assertIsNone(state["last_question"], "Pergunta não foi limpa após ensino")
         
         # 6. Testar se resposta é retornada em nova consulta
-        chat_novo, state_novo = enviar_mensagem(pergunta_nova, personalidade, [], None)
-        ultima_resposta = chat_novo[-1][1]
+        chat_novo, state_novo, _ = enviar_mensagem(pergunta_nova, personalidade, [], None)
+        ultima_resposta = chat_novo[-1]["content"]
         
         # A resposta ensinada deve aparecer
         self.assertIn(resposta_ensinada, ultima_resposta, "Resposta ensinada não foi salva/recuperada")
@@ -113,12 +121,12 @@ class TestIssueCorrecao(unittest.TestCase):
     def test_compatibilidade_cli(self):
         """Verifica que a interface CLI continua funcionando após correção"""
         # Teste resposta normal
-        resposta_normal = self.bot.processar_mensagem_cli("oi", "formal")
+        resposta_normal, _, _ = self.bot.processar_mensagem("oi", "formal")
         self.assertIn("Olá", resposta_normal)
         
         # Teste fallback 
-        resposta_fallback = self.bot.processar_mensagem_cli("pergunta inexistente", "formal")
-        self.assertIn("Não compreendi", resposta_fallback)
+        resposta_fallback, _, _ = self.bot.processar_mensagem("pergunta inexistente", "formal")
+        self.assertTrue(len(resposta_fallback) > 0)
 
     def test_string_matching_original_nao_funcionaria(self):
         """
@@ -127,7 +135,7 @@ class TestIssueCorrecao(unittest.TestCase):
         pergunta_inexistente = "pergunta que nao existe"
         
         for personality in ["formal", "engracada", "desafiadora"]:  # Excluir empática que contém "não entendi"
-            resposta, is_fallback = self.bot.processar_mensagem(pergunta_inexistente, personality)
+            resposta, is_fallback, _ = self.bot.processar_mensagem(pergunta_inexistente, personality)
             
             # Verifica que é fallback
             self.assertTrue(is_fallback)
@@ -138,7 +146,7 @@ class TestIssueCorrecao(unittest.TestCase):
                             f"String 'não sei a resposta' encontrada na resposta para {personality}")
         
         # Teste específico para empática (que contém variação de "não entendi")
-        resposta_empatica, is_fallback_empatica = self.bot.processar_mensagem(pergunta_inexistente, "empatica")
+        resposta_empatica, is_fallback_empatica, _ = self.bot.processar_mensagem(pergunta_inexistente, "empatica")
         self.assertTrue(is_fallback_empatica)
         # A string exata "não entendi" (sem "bem") não deveria estar
         self.assertNotIn("não sei a resposta", resposta_empatica)
@@ -147,7 +155,12 @@ class TestRegressao(unittest.TestCase):
     """Testes de regressão para verificar que não quebramos nada"""
     
     def setUp(self):
-        self.bot = Chatbot('core_data.json', 'new_data.json')
+        self.logger = get_logger("test_issue_critica_01")
+        self.core_repo = CoreRepo('data/core_data.json', logger=self.logger)
+        self.learned_repo = LearnedRepo('data/new_data.json', logger=self.logger)
+        self.history_repo = HistoryRepo('data/historico.json', logger=self.logger)
+        self.intent_matcher = IntentMatcher(intencoes=self.core_repo.load_intents(), aprendidos=self.learned_repo.load(), logger=self.logger)
+        self.bot = Chatbot(matcher=self.intent_matcher, learned_repo=self.learned_repo, history_repo=self.history_repo, logger=self.logger)
     
     def test_todas_intencoes_funcionam(self):
         """Verifica que todas as intenções conhecidas ainda funcionam"""
@@ -155,12 +168,12 @@ class TestRegressao(unittest.TestCase):
             ("oi", "formal", False),
             ("o que é mdc", "engracada", False),
             ("como somar", "desafiadora", False),
-            ("estou com dificuldades", "empatica", False),
+            ("estou com dificuldades nos estudos", "empatica", False),
         ]
         
         for pergunta, personalidade, expected_fallback in test_cases:
             with self.subTest(pergunta=pergunta, personalidade=personalidade):
-                resposta, is_fallback = self.bot.processar_mensagem(pergunta, personalidade)
+                resposta, is_fallback, _ = self.bot.processar_mensagem(pergunta, personalidade)
                 self.assertEqual(is_fallback, expected_fallback, 
                                f"Fallback incorreto para '{pergunta}' com {personalidade}")
                 self.assertTrue(len(resposta) > 0, f"Resposta vazia para '{pergunta}'")

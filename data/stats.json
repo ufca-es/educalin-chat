@@ -1,0 +1,41 @@
+{
+  "total_interactions": 303,
+  "fallback_count": 162,
+  "por_personalidade": {
+    "formal": 193,
+    "desafiadora": 32,
+    "engracada": 47,
+    "empatica": 31
+  },
+  "por_tag": {
+    "saudacao": 93,
+    "fallback": 151,
+    "definicao_mdc": 13,
+    "dificuldade_estudos": 2,
+    "ordem_operacoes": 2,
+    "soma": 9,
+    "aprendido": 15,
+    "calcular_mmc": 1
+  },
+  "sessoes": {
+    "1": {
+      "inicio": "2025-09-19T08:29:10.999329+00:00",
+      "fim": "2025-09-19T08:36:49.898150+00:00",
+      "duracao_seg": 0.0138,
+      "num_interacoes": 9
+    },
+    "2": {
+      "inicio": "2025-09-19T10:39:28.207180+00:00",
+      "fim": "2025-09-19T10:55:10.248197+00:00",
+      "duracao_seg": 0.11242400000000001,
+      "num_interacoes": 58
+    },
+    "3": {
+      "inicio": "2025-09-19T11:48:03.262006+00:00",
+      "fim": "2025-09-19T12:09:53.158859+00:00",
+      "duracao_seg": 0.173351,
+      "num_interacoes": 168
+    }
+  },
+  "total_duracao_sessoes_seg": 0.29957500000000004
+}

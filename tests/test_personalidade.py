@@ -6,7 +6,10 @@ Testa todos os casos de uso implementados na Task 08
 
 import sys
 import json
-from main import Chatbot
+from infra.repositories import CoreRepo, LearnedRepo, HistoryRepo
+from infra.logging_conf import get_logger
+from core.intent_matcher import IntentMatcher
+from core.chatbot import Chatbot
 
 def test_chatbot_personalidade():
     """Testa todas as funcionalidades de personalidade implementadas"""
@@ -15,11 +18,16 @@ def test_chatbot_personalidade():
     print("="*50)
     
     # Inicializar chatbot
-    CORE_DATA_FILE = 'core_data.json'
-    NEW_DATA_FILE = 'new_data.json'
+    CORE_DATA_FILE = 'data/core_data.json'
+    NEW_DATA_FILE = 'data/new_data.json'
     
     try:
-        bot = Chatbot(core_data_path=CORE_DATA_FILE, new_data_path=NEW_DATA_FILE)
+        logger = get_logger("test_personalidade")
+        core_repo = CoreRepo(CORE_DATA_FILE, logger=logger)
+        learned_repo = LearnedRepo(NEW_DATA_FILE, logger=logger)
+        history_repo = HistoryRepo('data/historico.json', logger=logger) # Usar um arquivo de histórico temporário ou mock
+        matcher = IntentMatcher(intencoes=core_repo.load_intents(), aprendidos=learned_repo.load(), logger=logger)
+        bot = Chatbot(matcher=matcher, learned_repo=learned_repo, history_repo=history_repo, logger=logger)
         print("✅ Chatbot inicializado com sucesso")
     except Exception as e:
         print(f"❌ Erro ao inicializar chatbot: {e}")
@@ -70,10 +78,10 @@ def test_chatbot_personalidade():
     # Teste 4: Processamento de mensagens com personalidades
     print("\n💬 Teste 4: Processamento de Mensagens")
     bot.trocar_personalidade("formal")
-    resposta_formal = bot.processar_mensagem("oi", "formal")
+    resposta_formal, _, _ = bot.processar_mensagem("oi", "formal")
     
     bot.trocar_personalidade("engracada")
-    resposta_engracada = bot.processar_mensagem("oi", "engracada")
+    resposta_engracada, _, _ = bot.processar_mensagem("oi", "engracada")
     
     print(f"  📝 Resposta Formal: {resposta_formal[:50]}...")
     print(f"  📝 Resposta Engraçada: {resposta_engracada[:50]}...")
@@ -97,7 +105,7 @@ def test_compatibilidade_gradio():
     
     try:
         from app import aline_bot
-        resposta = aline_bot.processar_mensagem("oi", "formal")
+        resposta, _, _ = aline_bot.processar_mensagem("oi", "formal")
         print(f"  ✅ Método processar_mensagem funciona: {resposta[:50]}...")
         
         resultado = aline_bot.ensinar_nova_resposta("teste", "resposta teste")

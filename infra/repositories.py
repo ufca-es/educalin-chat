@@ -181,7 +181,7 @@ class StatsRepo(BaseRepo):
         return success
 
     def _write_to_report(self, data: Dict[str, Any], personalidade: str, tag: Optional[str]):
-        relatorio_path = "relatório.txt"
+        relatorio_path = "reports/relatório.txt"
         try:
             if not os.path.exists(relatorio_path):
                 with open(relatorio_path, "w", encoding="utf-8") as f:
