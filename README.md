@@ -4,7 +4,7 @@
 
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://www.python.org/)
 [![Gradio](https://img.shields.io/badge/Gradio-Interface%20Web-orange.svg)](https://gradio.app/)
-[![Status](https://img.shields.io/badge/Status-70%25%20Concluído-green.svg)](docs/STATUS_REQUISITOS.md)
+[![Status](https://img.shields.io/badge/Status-90%25%20Concluído-green.svg)](docs/STATUS_REQUISITOS.md)
 [![Issues Críticas](https://img.shields.io/badge/Issues%20Críticas-0-brightgreen.svg)](docs/STATUS_REQUISITOS.md#-issues-críticas-de-código-identificadas)
 
 ---
@@ -29,10 +29,11 @@
   - [🚀 Como Executar](#-como-executar)
     - [Pré-requisitos](#pré-requisitos)
     - [📦 Instalação](#-instalação)
-    - [🖥️ Interface Terminal (CLI)](#️-interface-terminal-cli)
+    - [🖥️ Interface Terminal (CLI) - Necessita Refatoração](#️-interface-terminal-cli---necessita-refatoração)
     - [🌐 Interface Web (Gradio)](#-interface-web-gradio-1)
     - [🧪 Testes](#-testes)
     - [🔧 Dependências](#-dependências)
+      - [Processamento](#processamento)
       - [Interface CLI (main.py)](#interface-cli-mainpy)
       - [Interface Web (app.py)](#interface-web-apppy)
   - [📁 Estrutura do Projeto](#-estrutura-do-projeto)
@@ -94,11 +95,11 @@ O **EducAlin - Aline** é um chatbot educacional desenvolvido como projeto acad�
 - **📚 Base de Conhecimento**: Conhecimento pré-programado em matemática básica
 - **🔍 Busca Inteligente**: Correspondência fuzzy para entender variações de perguntas
 - **💾 Persistência de Dados**: Salva novos aprendizados em arquivo JSON
-- **📜 Sistema de Histórico (Tasks 11-12)**: Carregamento e salvamento das últimas 5 interações com timestamps em ambas interfaces, preparando para estatísticas
-- ** Troca Dinâmica de Personalidade**: Mudança durante a conversa em **ambas interfaces**
+- **📜 Sistema de Histórico**: Carregamento e salvamento das últimas 5 interações com timestamps em ambas interfaces, preparando para estatísticas
+- **Troca Dinâmica de Personalidade**: Mudança durante a conversa em **ambas interfaces**
   - **CLI**: Comandos especiais `/personalidade [nome]` e `/help`
   - **Web**: Dropdown interativo com troca instantânea
-- **🎲 Respostas Aleatórias (Task 09)**: Variabilidade nas respostas para a mesma pergunta, melhorando engajamento - [Issue #10](https://github.com/ufca-es/educalin-chat/issues/10)
+- **🎲 Respostas Aleatórias**: Variabilidade nas respostas para a mesma pergunta, melhorando engajamento
 - **🛡️ Correções de Segurança**: Issues críticas resolvidas para maior robustez
 - **🎯 Arquitetura Limpa**: Separação clara entre lógica e apresentação
 
@@ -174,7 +175,7 @@ O bot adapta sua forma de comunicação através de 4 personalidades distintas:
    pip install -r requirements.txt
    ```
 
-### 🖥️ Interface Terminal (CLI)
+### 🖥️ Interface Terminal (CLI) - Necessita Refatoração
 
 ```bash
 python main.py
@@ -203,10 +204,13 @@ python app.py
 
 ### 🧪 Testes
 - **Testes Unitários**: Execute `python test_*.py` para validar correções críticas, personalidades, variabilidade de respostas e histórico.
-- **Teste de Variabilidade (Task 09)**: `python test_respostas_aleatorias.py` - Confirma aleatoriedade em respostas e fallback.
-- **Teste de Histórico (Tasks 11-12)**: `python test_historico.py` - Valida carregamento, salvamento e rotação de interações.
+- **Teste de Variabilidade**: `python test_respostas_aleatorias.py` - Confirma aleatoriedade em respostas e fallback.
+- **Teste de Histórico**: `python test_historico.py` - Valida carregamento, salvamento e rotação de interações.
 
 ### 🔧 Dependências
+
+#### Processamento
+- **Pytz**: Biblioteca para conversão de timezones
 
 #### Interface CLI (main.py)
 - **Sem dependências externas** - Usa apenas bibliotecas nativas do Python
@@ -221,18 +225,55 @@ python app.py
 
 ```
 educalin-chat/
-├── main.py                     # Interface CLI - Chatbot principal
+├── .gitignore
 ├── app.py                      # Interface Web - Gradio
 ├── core_data.json              # Base de conhecimento principal
-├── new_data.json              # Dados aprendidos (gerado automaticamente)
-├── test_personalidade.py      # Suite de testes para Task 08
-├── test_respostas_aleatorias.py # Teste de variabilidade para Task 09
-├── PERSONALIDADE_DINAMICA.md  # Documentação da Task 08
+├── educalin_theme.py           # Tema visual para Gradio
+├── historico.json              # Histórico de interações (gerado automaticamente)
+├── logo_educalin-chat.svg      # Logo do projeto
+├── new_data.json               # Dados aprendidos (gerado automaticamente)
+├── README.md                   # Este arquivo
+├── relatório.txt               # Relatório de testes (exemplo)
 ├── requirements.txt            # Dependências Python
-├── README.md                  # Este arquivo
-├── STATUS_REQUISITOS.md       # Relatório de progresso do projeto
-├── espec_trabalho.md          # Especificação completa do projeto
-└── .gitignore                # Arquivos ignorados pelo Git
+├── stats.json                  # Estatísticas de uso (gerado automaticamente)
+├── style.css                   # Estilos CSS para Gradio
+├── test_correções_criticas.py  # Testes para correções críticas
+├── test_historico.py           # Testes para o sistema de histórico
+├── test_issue_critica_01.py    # Testes para a Issue Crítica #01
+├── test_personalidade.py       # Suite de testes para personalidades
+├── test_respostas_aleatorias.py # Teste de variabilidade de respostas
+├── core/
+│   ├── chatbot.py              # Lógica principal do chatbot (antigo main.py)
+│   ├── faq_suggestions.py      # Sugestões de FAQ
+│   ├── intent_matcher.py       # Mapeamento de intenções
+│   ├── personalities.py        # Definição das personalidades
+│   └── validation.py           # Funções de validação
+├── docs/
+│   ├── ANALISE_CRITICA_RESULTADOS_UAT.md # Análise de resultados UAT
+│   ├── ANALISE_ERRO_UNPACKING.md       # Análise de erro de unpacking
+│   ├── ANALISE_ISSUE_CRITICA_01.md     # Análise da Issue Crítica #01
+│   ├── espec_trabalho.md               # Especificação completa do projeto
+│   ├── image-1.png                     # Imagem de documentação
+│   ├── image.png                       # Imagem de documentação
+│   ├── IMPLEMENTACAO_PRATICA_SOLUCOES.md # Implementação prática de soluções
+│   ├── PERSONALIDADE_DINAMICA.md       # Documentação da troca dinâmica de personalidade
+│   ├── plano_task13.md                 # Plano da Task 13
+│   ├── PLANO_TESTE_UAT_CORRECOES_CRITICAS_009_015.md # Plano de teste UAT
+│   ├── PLANO_TESTE_UAT_ISSUE_CRITICA_01.md # Plano de teste UAT
+│   ├── PLANO_TESTE_UAT_TASK13.md         # Plano de teste UAT
+│   ├── RELATORIO_CORRECAO_IMPLEMENTADA.md # Relatório de correção implementada
+│   ├── RELATORIO_FINAL_CORRECOES_UAT.md   # Relatório final de correções UAT
+│   ├── RESULTADOS_TESTE_UAT_CORRECOES_CRITICAS.md # Resultados de teste UAT
+│   ├── RESULTADOS_TESTE_UAT_ISSUE_CRITICA_01.md # Resultados de teste UAT
+│   ├── RESULTADOS_TESTE_UAT_TASK_13.md   # Resultados de teste UAT
+│   ├── SOLUCOES_TECNICAS_UAT_CRITICAS.md # Soluções técnicas UAT
+│   └── STATUS_REQUISITOS.md            # Relatório de progresso do projeto
+├── infra/
+│   ├── file_atomic.py          # Operações atômicas de arquivo
+│   ├── logging_conf.py         # Configuração de logging
+│   └── repositories.py         # Repositórios de dados
+└── tests/
+    └── test_stats_and_sessions.py # Testes para estatísticas e sessões
 ```
 
 ### 📄 Arquivos Principais
@@ -350,6 +391,7 @@ Aline (Engraçada): Obrigada! Aprendi uma nova resposta.
 
 #### Externas
 - `gradio`: Interface web interativa e responsiva
+- `pytz`: Biblioteca para conversão de timezones
 
 ---
 
@@ -370,7 +412,7 @@ Aline (Engraçada): Obrigada! Aprendi uma nova resposta.
 - **Métricas**:
   - Total de interações e taxa de fallback (%).
   - Distribuição por personalidade e tag de intenção (%).
-  - Duração média de sessão: Agrupa interações com intervalo <5 minutos entre timestamp_out e timestamp_in, calculando (timestamp_out_último - timestamp_in_primeiro) por grupo.
+  - Duração média de sessão: Uma sessão é definida como uma sequência de interações de um usuário. Se o intervalo entre o fim de uma interação e o início da próxima for superior a 30 minutos, uma nova sessão é iniciada. A duração média é calculada com base no tempo total de todas as sessões.
 - **Acesso**:
   - **CLI**: Comando `/stats` exibe relatório formatado.
   - **Gradio**: Botão "Ver Stats" popula textbox com métricas legíveis.
