@@ -1,7 +1,7 @@
+import os
 import json
 from datetime import datetime
 from typing import Any, Dict, List, Optional
-
 from .file_atomic import AtomicWriter
 
 class BaseRepo:
@@ -89,9 +89,6 @@ class HistoryRepo(BaseRepo):
         historico = historico[-max_len:]  # rotação
         return self.atomic.write_json_atomic(self.path, historico, ensure_ascii=False, indent=2)
 
-from typing import Dict, Any, Optional
-from datetime import datetime
-import os
 
 class StatsRepo(BaseRepo):
     def load(self) -> Dict[str, Any]:
