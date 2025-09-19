@@ -13,70 +13,15 @@ from core.personalities import canonicalize, display_name, is_valid
 #   Estilo
 #--------------------------
 
-custom_css = """
-/* Largura máxima e centralização */
-.gradio-container { max-width: 1000px; margin: 0 auto; }
+# Carrega CSS customizado
+def load_css():
+    with open('style.css', 'r') as file:
+        css_content = file.read()
+    return css_content
 
-/* Fundo geral clean */
-body { background: #f1f5f9; }
+from educalin_theme import tema_aline
 
-/* Cartões/blocos com cantos e sombra leve */
-.gr-block, .gr-panel, .gr-group { 
-  background: #ffffff; 
-  border-radius: 10px; 
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
-}
-
-/* Botões: azul escuro, texto branco, cantos suaves */
-button { 
-  border-radius: 10px !important; 
-  font-weight: 500;
-}
-button.primary { 
-  background: #1e3a8a !important; 
-  color: #ffffff !important; 
-  border: 1px solid #1e40af !important;
-}
-button.secondary {
-  background: #e2e8f0 !important; 
-  color: #0f172a !important;
-  border: 1px solid #cbd5e1 !important;
-}
-
-/* Títulos */
-.markdown h1, .markdown h2 {
-  color: #0f172a;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-}
-
-/* Chatbot: bolhas */
-.gr-chatbot .message.user .bubble {
-  background: #1e3a8a;
-  color: #ffffff;
-  border-radius: 12px;
-  border: 1px solid #1e40af;
-}
-.gr-chatbot .message.assistant .bubble {
-  background: #f8fafc;
-  color: #0f172a;
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
-}
-
-/* Textareas/inputs mais clean */
-textarea, input, .gr-textbox, .gr-dropdown { 
-  border-radius: 10px !important; 
-}
-"""
-
-theme = themes.Soft(
-    primary_hue="indigo",      # cor principal
-    secondary_hue="blue",      # cor secundária
-    neutral_hue="slate",       # escala neutra
-    font=fonts.GoogleFont("Inter")
-)
-
+theme = tema_aline
 
 # -------------------------
 # Inicialização do Chatbot
@@ -250,8 +195,10 @@ def mostrar_stats(personalidade, chat_history, internal_state):
     
     return output
 
-with gr.Blocks(title="Aline Chatbot (Gradio)", theme=theme, css=custom_css) as demo:
-    gr.Markdown("# Aline: Seu chatbot de matemática")
+with gr.Blocks(title="Aline Chatbot (Gradio)", theme=theme, css=load_css()) as demo:
+    with gr.Row(elem_classes="header-container"):
+        gr.Image("logo_educalin-chat.svg", width=60, show_label=False, show_download_button=False, container=False, show_fullscreen_button=False)
+        gr.Markdown("# Aline")
     gr.Markdown("Escolha uma personalidade e converse. Se o bot não souber responder, você poderá **ensinar** a resposta.")
 
     with gr.Row():
@@ -267,7 +214,7 @@ with gr.Blocks(title="Aline Chatbot (Gradio)", theme=theme, css=custom_css) as d
     # ➜ Chatbot em modo "messages" para alinhar user (direita) e assistant (esquerda)
     chatbot = gr.Chatbot(value=load_initial_history(), label="Conversa", type="messages")
     user_input = gr.Textbox(label="Sua mensagem", placeholder="Digite aqui e pressione Enter")
-    enviar_btn = gr.Button("Enviar")
+    enviar_btn = gr.Button(elem_classes="primary", value="Enviar")
 
     sugestoes_box = gr.Markdown(value=mostrar_sugestoes())
 

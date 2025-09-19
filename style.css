@@ -1,0 +1,132 @@
+:root {
+    --color-background-page: #F4F3F2;
+    --color-background-card: #FFFFFF;
+    --color-text-default: #343A40;
+    --color-bubble-bot: #D5F5E3;
+    --color-bubble-user: #E9ECEF;
+    --color-primary: #1ABC9C;
+    --color-text-on-primary: #FFFFFF;
+}
+
+/* Fundo geral clean */
+body { 
+    background: var(--color-background-page); 
+}
+
+/* Botões */
+button { 
+    border-radius: 10px !important; 
+    font-weight: 500;
+}
+button.primary,
+button.primary.secondary,
+button.secondary.primary {
+    background: var(--color-primary) !important;
+    color: var(--color-text-on-primary) !important;
+    border: 1px solid var(--color-primary) !important;
+}
+button.secondary {
+    background: transparent !important;
+    color: var(--color-primary) !important;
+    border: 1px solid var(--color-primary) !important;
+}
+
+/* Títulos */
+.markdown h1, .markdown h2 {
+    color: var(--color-text-default);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+/* Textareas/inputs mais clean */
+textarea, input, .gr-textbox, .gr-dropdown { 
+    border-radius: 10px !important; 
+}
+
+/* Estilos para o cabeçalho com logo e título */
+.header-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.header-container img {
+    max-height: 60px;
+    background: transparent;
+    border: none;
+}
+.header-container h1 {
+    margin: 0;
+    font-size: 2.5em;
+    font-weight: 600;
+    color: var(--color-text-on-primary);
+}
+
+/* Remove ícone de fullscreen/resíduos no topo da imagem/logo */
+.icon-button-wrapper.top-panel {
+    display: none !important;
+}
+
+/* Largura máxima e centralização */
+.gradio-container { 
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Cartões/blocos com cantos e sombra leve */
+.gr-block, .gr-panel, .gr-group {
+    background: var(--color-background-card);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+}
+
+/* --- Chatbot bubbles --- */
+
+/* Remove fundo, borda, sombra e radius do container externo */
+.message-row.bubble.user-row,
+.message-row.bubble.bot-row {
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 5px 10px !important;
+}
+
+/* Remove também dos flex containers intermediários */
+.flex-wrap.svelte-1csv61q {
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Estilo das bubbles finais do bot e usuário */
+.bot.svelte-1csv61q.message {
+    background: var(--color-bubble-bot) !important;
+    color: var(--color-text-default) !important;
+    border-radius: 12px !important;
+    border: 1px solid var(--color-primary) !important;
+    padding: 8px 16px !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+}
+.user.svelte-1csv61q.message {
+    background: var(--color-bubble-user) !important;
+    color: var(--color-text-default) !important;
+    border-radius: 12px !important;
+    border: 1px solid var(--color-primary) !important;
+    padding: 8px 16px !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+}
+
+/* Corrige cor de texto para filhos das bubbles (garantia extra) */
+.bot.svelte-1csv61q.message * ,
+.user.svelte-1csv61q.message * {
+    color: var(--color-text-default) !important;
+}
+
