@@ -7,6 +7,7 @@ tema_aline = gr.themes.Base(
     font=gr.themes.utils.fonts.GoogleFont("Inter")
 ).set(
     # Paleta principal baseada nas suas variáveis root:
+    body_background_fill="#F4F3F2",           # Fundo principal
     background_fill_primary="#F4F3F2",           # Fundo principal
     background_fill_secondary="#FFFFFF",         # Fundo card/bloco
     # Não existe text_color_primary. Use o CSS customizado para títulos, etc.

@@ -197,9 +197,9 @@ def mostrar_stats(personalidade, chat_history, internal_state):
 
 with gr.Blocks(title="Aline Chatbot (Gradio)", theme=theme, css=load_css()) as demo:
     with gr.Row(elem_classes="header-container"):
-        gr.Image("logo_educalin-chat.svg", width=60, show_label=False, show_download_button=False, container=False, show_fullscreen_button=False)
-        gr.Markdown("# Aline")
-    gr.Markdown("Escolha uma personalidade e converse. Se o bot não souber responder, você poderá **ensinar** a resposta.")
+        gr.Image("logo_educalin-chat.svg", width=80, show_label=False, show_download_button=False, container=False, show_fullscreen_button=False)
+        gr.Markdown("<div class='title-joined'><div class='title-main'>Aline</div><div class='subtitle'>O chatbot oficial do EducAlin</div></div>", elem_classes="title-block")
+    gr.Markdown("Escolha uma personalidade e converse. Se o bot não souber responder, você poderá **ensinar** a resposta.", elem_classes="centered-markdown")
 
     with gr.Row():
         personalidade_dropdown = gr.Dropdown(
