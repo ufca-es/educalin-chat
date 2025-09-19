@@ -1,4 +1,5 @@
 import logging
+import os
 
 _DEF_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 _initialized = False
@@ -11,7 +12,10 @@ def get_logger(name: str = 'chatbot') -> logging.Logger:
         logging.basicConfig(level=logging.INFO, format=_DEF_FORMAT)
 
         # Arquivo
-        fh = logging.FileHandler('chatbot.log', encoding='utf-8')
+        # Criar pasta 'logs' se não existir
+        log_dir = 'reports/logs'
+        os.makedirs(log_dir, exist_ok=True)
+        fh = logging.FileHandler(os.path.join(log_dir, 'chatbot.log'), encoding='utf-8')
         fh.setLevel(logging.INFO)
         fh.setFormatter(logging.Formatter(_DEF_FORMAT))
         logging.getLogger().addHandler(fh)

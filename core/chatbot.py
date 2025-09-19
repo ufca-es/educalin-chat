@@ -10,7 +10,7 @@ class Chatbot:
         self.matcher = matcher
         self.learned_repo = learned_repo
         self.history_repo = history_repo
-        self.stats_repo = StatsRepo('stats.json', logger=logger)
+        self.stats_repo = StatsRepo('data/stats.json', logger=logger)
         self.logger = logger
         self.faq_suggestions = FAQSuggestions(history_repo=history_repo, intent_matcher=matcher, logger=logger)
         self.personalidade: Optional[str] = None
@@ -70,6 +70,12 @@ class Chatbot:
         return resposta, is_fallback, tag
 
     def ensinar_nova_resposta(self, pergunta: str, resposta: str) -> bool:
+        if not validate_input(pergunta, self.logger):
+            self.logger.warning("Pergunta inválida rejeitada no ensino")
+            return False
+        if not validate_input(resposta, self.logger):
+            self.logger.warning("Resposta inválida rejeitada no ensino")
+            return False
         ok = self.learned_repo.append(pergunta, resposta)
         if ok:
             aprendidos = self.learned_repo.load()

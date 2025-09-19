@@ -15,8 +15,8 @@ class TestStatsAndSessions(unittest.TestCase):
 
     def setUp(self):
         """Configura um ambiente de teste limpo antes de cada teste."""
-        self.stats_file = "test_stats.json"
-        self.history_file = "test_history.json"
+        self.stats_file = "data/test_stats.json"
+        self.history_file = "data/test_history.json"
         self.logger = MagicMock()
         
         # Garante que os arquivos de teste não existam no início

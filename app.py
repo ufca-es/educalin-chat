@@ -17,11 +17,11 @@ from core.personalities import canonicalize, display_name, is_valid
 
 # Carrega CSS customizado
 def load_css():
-    with open('style.css', 'r') as file:
+    with open('ui/style.css', 'r') as file:
         css_content = file.read()
     return css_content
 
-from educalin_theme import tema_aline
+from ui.educalin_theme import tema_aline
 
 theme = tema_aline
 
@@ -29,9 +29,9 @@ theme = tema_aline
 # Inicialização do Chatbot
 # -------------------------
 
-CORE_FILE = 'core_data.json'
-NEW_DATA_FILE = 'new_data.json'
-HIST_FILE = 'historico.json'
+CORE_FILE = 'data/core_data.json'
+NEW_DATA_FILE = 'data/new_data.json'
+HIST_FILE = 'data/historico.json'
 
 logger = get_logger("chatbot")
 
@@ -213,7 +213,7 @@ def mostrar_stats(personalidade, chat_history, internal_state):
 
 with gr.Blocks(title="Aline Chatbot (Gradio)", theme=theme, css=load_css()) as demo:
     with gr.Row(elem_classes="header-container"):
-        gr.Image("logo_educalin-chat.svg", width=80, show_label=False, show_download_button=False, container=False, show_fullscreen_button=False)
+        gr.Image("ui/logo_educalin-chat.svg", width=80, show_label=False, show_download_button=False, container=False, show_fullscreen_button=False)
         gr.Markdown("<div class='title-joined'><div class='title-main'>Aline</div><div class='subtitle'>O chatbot oficial do EducAlin</div></div>", elem_classes="title-block")
     gr.Markdown("Escolha uma personalidade e converse. Se o bot não souber responder, você poderá **ensinar** a resposta.", elem_classes="centered-markdown")
 

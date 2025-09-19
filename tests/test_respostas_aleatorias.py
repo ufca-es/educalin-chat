@@ -6,18 +6,20 @@ from core.chatbot import Chatbot
 from core.personalities import canonicalize
 import random
 
+from infra.repositories import CoreRepo, LearnedRepo, HistoryRepo
+from infra.logging_conf import get_logger
+from core.intent_matcher import IntentMatcher
+
 # Fix seed for reproducible testing
 random.seed(42)
 
 def test_aleatoriedade():
-    from infra.repositories import CoreRepo, LearnedRepo, HistoryRepo
-    from infra.logging_conf import get_logger
-    from core.intent_matcher import IntentMatcher
+    # Já importado no topo
     
     logger = get_logger("test")
-    core_repo = CoreRepo('core_data.json', logger=logger)
-    learned_repo = LearnedRepo('new_data.json', logger=logger)
-    history_repo = HistoryRepo('historico.json', logger=logger)
+    core_repo = CoreRepo('data/core_data.json', logger=logger)
+    learned_repo = LearnedRepo('data/new_data.json', logger=logger)
+    history_repo = HistoryRepo('data/historico.json', logger=logger)
     
     intencoes = core_repo.load_intents()
     aprendidos = learned_repo.load()

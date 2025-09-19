@@ -1,0 +1,47 @@
+[
+  {
+    "timestamp_in": "2025-09-19T12:09:52.444592+00:00",
+    "timestamp_out": "2025-09-19T12:09:52.445833+00:00",
+    "pergunta": "pergunta que nao existe",
+    "resposta": "Às vezes as palavras saem erradas, sem problema. Vamos tentar novamente: o que você realmente quer saber sobre matemática?",
+    "personalidade": "empatica",
+    "tag_intencao": "fallback",
+    "is_fallback": true
+  },
+  {
+    "timestamp_in": "2025-09-19T12:09:52.613055+00:00",
+    "timestamp_out": "2025-09-19T12:09:52.613802+00:00",
+    "pergunta": "oi",
+    "resposta": "Olá. Sou Aline, sua assistente de matemática. Qual tópico gostaria de abordar hoje?",
+    "personalidade": "formal",
+    "tag_intencao": "saudacao",
+    "is_fallback": false
+  },
+  {
+    "timestamp_in": "2025-09-19T12:09:52.797854+00:00",
+    "timestamp_out": "2025-09-19T12:09:52.798925+00:00",
+    "pergunta": "o que é mdc",
+    "resposta": "MDC é o 'amigão em comum' dos números! Pensa assim: qual é o maior número que consegue dividir o 12 e o 18 sem deixar ninguém de fora (resto)? É o 6! Ele é o 'Máximo' do rolê.",
+    "personalidade": "engracada",
+    "tag_intencao": "definicao_mdc",
+    "is_fallback": false
+  },
+  {
+    "timestamp_in": "2025-09-19T12:09:52.985146+00:00",
+    "timestamp_out": "2025-09-19T12:09:52.985693+00:00",
+    "pergunta": "como somar",
+    "resposta": "Calcule 456 + 789: inicie pelas unidades e transporte. Verifique seu resultado subtraindo.",
+    "personalidade": "desafiadora",
+    "tag_intencao": "soma",
+    "is_fallback": false
+  },
+  {
+    "timestamp_in": "2025-09-19T12:09:53.158329+00:00",
+    "timestamp_out": "2025-09-19T12:09:53.158859+00:00",
+    "pergunta": "estou com dificuldades nos estudos",
+    "resposta": "Eu entendo completamente como é se sentir assim. Às vezes, o problema não é a matéria, mas como organizamos o tempo. Quer transformar esse tópico em um plano de estudos de 20 minutos por dia? Pequenos passos levam a grandes vitórias.",
+    "personalidade": "empatica",
+    "tag_intencao": "dificuldade_estudos",
+    "is_fallback": false
+  }
+]
