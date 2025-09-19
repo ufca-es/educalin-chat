@@ -1,7 +1,7 @@
+import os
 import json
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional
-
 from .file_atomic import AtomicWriter
 
 class BaseRepo:
@@ -89,30 +89,37 @@ class HistoryRepo(BaseRepo):
         historico = historico[-max_len:]  # rotação
         return self.atomic.write_json_atomic(self.path, historico, ensure_ascii=False, indent=2)
 
-from typing import Dict, Any, Optional
-from datetime import datetime
-import os
 
 class StatsRepo(BaseRepo):
     def load(self) -> Dict[str, Any]:
         data = self._read_json()
-        if isinstance(data, dict):
-            return data
-        return {
-            "total_interactions": 0,
-            "fallback_count": 0,
-            "por_personalidade": {},
-            "por_tag": {}
-        }
+        if not isinstance(data, dict):
+            data = {}
 
-    def update_interaction(self, is_fallback: bool, personalidade: str, tag: Optional[str]) -> bool:
+        # Garante que as chaves principais existam
+        data.setdefault("total_interactions", 0)
+        data.setdefault("fallback_count", 0)
+        data.setdefault("por_personalidade", {})
+        data.setdefault("por_tag", {})
+        data.setdefault("sessoes", {})
+        data.setdefault("total_duracao_sessoes_seg", 0)
+        return data
+
+    def update_interaction(
+        self,
+        is_fallback: bool,
+        personalidade: str,
+        tag: Optional[str],
+        timestamp_in: str,
+        timestamp_out: str,
+        session_timeout_min: int = 30,
+    ) -> bool:
         if self.logger:
             self.logger.info(f"Atualizando stats: fallback={is_fallback}, pers={personalidade}, tag={tag}")
 
-        # Carrega dados existentes
         data = self.load()
 
-        # Atualiza métricas
+        # Atualiza métricas básicas
         data["total_interactions"] += 1
         if is_fallback:
             data["fallback_count"] += 1
@@ -120,19 +127,68 @@ class StatsRepo(BaseRepo):
         if tag:
             data["por_tag"][tag] = data["por_tag"].get(tag, 0) + 1
 
-        # Salva no JSON
+        # Lógica de Sessão
+        try:
+            ts_in = datetime.fromisoformat(timestamp_in)
+            ts_out = datetime.fromisoformat(timestamp_out)
+            duracao_interacao = (ts_out - ts_in).total_seconds()
+
+            sessoes = data.get("sessoes", {})
+            ultima_sessao_id = max(sessoes.keys()) if sessoes else None
+
+            if ultima_sessao_id:
+                ultima_sessao = sessoes[ultima_sessao_id]
+                ultimo_ts_out = datetime.fromisoformat(ultima_sessao["fim"])
+                
+                if (ts_in - ultimo_ts_out) < timedelta(minutes=session_timeout_min):
+                    # Continua sessão existente
+                    sessoes[ultima_sessao_id]["fim"] = ts_out.isoformat()
+                    sessoes[ultima_sessao_id]["duracao_seg"] += duracao_interacao
+                    sessoes[ultima_sessao_id]["num_interacoes"] += 1
+                else:
+                    # Nova sessão
+                    nova_sessao_id = str(int(ultima_sessao_id) + 1)
+                    sessoes[nova_sessao_id] = {
+                        "inicio": ts_in.isoformat(),
+                        "fim": ts_out.isoformat(),
+                        "duracao_seg": duracao_interacao,
+                        "num_interacoes": 1,
+                    }
+            else:
+                # Primeira sessão
+                sessoes["1"] = {
+                    "inicio": ts_in.isoformat(),
+                    "fim": ts_out.isoformat(),
+                    "duracao_seg": duracao_interacao,
+                    "num_interacoes": 1,
+                }
+            
+            data["sessoes"] = sessoes
+            # Atualiza a duração total agregada para cálculo de média
+            data["total_duracao_sessoes_seg"] = sum(s["duracao_seg"] for s in sessoes.values())
+
+        except (ValueError, TypeError) as e:
+            if self.logger:
+                self.logger.error(f"Erro ao processar timestamps para sessão: {e}")
+
         success = self.atomic.write_json_atomic(self.path, data, ensure_ascii=False, indent=2)
 
-        # Garante que relatório.txt exista
-        relatorio_path = "relatório.txt"
-        if not os.path.exists(relatorio_path):
-            with open(relatorio_path, "w", encoding="utf-8") as f:
-                f.write("==== Relatório de Interações do Chatbot ====\n\n")
+        # Opcional: manter o relatório de texto
+        self._write_to_report(data, personalidade, tag)
 
-        # Registra a nova interação no relatório
+        if self.logger:
+            self.logger.info(f"Stats salvo: {success}")
+        return success
+
+    def _write_to_report(self, data: Dict[str, Any], personalidade: str, tag: Optional[str]):
+        relatorio_path = "relatório.txt"
         try:
+            if not os.path.exists(relatorio_path):
+                with open(relatorio_path, "w", encoding="utf-8") as f:
+                    f.write("==== Relatório de Interações do Chatbot ====\n\n")
+            
             with open(relatorio_path, "a", encoding="utf-8") as f:
-                timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                timestamp = datetime.now(timezone.utc).astimezone().strftime("%Y-%m-%d %H:%M:%S %Z")
                 f.write(f"[{timestamp}] Interação registrada\n")
                 f.write(f"  - Total: {data['total_interactions']}\n")
                 f.write(f"  - Fallbacks: {data['fallback_count']}\n")
@@ -143,7 +199,3 @@ class StatsRepo(BaseRepo):
         except Exception as e:
             if self.logger:
                 self.logger.error(f"Erro ao salvar no relatório.txt: {e}")
-
-        if self.logger:
-            self.logger.info(f"Stats salvo: {success}")
-        return success
