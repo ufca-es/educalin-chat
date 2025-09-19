@@ -13,9 +13,6 @@ from unittest.mock import patch, mock_open
 from infra.repositories import CoreRepo, LearnedRepo, HistoryRepo
 from infra.logging_conf import get_logger
 from core.intent_matcher import IntentMatcher
-from infra.repositories import CoreRepo, LearnedRepo, HistoryRepo
-from infra.logging_conf import get_logger
-from core.intent_matcher import IntentMatcher
 from core.chatbot import Chatbot
 
 class TestUAT009CorrecaoEncoding(unittest.TestCase):
@@ -47,7 +44,7 @@ class TestUAT009CorrecaoEncoding(unittest.TestCase):
         shutil.rmtree(self.temp_dir, ignore_errors=True)
     
     def test_caracteres_especiais_portugues(self):
-        """🚨 TESTE CRÍTICO: Salvar caracteres especiais do português"""
+        """Salvar caracteres especiais do português"""
         pergunta = "Equação com acentuação: çãõáéíóúÇÃÕÁÉÍÓÚ"
         resposta = "Resposta também com acentos: não, coração, educação"
         
@@ -63,7 +60,7 @@ class TestUAT009CorrecaoEncoding(unittest.TestCase):
         self.assertEqual(dados[0]["resposta_ensinada"], resposta)
     
     def test_arquivo_corrompido_sem_colchete_fechamento(self):
-        """🚨 TESTE CRÍTICO: Simular exatamente o problema do UAT-009"""
+        """Simular exatamente o problema do UAT-009"""
         # Criar arquivo corrompido exatamente como no UAT-009
         conteudo_corrompido = '''[
   {
@@ -89,7 +86,7 @@ class TestUAT009CorrecaoEncoding(unittest.TestCase):
         self.assertEqual(dados[0]["pergunta"], "nova pergunta")
     
     def test_simulacao_interrupcao_escrita(self):
-        """🚨 TESTE CRÍTICO: Simular falha durante escrita"""
+        """Simular falha durante escrita"""
         # Primeiro, estabelecer estado inicial válido
         self.bot.ensinar_nova_resposta("pergunta inicial", "resposta inicial")
         
@@ -106,7 +103,7 @@ class TestUAT009CorrecaoEncoding(unittest.TestCase):
         self.assertEqual(dados[0]["pergunta"], "pergunta inicial")
     
     def test_validacao_caracteres_controle_maliciosos(self):
-        """🚨 TESTE CRÍTICO: Rejeitar caracteres que podem corromper JSON"""
+        """Rejeitar caracteres que podem corromper JSON"""
         caracteres_perigosos = [
             "pergunta com \x00 null byte",
             "pergunta com \x01 start of heading", 
@@ -120,7 +117,7 @@ class TestUAT009CorrecaoEncoding(unittest.TestCase):
             self.assertFalse(resultado, f"Sistema aceitou entrada perigosa: {repr(pergunta_perigosa)}")
     
     def test_entrada_muito_longa_dos_attack(self):
-        """🚨 TESTE CRÍTICO: Prevenir ataques DoS com entradas muito longas"""
+        """Prevenir ataques DoS com entradas muito longas"""
         pergunta_gigante = "a" * 1001  # Acima do limite de 1000
         resposta_gigante = "b" * 1001
         
@@ -168,7 +165,7 @@ class TestUAT015CorrecaoThreshold(unittest.TestCase):
         shutil.rmtree(self.temp_dir, ignore_errors=True)
     
     def test_cenario_exato_uat015(self):
-        """🚨 TESTE CRÍTICO: Reproduzir exatamente o cenário UAT-015"""
+        """Reproduzir exatamente o cenário UAT-015"""
         # Ensinar resposta específica
         self.bot.ensinar_nova_resposta("pergunta1_UAT015", "resposta1_UAT015")
         
@@ -189,7 +186,7 @@ class TestUAT015CorrecaoThreshold(unittest.TestCase):
             self.assertTrue(len(resposta) > 0, f"Pergunta '{pergunta}' não retornou fallback apropriado")
     
     def test_threshold_rigoroso_intenções_base(self):
-        """🚨 TESTE CRÍTICO: Verificar threshold 0.8 para intenções base"""
+        """Verificar threshold 0.8 para intenções base"""
         # Pergunta base: "pergunta teste base"
         perguntas_similares_mas_diferentes = [
             "pergunta teste diferente",     # ~0.7 similaridade - deve dar fallback
@@ -202,7 +199,7 @@ class TestUAT015CorrecaoThreshold(unittest.TestCase):
             self.assertTrue(is_fallback, f"Pergunta '{pergunta}' não ativou fallback com threshold 0.8")
     
     def test_busca_exata_tem_prioridade(self):
-        """🚨 TESTE CRÍTICO: Busca exata deve ter prioridade sobre fuzzy"""
+        """Busca exata deve ter prioridade sobre fuzzy"""
         # Ensinar resposta exata
         self.bot.ensinar_nova_resposta("pergunta exata especial", "resposta exata especial")
         
@@ -213,7 +210,7 @@ class TestUAT015CorrecaoThreshold(unittest.TestCase):
         self.assertIn("resposta exata especial", resposta, "Busca exata não retornou resposta correta")
     
     def test_threshold_muito_rigoroso_aprendidos(self):
-        """🚨 TESTE CRÍTICO: Threshold 0.9 para dados aprendidos"""
+        """Threshold 0.9 para dados aprendidos"""
         # Ensinar resposta específica
         self.bot.ensinar_nova_resposta("pergunta aprendida especifica", "resposta aprendida especifica")
         
@@ -269,7 +266,7 @@ class TestValidacaoCompleta(unittest.TestCase):
         shutil.rmtree(self.temp_dir, ignore_errors=True)
     
     def test_fluxo_completo_sem_regressao(self):
-        """🚨 TESTE CRÍTICO: Verificar que correções não quebram funcionalidade existente"""
+        """Verificar que correções não quebram funcionalidade existente"""
         # 1. Teste saudação normal
         resposta, is_fallback, _ = self.bot.processar_mensagem("oi", "formal")
         self.assertFalse(is_fallback, "Saudação normal não deveria ser fallback")

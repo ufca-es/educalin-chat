@@ -36,10 +36,7 @@ class TestIssueCorrecao(unittest.TestCase):
         self.bot = Chatbot(matcher=self.intent_matcher, learned_repo=self.learned_repo, history_repo=self.history_repo, logger=self.logger)
     
     def test_fallback_detection_todas_personalidades(self):
-        """
-        🚨 TESTE CRÍTICO: Verifica detecção de fallback para todas as personalidades
-        Este teste FALHARIA antes da correção!
-        """
+        """Verifica detecção de fallback para todas as personalidades"""
         personalities = ["formal", "engracada", "desafiadora", "empatica"]
         pergunta_inexistente = "pergunta totalmente inexistente para teste"
         
@@ -80,10 +77,7 @@ class TestIssueCorrecao(unittest.TestCase):
                 self.assertTrue(tem_saudacao, f"Nenhuma saudação encontrada na resposta para {personality}: {resposta}")
 
     def test_gradio_learning_flow_completo(self):
-        """
-        🚨 TESTE CRÍTICO: Verifica fluxo completo de aprendizado via Gradio
-        Este teste FALHARIA antes da correção pois o modo de ensino nunca era ativado!
-        """
+        """Verifica fluxo completo de aprendizado via Gradio"""
         import time
         # Usar timestamp para garantir pergunta única
         pergunta_nova = f"pergunta única para teste {int(time.time() * 1000)}"
@@ -93,7 +87,7 @@ class TestIssueCorrecao(unittest.TestCase):
         chat, state, _ = enviar_mensagem(pergunta_nova, personalidade, [], None)
         
         # 2. Verificar se modo de ensino foi ativado (FALHA ANTES DA CORREÇÃO!)
-        self.assertTrue(state["awaiting_teach"], "Modo de ensino não foi ativado - Issue Crítica #01!")
+        self.assertTrue(state["awaiting_teach"], "Modo de ensino não foi ativado!")
         self.assertEqual(state["last_question"], pergunta_nova, "Pergunta não foi salva corretamente")
         
         # 3. Verificar se mensagem de ensino foi adicionada

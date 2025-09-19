@@ -21,7 +21,6 @@ class IntentMatcher:
 
         self._reindex()
 
-    # -------- infra interna --------
     def _log(self, msg: str):
         if self.logger:
             self.logger.info(msg)
@@ -45,7 +44,6 @@ class IntentMatcher:
     def refresh_learned(self, aprendidos: List[Dict[str, str]]):
         self.aprendidos = aprendidos or []
 
-    # -------- helpers de similaridade --------
     @staticmethod
     def _sim(a: str, b: str) -> float:
         return SequenceMatcher(None, a, b).ratio()
@@ -56,7 +54,6 @@ class IntentMatcher:
         uniao = len(sa.union(sb))
         return (len(sa.intersection(sb)) / uniao) if uniao > 0 else 0.0
 
-    # -------- API principal --------
     def match(self, pergunta_usuario: str) -> Optional[Dict[str, Any]]:
         """
         Retorna:

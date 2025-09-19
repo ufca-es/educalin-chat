@@ -57,14 +57,12 @@ class Chatbot:
 
         now_out = datetime.now(timezone.utc).isoformat()
         
-        # Persiste no histórico
         self.history_repo.append(
             pergunta, resposta, personalidade,
             tag_intencao=tag, is_fallback=is_fallback,
             timestamp_in=now_in, timestamp_out=now_out
         )
         
-        # Atualiza estatísticas, agora com timestamps
         self.update_stats(is_fallback, personalidade, tag, now_in, now_out)
         
         return resposta, is_fallback, tag

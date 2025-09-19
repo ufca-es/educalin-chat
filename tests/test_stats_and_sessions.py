@@ -8,8 +8,8 @@ from unittest.mock import MagicMock
 import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from infra.repositories import StatsRepo
 from core.chatbot import Chatbot
+from infra.repositories import StatsRepo
 
 class TestStatsAndSessions(unittest.TestCase):
 
@@ -100,7 +100,6 @@ class TestStatsAndSessions(unittest.TestCase):
 
     def test_04_integracao_chatbot_get_stats(self):
         """Testa a integração completa e o cálculo da média de duração no Chatbot."""
-        # Mocks para as dependências do Chatbot
         matcher_mock = MagicMock()
         learned_repo_mock = MagicMock()
         history_repo_mock = MagicMock()
@@ -120,21 +119,15 @@ class TestStatsAndSessions(unittest.TestCase):
             history_repo=history_repo_mock,
             logger=self.logger
         )
-        # Substitui o stats_repo padrão por um que usa nosso arquivo de teste
         chatbot.stats_repo = StatsRepo(self.stats_file, logger=self.logger)
 
-        # Simula 3 interações em 2 sessões
-        # Sessão 1
         chatbot.processar_mensagem("pergunta 1", "formal")
-        # Sessão 2 (simulando que o tempo passou)
-        # Para simular, vamos manipular o arquivo de stats diretamente
         stats_data = chatbot.stats_repo.load()
         last_ts_out_str = stats_data["sessoes"]["1"]["fim"]
         last_ts_out = datetime.fromisoformat(last_ts_out_str)
         new_ts_in = last_ts_out + timedelta(minutes=40)
         new_ts_out = new_ts_in + timedelta(seconds=5)
         
-        # Atualizamos a interação manualmente para forçar o timestamp
         chatbot.stats_repo.update_interaction(False, "formal", "teste_intencao", new_ts_in.isoformat(), new_ts_out.isoformat())
 
         stats = chatbot.get_stats()
@@ -142,7 +135,6 @@ class TestStatsAndSessions(unittest.TestCase):
         self.assertEqual(stats["num_sessoes"], 2)
         self.assertGreater(stats["media_duracao_sessao_min"], 0)
         
-        # Validação do cálculo da média
         final_data = chatbot.stats_repo.load()
         duracao_total = final_data["total_duracao_sessoes_seg"]
         media_esperada_min = (duracao_total / 2) / 60

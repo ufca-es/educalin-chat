@@ -2,10 +2,8 @@ import re
 import codecs
 from typing import Optional
 
-# Mesmo regex do arquivo original
 CONTROL_CHAR_REGEX = re.compile(r'[\x00-\x1f\x7f-\x9f]')
 
-# Mesmo limite de tamanho do texto
 MAX_INPUT_LEN = 1000
 
 def validate_input(texto: Optional[str], logger=None) -> bool:
@@ -25,8 +23,15 @@ def validate_input(texto: Optional[str], logger=None) -> bool:
             logger.warning(f"Entrada muito longa rejeitada: {len(texto)} caracteres")
         return False
 
-    # Verifica caracteres de controle diretamente
-    if CONTROL_CHAR_REGEX.search(texto):
+    try:
+        texto_decodificado = codecs.decode(texto, 'unicode_escape')
+    except UnicodeDecodeError:
+        if logger:
+            logger.warning("Entrada com sequência de escape inválida rejeitada.")
+        return False
+
+    # Verifica caracteres de controle
+    if CONTROL_CHAR_REGEX.search(texto_decodificado):
         if logger:
             logger.warning("Entrada com caracteres de controle rejeitada")
         return False
