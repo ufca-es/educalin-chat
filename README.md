@@ -2,10 +2,14 @@
 
 > Um chatbot educacional inteligente em Python que auxilia estudantes de matemática básica com diferentes personalidades pedagógicas.
 
-[![Python](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://www.python.org/)
-[![Gradio](https://img.shields.io/badge/Gradio-Interface%20Web-orange.svg)](https://gradio.app/)
-[![Status](https://img.shields.io/badge/Status-95%25%20Concluído-green.svg)](docs/STATUS_REQUISITOS.md)
-[![Issues Críticas](https://img.shields.io/badge/Issues%20Críticas-0-brightgreen.svg)](docs/STATUS_REQUISITOS.md#-issues-críticas-de-código-identificadas)
+<div align="center">
+  
+  [![Python](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://www.python.org/)
+  [![Gradio](https://img.shields.io/badge/Gradio-Interface%20Web-orange.svg)](https://gradio.app/)
+  [![Status](https://img.shields.io/badge/Status-95%25%20Concluído-green.svg)](docs/STATUS_REQUISITOS.md)
+  [![Issues Críticas](https://img.shields.io/badge/Issues%20Críticas-0-brightgreen.svg)](docs/STATUS_REQUISITOS.md#-issues-críticas-de-código-identificadas)
+
+</div>
 
 ---
 
